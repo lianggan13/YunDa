@@ -31,7 +31,7 @@ namespace Y.ASIS.App
             // e.Exception.Message
             // e.Dispatcher.Thread.ManagedThreadId
             var ex = e.Exception;
-            LogHelper.Fatal($"{ex.Message}:{ex.StackTrace}", ex);
+            LogHelper.Fatal($"{ex.Message}", ex);
 
             // Add entry to event log
             //EventLog.WriteEntry(AppName, $"{e.Exception}", EventLogEntryType.Error);
@@ -50,7 +50,7 @@ namespace Y.ASIS.App
             Task.Delay(100);
 
             var ex = e.Exception;
-            LogHelper.Fatal($"{ex.Message}:{ex.StackTrace}", ex);
+            LogHelper.Fatal($"{ex.Message}", ex);
 
 
         }
@@ -65,9 +65,8 @@ namespace Y.ASIS.App
             Task.Delay(100);
             if (e.ExceptionObject is Exception ex)
             {
-                LogHelper.Fatal($"{ex.Message}:{ex.StackTrace}", ex);
+                LogHelper.Fatal($"{ex.Message}", ex);
             }
-
         }
 
 

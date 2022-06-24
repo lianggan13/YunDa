@@ -124,5 +124,15 @@ namespace Y.ASIS.App.UserControls
                 MessageWindow.Show("操作失败");
             }
         }
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox chk = sender as CheckBox;
+            if (chk.IsChecked == true)
+            {
+                ListViewItem item = VisualTreeUtil.GetParent<ListViewItem>(chk);
+                item.IsSelected = true;
+            }
+        }
     }
 }

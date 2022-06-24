@@ -18,7 +18,6 @@ namespace Y.ASIS.Server.Utility
 
         public readonly static string DefaultImage;
 
-
         static ImageUtil()
         {
             DefaultImage = ServerGlobal.PhotoUrlPrefix + "DEFAULT.png";

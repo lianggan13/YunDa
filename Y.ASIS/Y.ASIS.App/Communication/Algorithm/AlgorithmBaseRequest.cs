@@ -2,7 +2,7 @@
 
 namespace Y.ASIS.App.Communication
 {
-    abstract class AlgorithmBaseRequest : BaseRequest
+    public abstract class AlgorithmBaseRequest : BaseRequest
     {
         private readonly static string baseUrl;
         protected readonly static string Authkey;

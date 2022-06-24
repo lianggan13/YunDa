@@ -31,7 +31,7 @@ public class AppGlobal
 
     public ProjectType Project { get; private set; }
 
-    public static AppEnvironment Env { get; set; }
+    public static AppEnvironment Env { get; set; } = AppEnvironment.Development;
 
     public string ExecuteDirectory { get; }
 

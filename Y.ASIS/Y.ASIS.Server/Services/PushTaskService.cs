@@ -104,10 +104,11 @@ namespace Y.ASIS.Server.Services
                 IRestResponse resp = client.Execute(request);
                 task.Status = resp != null && resp.Content.ToUpper() == "OK" ? PushTaskStatus.Success : PushTaskStatus.Failed;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                task.Error = e;
+                task.Error = ex;
                 task.Status = PushTaskStatus.Failed;
+                LogHelper.Warn(ex.Message, ex);
             }
         }
 

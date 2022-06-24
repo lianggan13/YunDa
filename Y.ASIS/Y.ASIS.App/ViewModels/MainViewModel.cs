@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Y.ASIS.App.Common;
 using Y.ASIS.App.Communication;
 using Y.ASIS.App.Communication.Algorithm;
@@ -16,7 +17,6 @@ using Y.ASIS.Common.Manager;
 using Y.ASIS.Common.Models;
 using Y.ASIS.Common.Models.Enums;
 using Y.ASIS.Common.MVVMFoundation;
-using Y.ASIS.Common.Utils;
 using Y.ASIS.Models.Enums;
 
 namespace Y.ASIS.App.ViewModels
@@ -121,15 +121,43 @@ namespace Y.ASIS.App.ViewModels
 
             //CurrentUser = ...
 
-            StartHeartJob();
+            CheckState_Using_Timer();
+        }
+
+        private void CheckState_Using_Timer()
+        {
+            int _6sec = 6;
+            var poss = Tracks.SelectMany(t => t.Positions);
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    foreach (var pos in poss)
+                    {
+                        if (DateTime.Now - pos.State?.LocalLastTime > TimeSpan.FromSeconds(_6sec))
+                        {
+                            pos.State.Connected = false;
+                        }
+                    }
+
+                    Connected = HeartRequest.Ping();
+                    if (Connected && AppGlobal.Env == AppEnvironment.Development)
+                    {
+                        AppGlobal.Env = AppEnvironment.Production;
+                        Initialize();
+                    }
+
+                    AlgorithmConnected = AlgorithmHeartRequest.Ping();
+
+                    await Task.Delay(_6sec * 1000);
+                }
+            });
         }
 
         public void Initialize()
         {
             // system time
             StartSysTimeJob();
-            // heart
-            //StartHeartJob();
             // tracks
             RefreshTracks();
             // unhandled warning
@@ -142,7 +170,6 @@ namespace Y.ASIS.App.ViewModels
             NancyService.Start(this);
             AppGlobal.Instance.SetData("MainViewModel", this);
             AppGlobal.Instance.MainVM = this;
-
         }
 
         private void StartSysTimeJob()
@@ -151,34 +178,6 @@ namespace Y.ASIS.App.ViewModels
               () => Now = DateTime.Now.ToString("yyyy-MM-dd  HH:mm:ss"),
               TimeSpan.FromSeconds(1d)
             );
-        }
-
-        private void StartHeartJob()
-        {
-            TimerManager.Instance.AddSchedule(
-               () =>
-               {
-                   HeartRequest request = new HeartRequest();
-                   var resp = request.Request<ResponseData<object>>();
-                   AppDispatcherInvoker(() =>
-                   {
-                       Connected = resp != null;
-                       if (Connected && AppGlobal.Env == AppEnvironment.Development)
-                       {
-                           AppGlobal.Env = AppEnvironment.Production;
-                           Initialize();
-                       }
-                   });
-
-                   AlgorithmHeartRequest algorithmHeartRequest = new AlgorithmHeartRequest();
-                   var algorithmresp = algorithmHeartRequest.Request<ResponseData<object>>();
-                   AppDispatcherInvoker(() =>
-                   {
-                       AlgorithmConnected = algorithmresp != null;
-                   });
-               },
-               TimeSpan.FromSeconds(5d)
-           );
         }
 
         private void RefreshTracks()
@@ -327,11 +326,7 @@ namespace Y.ASIS.App.ViewModels
                         trackState.PositionStates.ForEach(ps =>
                         {
                             Position position = track.Positions.FirstOrDefault(p => p.Id == ps.PositionId);
-                            if (position != null)
-                            {
-                                position.SetPosState(ps);
-                                position.State.LocalLastTime = TimeUtil.TimeStamp();
-                            }
+                            position?.SetPosState(ps);
                         });
                     }
                 }

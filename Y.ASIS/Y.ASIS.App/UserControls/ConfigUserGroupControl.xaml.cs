@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Y.ASIS.App.Communication;
 using Y.ASIS.App.Models;
 using Y.ASIS.App.Utils;
@@ -125,6 +116,16 @@ namespace Y.ASIS.App.UserControls
             else
             {
                 MessageWindow.Show("操作失败");
+            }
+        }
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox chk = sender as CheckBox;
+            if (chk.IsChecked == true)
+            {
+                ListViewItem item = VisualTreeUtil.GetParent<ListViewItem>(chk);
+                item.IsSelected = true;
             }
         }
     }

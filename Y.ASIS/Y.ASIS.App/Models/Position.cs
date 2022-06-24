@@ -121,9 +121,9 @@ namespace Y.ASIS.App.Models
                 state.PropertyChanged -= State_PropertyChanged;
                 state.PropertyChanged += State_PropertyChanged;
 
-                state.SystemState = value.SystemState;
                 state.PositionId = value.PositionId;
 
+                state.SystemState = value.SystemState;
                 state.Connected = value.Connected;
                 state.Isolation = value.Isolation;  // 隔离 开关状态
                 state.Grounding = value.Grounding;  // 接地 开关状态
@@ -167,6 +167,7 @@ namespace Y.ASIS.App.Models
                 state.SignalLightCommand = value.SignalLightCommand;
                 state.GateCommand = value.GateCommand;
                 state.LastTime = value.LastTime;
+                state.LocalLastTime = DateTime.Now;
 
                 state.PropertyChanged -= State_PropertyChanged;
                 if (needNotify)

@@ -513,7 +513,7 @@
                         Grid.Column="4"
                         VerticalAlignment="Bottom"
                         State="{Binding Positions[0].State.DepotGate[0], Converter={StaticResource IntValueToDepotDoorState}}"
-                        Visibility="{Binding Positions[0].State.DepotGate[0], Converter={StaticResource ContainsIntValueToVisibilityReverse}, ConverterParameter='11'}" />
+                        Visibility="{Binding Positions[0].State.DepotGate[0], Converter={StaticResource ContainsIntValueToVisibilityReverse}, ConverterParameter='0|11'}" />
                     <ContentControl
                         Grid.RowSpan="2"
                         Grid.Column="5"
@@ -526,7 +526,7 @@
                         Grid.Column="6"
                         VerticalAlignment="Bottom"
                         State="{Binding Positions[0].State.DepotGate[1], Converter={StaticResource IntValueToDepotDoorState}}"
-                        Visibility="{Binding Positions[0].State.DepotGate[1], Converter={StaticResource ContainsIntValueToVisibilityReverse}, ConverterParameter='11'}" />
+                        Visibility="{Binding Positions[0].State.DepotGate[1], Converter={StaticResource ContainsIntValueToVisibilityReverse}, ConverterParameter='0|11'}" />
                     <ctls:Gate
                         Grid.Row="0"
                         Grid.RowSpan="2"

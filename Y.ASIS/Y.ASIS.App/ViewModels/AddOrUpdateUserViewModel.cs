@@ -98,19 +98,11 @@ namespace Y.ASIS.App.ViewModels
             {
                 // 修改
                 con3 = (!User.OldPassword.IsNullOrEmptyOrWhiteSpace() && !User.NewPassword.IsNullOrEmptyOrWhiteSpace() && User.NewPassword == User.ConfirmPassword)
-                    || (User.OldPassword.IsNullOrEmptyOrWhiteSpace() && User.NewPassword.IsNullOrEmptyOrWhiteSpace() && User.NewPassword == User.ConfirmPassword);
+                    || (User.OldPassword.IsNullOrEmptyOrWhiteSpace() && User.NewPassword.IsNullOrEmptyOrWhiteSpace() && User.NewPassword == User.ConfirmPassword)
+                    || (!User.OldPassword.IsNullOrEmptyOrWhiteSpace());
 
             }
 
-            //return !User.Name.IsNullOrEmptyOrWhiteSpace()
-            //    && int.TryParse(No, out int i)
-            //    && i > 0
-            //    && ((!isUpdate && !User.NewPassword.IsNullOrEmptyOrWhiteSpace() && User.NewPassword == User.ConfirmPassword)
-            //        || (isUpdate && ((!User.OldPassword.IsNullOrEmptyOrWhiteSpace() && !User.NewPassword.IsNullOrEmptyOrWhiteSpace() && User.NewPassword == User.ConfirmPassword) 
-            //        || (User.OldPassword.IsNullOrEmptyOrWhiteSpace() && User.NewPassword.IsNullOrEmptyOrWhiteSpace() && User.NewPassword == User.ConfirmPassword))
-            //        ))
-            //    && User.RoleId != 0
-            //    && User.UserGroupId != 0;
             return con1 && con2 && con3;
         }
 

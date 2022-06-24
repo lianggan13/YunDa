@@ -12,22 +12,13 @@ namespace Y.ASIS.App.Services
 {
     public class AuthorityService
     {
-        public static void RequestIssueUsers(Position pos, List<int> operatorNos, List<int> workerNos, IEnumerable<int> issWorkerNos, bool? isInspect,
-            Action<ResponseData<bool>> callback
-            )
+        public static void RequestIssueUsers(Position pos, List<int> operatorNos, List<int> workerNos,
+                                            IEnumerable<int> issedOptNos, IEnumerable<int> issedWorkerNos,
+                                            bool? isInspect,
+                                            Action<ResponseData<bool>> callback)
         {
-            if (AppGlobal.Instance.Project == ProjectType.NationalRailway_BaiSe)
+            if (AppGlobal.Instance.Project == ProjectType.NationalRailway_BaiSe) // NationalRailway_BaiSe
             {
-                int max = 5;
-                if (workerNos.Count + issWorkerNos?.Count() > max)
-                {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        MessageWindow.Show($"权限下发失败\r\n作业人员数量超过{max}个"); // NationalRailway_BaiSe
-                    });
-                    return;
-                }
-
                 isInspect = false;
                 if (operatorNos.Count > 0 && !PositionService.NoElec(pos))
                 {
@@ -35,18 +26,38 @@ namespace Y.ASIS.App.Services
                     workerNos = workerNos.Distinct().ToList();
                 }
 
-                PositionIssueUsersRequest request = new PositionIssueUsersRequest(pos.Id, operatorNos, workerNos, isInspect);
-                request.RequestAsync<ResponseData<bool>>(resp =>
+                int maxOpt = 1;
+                if (operatorNos.Count + issedOptNos?.Count() > maxOpt)
                 {
-                    callback?.Invoke(resp);
-                });
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        MessageWindow.Show($"权限下发失败\r\n操作人员数量超过{maxOpt}个");
+                    });
+                    return;
+                }
+
+                int maxWork = 5;
+                if (workerNos.Count + issedWorkerNos?.Count() > maxWork)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        MessageWindow.Show($"权限下发失败\r\n作业人员数量超过{maxWork}个");
+                    });
+                    return;
+                }
             }
+
+            PositionIssueUsersRequest request = new PositionIssueUsersRequest(pos.Id, operatorNos, workerNos, isInspect);
+            request.RequestAsync<ResponseData<bool>>(resp =>
+            {
+                callback?.Invoke(resp);
+            });
         }
 
 
-        public static void RequestRevokeUsers(Position pos, List<int> operatorNos, List<int> workerNos,
-          Action<ResponseData<bool>> callback
-          )
+        public static void RequestRevokeUsers(Position pos,
+                                              List<int> operatorNos, List<int> workerNos,
+                                              Action<ResponseData<bool>> callback)
         {
             PositionRevokeUsersRequest request = new PositionRevokeUsersRequest(pos.Id, operatorNos, workerNos);
             request.RequestAsync<ResponseData<bool>>(resp =>
@@ -54,6 +65,5 @@ namespace Y.ASIS.App.Services
                 callback?.Invoke(resp);
             });
         }
-
     }
 }

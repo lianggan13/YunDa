@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Timers;
 using Y.ASIS.Common.ExtensionMethod;
 using Y.ASIS.Common.Manager;
@@ -104,114 +103,6 @@ namespace Y.ASIS.Server.Device
         {
             if (value == null)
                 return;
-
-            #region 第一次读取数据变更
-            //if (FirstChange)
-            //{
-            //    FirstChange = false;
-
-            //TryGetValue(PLCNodeType.SystemError, out byte SystemErrorValue);
-            //OnSystemErrorStateChanged(SystemErrorValue);
-
-            //    TryGetValue(PLCNodeType.IsolationState, out byte IsolationStateValue);
-            //    OnIsolationStateChanged(IsolationStateValue);
-
-            //    TryGetValue(PLCNodeType.GroundingState, out byte[] GroundingStateValue);
-            //    OnGroundingStateChanged(GroundingStateValue);
-
-            //    TryGetValue(PLCNodeType.ElecState, out dynamic ElecStateValue);
-            //    OnElecStateChanged(ElecStateValue);
-
-            //    TryGetValue(PLCNodeType.ElecResult, out byte ElecResultValue);
-            //    OnElecResultChanged(ElecResultValue);
-
-            //    TryGetValue(PLCNodeType.SignalLightState, out byte[] SignalLightStateValue);
-            //    OnSignalLightStateChanged(SignalLightStateValue);
-
-            //    TryGetValue(PLCNodeType.ToolState, out byte ToolStateValue);
-            //    OnToolStateChanged(ToolStateValue);
-
-            //    TryGetValue(PLCNodeType.GateState, out byte[] GateStateValue);
-            //    OnGateStateChanged(GateStateValue);
-
-            //    TryGetValue(PLCNodeType.DepotGateState, out byte[] DepotGateStateValue);
-            //    OnDepotGateStateChanged(DepotGateStateValue);
-
-            //    TryGetValue(PLCNodeType.DoorState, out byte[] DoorStateValue);
-            //    OnDoorStateChanged(DoorStateValue);
-
-            //    TryGetValue(PLCNodeType.DoorLocker, out byte[] DoorLockerValue);
-            //    OnDoorLockerChanged(DoorLockerValue);
-
-            //    TryGetValue(PLCNodeType.GangwayState, out byte[] GangwayStateValue);
-            //    OnGangwayStateChanged(GangwayStateValue);
-
-            //    TryGetValue(PLCNodeType.TrainState, out dynamic TrainStateValue);
-            //    OnTrainStateChanged(TrainStateValue);
-
-            //    TryGetValue(PLCNodeType.WarningState, out dynamic WarningStateValue);
-            //    OnWarningStateChanged(WarningStateValue);
-
-            //    TryGetValue(PLCNodeType.ElecValue, out string ElecValueValue);
-            //    OnElecValueChanged(ElecValueValue);
-
-            //    TryGetValue(PLCNodeType.GroundingResistance, out string GroundingResistanceValue);
-            //    OnGroundingResistanceChanged(GroundingResistanceValue);
-
-            //    TryGetValue(PLCNodeType.LoopResistance, out string[] LoopResistanceValue);
-            //    OnLoopResistanceChanged(LoopResistanceValue);
-
-            //    TryGetValue(PLCNodeType.OperationRecord, out dynamic OperationRecordValue);
-            //    OnOperationRecordChanged(OperationRecordValue);
-
-            //    TryGetValue(PLCNodeType.FaultRecordState, out dynamic FaultRecordStateValue);
-            //    OnFaultRecordStateChanged(FaultRecordStateValue);
-
-            //TryGetValue(PLCNodeType.AccessRecordState, out dynamic AccessRecordStateValue);
-            //OnAccessRecordStateChanged(AccessRecordStateValue);
-
-            //    //TryGetValue(PLCNodeType.TopPersonInfo, out string[] TopPersonInfoValue);
-            //    //OnTopPersonInfoChanged(TopPersonInfoValue);
-
-            //    TryGetValue(PLCNodeType.PassCount, out string[] PassCountValue);
-            //    OnPassCountChanged(PassCountValue);
-
-            //    TryGetValue(PLCNodeType.OperatorPersonInfo, out dynamic OperatorPersonInfoValue);
-            //    OnOperatorPersonInfoChanged(OperatorPersonInfoValue);
-
-            //    TryGetValue(PLCNodeType.OperationMode, out byte OperationModeValue);
-            //    OnOperationModeChanged(OperationModeValue);
-
-            //    TryGetValue(PLCNodeType.OperationFlow, out byte OperationFlowValue);
-            //    OnOperationFlowChanged(OperationFlowValue);
-
-            //    TryGetValue(PLCNodeType.OperationCommand, out ushort OperationCommandValue);
-            //    OnOperationCommandChanged(OperationCommandValue);
-
-            //    TryGetValue(PLCNodeType.OperationApply, out ushort OperationApplyValue);
-            //    OnOperationApplyChanged(OperationApplyValue);
-
-            //    TryGetValue(PLCNodeType.FaultRecord, out string FaultRecordValue);
-            //    OnFaultRecordChange(FaultRecordValue);
-
-            //    TryGetValue(PLCNodeType.OperationRecordState, out string OperationRecordStateValue);
-            //    OnOperationRecordStateChanged(OperationRecordStateValue);
-
-            //    TryGetValue(PLCNodeType.EnableReset, out ushort EnableResetValue);
-            //    OnEnableResetChanged(EnableResetValue);
-
-            //    TryGetValue(PLCNodeType.SafeConfirm, out ushort SafeConfirmValue);
-            //    OnSafeConfirmChanged(SafeConfirmValue);
-
-            //    TryGetValue(PLCNodeType.SignalLightCommand, out ushort[] SignalLightCommandValue);
-            //    OnSignalLightCommandChanged(SignalLightCommandValue);
-
-            //    TryGetValue(PLCNodeType.GateCommand, out ushort[] GateCommand);
-            //    OnGateCommandChanged(GateCommand);
-
-            //    return;
-            //}
-            #endregion
 
             switch (type)
             {
@@ -326,13 +217,9 @@ namespace Y.ASIS.Server.Device
 
         }
 
-        private async void OnSystemStateChanged(int inputvalue)
+        private void OnSystemStateChanged(int inputvalue)
         {
             Position.State.SystemState = inputvalue;
-
-            await Task.Delay(5000);
-            ////bool success = TryWriteValue(PLCNodeType.ID_Inspect, (ushort)233);
-            //bool success = TryWriteValue(PLCNodeType.ID_Inspect, "233");
         }
 
         #region === Command ===

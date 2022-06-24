@@ -3,7 +3,6 @@ using Nancy.Hosting.Self;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.ExceptionServices;
 using System.ServiceProcess;
 using System.Threading.Tasks;
 using Y.ASIS.Common.ExtensionMethod;
@@ -45,8 +44,7 @@ namespace Y.ASIS.Server.Services.Main
         AppExceptionHandle appExceptionHandle = new AppExceptionHandle();
         public void Start()
         {
-            //AppDomain.CurrentDomain.FirstChanceException += FirstChanceException;
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += Domain_UnhandledException;
 
             HIKNVRService.Login();
 
@@ -86,17 +84,13 @@ namespace Y.ASIS.Server.Services.Main
             StartPushJob();
         }
 
-
-        private async void FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
+        private void Domain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            await Task.Delay(10);
-            appExceptionHandle.Handle(e.Exception);
-        }
-
-
-        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-
+            Task.Delay(100);
+            if (e.ExceptionObject is Exception ex)
+            {
+                LogHelper.Fatal($"{ex.Message}", ex);
+            }
         }
 
         private void StartPushJob()

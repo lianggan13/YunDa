@@ -88,9 +88,7 @@ namespace Y.ASIS.Common.Manager
                 {
                     i.Invoke();
                 }
-                //#pragma warning disable CS0168 // 声明了变量“e”，但从未使用过
                 catch (Exception ex)
-                //#pragma warning restore CS0168 // 声明了变量“e”，但从未使用过
                 {
                     throw ex;
                 }

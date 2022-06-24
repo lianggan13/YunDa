@@ -1,17 +1,17 @@
-﻿<local:PopupWindow x:Class="Y.ASIS.App.Windows.AddOrUpdateUserWindow"
-                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:local="clr-namespace:Y.ASIS.App.Windows"
-                   xmlns:helper="http://www.yd-tec.com/winfx/xaml/helper"
-                   Style="{StaticResource SmallPopupWindowStyle}"
-                   WindowStyle="None"
-                   AllowsTransparency="True"
-                   WindowStartupLocation="CenterOwner"
-                   Width="400"
-                   Height="580">
+﻿<local:PopupWindow
+    x:Class="Y.ASIS.App.Windows.AddOrUpdateUserWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:helper="http://www.yd-tec.com/winfx/xaml/helper"
+    xmlns:local="clr-namespace:Y.ASIS.App.Windows"
+    Width="400"
+    Height="580"
+    AllowsTransparency="True"
+    Style="{StaticResource SmallPopupWindowStyle}"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="None">
     <local:PopupWindow.Resources>
-        <Style TargetType="{x:Type TextBox}"
-               BasedOn="{StaticResource WatermarkTextBoxStyle}">
+        <Style BasedOn="{StaticResource WatermarkTextBoxStyle}" TargetType="{x:Type TextBox}">
             <Setter Property="Width" Value="300" />
             <Setter Property="helper:CornerRadiusHelper.CornerRadius" Value="3" />
             <Setter Property="BorderBrush" Value="#3E424D" />
@@ -19,286 +19,318 @@
             <Setter Property="Background" Value="#22242A" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Height" Value="32" />
-            <Setter Property="Padding" Value="2 0" />
+            <Setter Property="Padding" Value="2,0" />
             <Setter Property="FontSize" Value="16" />
         </Style>
     </local:PopupWindow.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="80" />
         </Grid.RowDefinitions>
-        <StackPanel VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        Margin="0 10">
-                <TextBlock Foreground="White"
-                           FontSize="18"
-                           VerticalAlignment="Center"
-                           Margin="0 0 10 0"
-                           FontWeight="ExtraLight">
-                    <Run Text="姓名"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel
+                Margin="0,10"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="ExtraLight"
+                    Foreground="White">
+                    <Run Text="姓名" />
                     <Run Text=":" />
                 </TextBlock>
-                <TextBox Text="{Binding User.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         Width="250"
-                         helper:WatermarkHelper.Watermark="请输入姓名"
-                         helper:WatermarkHelper.WatermarkBrush="#535866"/>
+                <TextBox
+                    Width="250"
+                    helper:WatermarkHelper.Watermark="请输入姓名"
+                    helper:WatermarkHelper.WatermarkBrush="#535866"
+                    Text="{Binding User.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        Margin="0 10">
-                <TextBlock Foreground="White"
-                           FontSize="18"
-                           VerticalAlignment="Center"
-                           Margin="0 0 10 0"
-                           FontWeight="ExtraLight">
-                    <Run Text="工号"/>
+            <StackPanel
+                Margin="0,10"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="ExtraLight"
+                    Foreground="White">
+                    <Run Text="工号" />
                     <Run Text=":" />
                 </TextBlock>
-                <TextBox x:Name="WorkerNoTextBox"
-                         Text="{Binding No, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         Width="250"
-                         helper:WatermarkHelper.Watermark="请输入工号"
-                         helper:WatermarkHelper.WatermarkBrush="#535866"/>
+                <TextBox
+                    x:Name="WorkerNoTextBox"
+                    Width="250"
+                    helper:WatermarkHelper.Watermark="请输入工号"
+                    helper:WatermarkHelper.WatermarkBrush="#535866"
+                    Text="{Binding No, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        Margin="0 10">
-                <TextBlock Foreground="White"
-                           FontSize="18"
-                           VerticalAlignment="Center"
-                           Margin="0 0 10 0"
-                           FontWeight="ExtraLight">
-                    <Run Text="卡号"/>
+            <StackPanel
+                Margin="0,10"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="ExtraLight"
+                    Foreground="White">
+                    <Run Text="卡号" />
                     <Run Text=":" />
                 </TextBlock>
-                <TextBox Width="140"
-                         Text="{Binding User.CardNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="False"
-                         helper:WatermarkHelper.Watermark="请录入卡号"
-                         helper:WatermarkHelper.WatermarkBrush="#535866"/>
-                <Button Width="50"
-                        Content="读取"
-                        FontSize="18"
-                        Margin="10 0 0 0"
-                        Style="{StaticResource TextButtonStyle}"
-                        Click="ReadCardNoButtonClick"/>
-                <Button Width="50"
-                        Content="解绑"
-                        FontSize="18"
-                        Style="{StaticResource TextButtonStyle}"
-                        Click="UnbindingCardNoButtonClick"/>
+                <TextBox
+                    Width="140"
+                    helper:WatermarkHelper.Watermark="请录入卡号"
+                    helper:WatermarkHelper.WatermarkBrush="#535866"
+                    IsEnabled="False"
+                    Text="{Binding User.CardNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button
+                    Width="50"
+                    Margin="10,0,0,0"
+                    Click="ReadCardNoButtonClick"
+                    Content="读取"
+                    FontSize="18"
+                    Style="{StaticResource TextButtonStyle}" />
+                <Button
+                    Width="50"
+                    Click="UnbindingCardNoButtonClick"
+                    Content="解绑"
+                    FontSize="18"
+                    Style="{StaticResource TextButtonStyle}" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        Margin="0 10">
-                <TextBlock Foreground="White"
-                           FontSize="18"
-                           VerticalAlignment="Center"
-                           Margin="0 0 10 0"
-                           FontWeight="ExtraLight">
-                    <Run Text="角色"/>
+            <StackPanel
+                Margin="0,10"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="ExtraLight"
+                    Foreground="White">
+                    <Run Text="角色" />
                     <Run Text=":" />
                 </TextBlock>
-                <ComboBox DisplayMemberPath="Name"
-                          SelectedValuePath="Id"
-                          ItemsSource="{Binding Roles}"
-                          SelectedValue="{Binding User.RoleId}"
-                          Width="250"       
-                          Height="32"
-                          Padding="6 0"
-                          FontSize="16"
-                          Foreground="White"
-                          Background="#22242A"
-                          BorderBrush="#3E424D"
-                          BorderThickness="1"
-                          helper:CornerRadiusHelper.CornerRadius="3"/>
+                <ComboBox
+                    Width="250"
+                    Height="32"
+                    Padding="6,0"
+                    helper:CornerRadiusHelper.CornerRadius="3"
+                    Background="#22242A"
+                    BorderBrush="#3E424D"
+                    BorderThickness="1"
+                    DisplayMemberPath="Name"
+                    FontSize="16"
+                    Foreground="White"
+                    ItemsSource="{Binding Roles}"
+                    SelectedValue="{Binding User.RoleId}"
+                    SelectedValuePath="Id" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        Margin="0 10">
-                <TextBlock Foreground="White"
-                           FontSize="18"
-                           VerticalAlignment="Center"
-                           Margin="0 0 10 0"
-                           FontWeight="ExtraLight">
-                    <Run Text="班组"/>
+            <StackPanel
+                Margin="0,10"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="ExtraLight"
+                    Foreground="White">
+                    <Run Text="班组" />
                     <Run Text=":" />
                 </TextBlock>
-                <ComboBox DisplayMemberPath="Name"
-                          SelectedValuePath="Id"
-                          SelectedValue="{Binding User.UserGroupId}"
-                          ItemsSource="{Binding Groups}"
-                          Width="250"       
-                          Height="32"
-                          Padding="6 0"
-                          FontSize="16"
-                          Foreground="White"
-                          Background="#22242A"
-                          BorderBrush="#3E424D"
-                          BorderThickness="1"
-                          helper:CornerRadiusHelper.CornerRadius="3"/>
+                <ComboBox
+                    Width="250"
+                    Height="32"
+                    Padding="6,0"
+                    helper:CornerRadiusHelper.CornerRadius="3"
+                    Background="#22242A"
+                    BorderBrush="#3E424D"
+                    BorderThickness="1"
+                    DisplayMemberPath="Name"
+                    FontSize="16"
+                    Foreground="White"
+                    ItemsSource="{Binding Groups}"
+                    SelectedValue="{Binding User.UserGroupId}"
+                    SelectedValuePath="Id" />
             </StackPanel>
 
-            <StackPanel x:Name="AddBlock"
-                        Visibility="Collapsed">
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            Margin="0 10">
-                    <TextBlock Foreground="White"
-                               FontSize="18"
-                               VerticalAlignment="Center"
-                               Margin="0 0 10 0"
-                               FontWeight="ExtraLight">
-                        <Run Text="密码"/>
+            <StackPanel x:Name="AddBlock" Visibility="Collapsed">
+                <StackPanel
+                    Margin="0,10"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="ExtraLight"
+                        Foreground="White">
+                        <Run Text="密码" />
                         <Run Text=":" />
                     </TextBlock>
-                    <PasswordBox Width="250"
-                                 Height="32"
-                                 BorderBrush="#3E424D"
-                                 BorderThickness="1"
-                                 helper:CornerRadiusHelper.CornerRadius="3"
-                                 Background="#22242A"
-                                 Foreground="White"
-                                 FontSize="16"
-                                 VerticalAlignment="Center"
-                                 Style="{StaticResource WatermarkPasswordBoxStyle}"
-                                 helper:PasswordBoxHelper.Attach="True"
-                                 helper:PasswordBoxHelper.Password="{Binding Path=User.NewPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 helper:WatermarkHelper.Watermark="请输入密码"
-                                 helper:WatermarkHelper.WatermarkBrush="#535866"/>
+                    <PasswordBox
+                        Width="250"
+                        Height="32"
+                        VerticalAlignment="Center"
+                        helper:CornerRadiusHelper.CornerRadius="3"
+                        helper:PasswordBoxHelper.Attach="True"
+                        helper:PasswordBoxHelper.Password="{Binding Path=User.NewPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        helper:WatermarkHelper.Watermark="请输入密码"
+                        helper:WatermarkHelper.WatermarkBrush="#535866"
+                        Background="#22242A"
+                        BorderBrush="#3E424D"
+                        BorderThickness="1"
+                        FontSize="16"
+                        Foreground="White"
+                        Style="{StaticResource WatermarkPasswordBoxStyle}" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            Margin="0 10">
-                    <TextBlock Foreground="White"
-                               FontSize="18"
-                               VerticalAlignment="Center"
-                               Margin="0 0 10 0"
-                               FontWeight="ExtraLight">
-                    <Run Text="确认密码"/>
-                    <Run Text=":" />
+                <StackPanel
+                    Margin="0,10"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="ExtraLight"
+                        Foreground="White">
+                        <Run Text="确认密码" />
+                        <Run Text=":" />
                     </TextBlock>
-                    <PasswordBox Width="250"
-                                 Height="32"
-                                 BorderBrush="#3E424D"
-                                 BorderThickness="1"
-                                 helper:CornerRadiusHelper.CornerRadius="3"
-                                 Background="#22242A"
-                                 Foreground="White"
-                                 FontSize="16"
-                                 VerticalAlignment="Center"
-                                 Style="{StaticResource WatermarkPasswordBoxStyle}"
-                                 helper:PasswordBoxHelper.Attach="True"
-                                 helper:PasswordBoxHelper.Password="{Binding Path=User.ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 helper:WatermarkHelper.Watermark="请输入确认密码"
-                                 helper:WatermarkHelper.WatermarkBrush="#535866"/>
+                    <PasswordBox
+                        Width="250"
+                        Height="32"
+                        VerticalAlignment="Center"
+                        helper:CornerRadiusHelper.CornerRadius="3"
+                        helper:PasswordBoxHelper.Attach="True"
+                        helper:PasswordBoxHelper.Password="{Binding Path=User.ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        helper:WatermarkHelper.Watermark="请输入确认密码"
+                        helper:WatermarkHelper.WatermarkBrush="#535866"
+                        Background="#22242A"
+                        BorderBrush="#3E424D"
+                        BorderThickness="1"
+                        FontSize="16"
+                        Foreground="White"
+                        Style="{StaticResource WatermarkPasswordBoxStyle}" />
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel x:Name="UpdateBlock"
-                        Visibility="Collapsed">
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            Margin="0 10">
-                    <TextBlock Foreground="White"
-                               FontSize="18"
-                               VerticalAlignment="Center"
-                               Margin="0 0 10 0"
-                               FontWeight="ExtraLight">
-                        <Run Text="旧密码"/>
+            <StackPanel x:Name="UpdateBlock" Visibility="Collapsed">
+                <StackPanel
+                    Margin="0,10"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="ExtraLight"
+                        Foreground="White">
+                        <Run Text="旧密码" />
                         <Run Text=":" />
                     </TextBlock>
-                    <PasswordBox Width="250"
-                                 Height="32"
-                                 BorderBrush="#3E424D"
-                                 BorderThickness="1"
-                                 helper:CornerRadiusHelper.CornerRadius="3"
-                                 Background="#22242A"
-                                 Foreground="White"
-                                 FontSize="16"
-                                 VerticalAlignment="Center"
-                                 Style="{StaticResource WatermarkPasswordBoxStyle}"
-                                 helper:PasswordBoxHelper.Attach="True"
-                                 helper:PasswordBoxHelper.Password="{Binding Path=User.OldPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 helper:WatermarkHelper.Watermark="请输入旧密码"
-                                 helper:WatermarkHelper.WatermarkBrush="#535866"/>
+                    <PasswordBox
+                        Width="250"
+                        Height="32"
+                        VerticalAlignment="Center"
+                        helper:CornerRadiusHelper.CornerRadius="3"
+                        helper:PasswordBoxHelper.Attach="True"
+                        helper:PasswordBoxHelper.Password="{Binding Path=User.OldPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        helper:WatermarkHelper.Watermark="请输入旧密码"
+                        helper:WatermarkHelper.WatermarkBrush="#535866"
+                        Background="#22242A"
+                        BorderBrush="#3E424D"
+                        BorderThickness="1"
+                        FontSize="16"
+                        Foreground="White"
+                        Style="{StaticResource WatermarkPasswordBoxStyle}" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            Margin="0 10">
-                    <TextBlock Foreground="White"
-                               FontSize="18"
-                               VerticalAlignment="Center"
-                               Margin="0 0 10 0"
-                               FontWeight="ExtraLight">
-                    <Run Text="新密码"/>
-                    <Run Text=":" />
+                <StackPanel
+                    Margin="0,10"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="ExtraLight"
+                        Foreground="White">
+                        <Run Text="新密码" />
+                        <Run Text=":" />
                     </TextBlock>
-                    <PasswordBox Width="250"
-                                 Height="32"
-                                 BorderBrush="#3E424D"
-                                 BorderThickness="1"
-                                 helper:CornerRadiusHelper.CornerRadius="3"
-                                 Background="#22242A"
-                                 Foreground="White"
-                                 FontSize="16"
-                                 VerticalAlignment="Center"
-                                 Style="{StaticResource WatermarkPasswordBoxStyle}"
-                                 helper:PasswordBoxHelper.Attach="True"
-                                 helper:PasswordBoxHelper.Password="{Binding Path=User.NewPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 helper:WatermarkHelper.Watermark="请输入新密码"
-                                 helper:WatermarkHelper.WatermarkBrush="#535866"/>
+                    <PasswordBox
+                        Width="250"
+                        Height="32"
+                        VerticalAlignment="Center"
+                        helper:CornerRadiusHelper.CornerRadius="3"
+                        helper:PasswordBoxHelper.Attach="True"
+                        helper:PasswordBoxHelper.Password="{Binding Path=User.NewPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        helper:WatermarkHelper.Watermark="请输入新密码"
+                        helper:WatermarkHelper.WatermarkBrush="#535866"
+                        Background="#22242A"
+                        BorderBrush="#3E424D"
+                        BorderThickness="1"
+                        FontSize="16"
+                        Foreground="White"
+                        Style="{StaticResource WatermarkPasswordBoxStyle}" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            Margin="0 10">
-                    <TextBlock Foreground="White"
-                               FontSize="18"
-                               VerticalAlignment="Center"
-                               Margin="0 0 10 0"
-                               FontWeight="ExtraLight">
-                    <Run Text="确认密码"/>
-                    <Run Text=":" />
+                <StackPanel
+                    Margin="0,10"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="ExtraLight"
+                        Foreground="White">
+                        <Run Text="确认密码" />
+                        <Run Text=":" />
                     </TextBlock>
-                    <PasswordBox Width="250"
-                                 Height="32"
-                                 BorderBrush="#3E424D"
-                                 BorderThickness="1"
-                                 helper:CornerRadiusHelper.CornerRadius="3"
-                                 Background="#22242A"
-                                 Foreground="White"
-                                 FontSize="16"
-                                 VerticalAlignment="Center"
-                                 Style="{StaticResource WatermarkPasswordBoxStyle}"
-                                 helper:PasswordBoxHelper.Attach="True"
-                                 helper:PasswordBoxHelper.Password="{Binding Path=User.ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 helper:WatermarkHelper.Watermark="请输入确认密码"
-                                 helper:WatermarkHelper.WatermarkBrush="#535866"/>
+                    <PasswordBox
+                        Width="250"
+                        Height="32"
+                        VerticalAlignment="Center"
+                        helper:CornerRadiusHelper.CornerRadius="3"
+                        helper:PasswordBoxHelper.Attach="True"
+                        helper:PasswordBoxHelper.Password="{Binding Path=User.ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        helper:WatermarkHelper.Watermark="请输入确认密码"
+                        helper:WatermarkHelper.WatermarkBrush="#535866"
+                        Background="#22242A"
+                        BorderBrush="#3E424D"
+                        BorderThickness="1"
+                        FontSize="16"
+                        Foreground="White"
+                        Style="{StaticResource WatermarkPasswordBoxStyle}" />
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center">
-            <Button Name="ConfirmButton"
-                    Style="{StaticResource IconButtonStyle}"
-                    Width="100"
-                    helper:ButtonHelper.Icon="{StaticResource ConfirmIcon}"
-                    Content="{StaticResource ConfirmText}"
-                    FontSize="16"
-                    Command="{Binding AddOrUpdateUserCommand}"/>
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Button
+                Name="ConfirmButton"
+                Width="100"
+                helper:ButtonHelper.Icon="{StaticResource ConfirmIcon}"
+                Command="{Binding AddOrUpdateUserCommand}"
+                Content="{StaticResource ConfirmText}"
+                FontSize="16"
+                Style="{StaticResource IconButtonStyle}" />
 
-            <Button Style="{StaticResource IconButtonStyle}"
-                    Width="100"
-                    Margin="10 0 0 0"
-                    helper:ButtonHelper.Icon="{StaticResource CancelIcon}"
-                    Content="{StaticResource CancelText}" 
-                    FontSize="16"
-                    Click="CancelButtonClick"/>
+            <Button
+                Width="100"
+                Margin="10,0,0,0"
+                helper:ButtonHelper.Icon="{StaticResource CancelIcon}"
+                Click="CancelButtonClick"
+                Content="{StaticResource CancelText}"
+                FontSize="16"
+                Style="{StaticResource IconButtonStyle}" />
         </StackPanel>
     </Grid>
 </local:PopupWindow>

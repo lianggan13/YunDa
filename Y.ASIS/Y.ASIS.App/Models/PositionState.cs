@@ -2,7 +2,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Y.ASIS.App.Common;
 using Y.ASIS.App.Services;
 using Y.ASIS.Common.Models.Enums;
 using Y.ASIS.Common.MVVMFoundation;
@@ -600,9 +599,7 @@ namespace Y.ASIS.App.Models
         public long LastTime { get; set; }
 
         [JsonIgnore]
-        public long LocalLastTime { get; set; }
-
-
+        public DateTime LocalLastTime { get; set; } = DateTime.Now;
     }
 
 

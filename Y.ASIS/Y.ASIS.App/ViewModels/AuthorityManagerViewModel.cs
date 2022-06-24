@@ -116,30 +116,30 @@ namespace Y.ASIS.App.ViewModels
             GetCheckedUserNos(UnIssueOperators, UnIssueWorkers,
                 out List<int> operatorNos, out List<int> workerNos);
 
-            //var issOptNos = IssuedOperators.SelectMany(u => u.Users).Select(u => u.No);
-            var issWorkerNos = issuedWorkers.SelectMany(u => u.Users).Select(u => u.No);
+            var issedOptNos = issuedOperators.SelectMany(u => u.Users).Select(u => u.No);
+            var issedWorkerNos = issuedWorkers.SelectMany(u => u.Users).Select(u => u.No);
             var curWin = WindowManager.FindWindwByType(typeof(AuthorityManagerWindow));
             await LoadingWindow.Show(curWin, () =>
             {
-                AuthorityService.RequestIssueUsers(currentPosition, operatorNos, workerNos, issWorkerNos, IsInspect, resp =>
-                {
-                    if (resp != null && resp.Data)
-                    {
-                        AppDispatcherInvoker(() =>
-                        {
-                            MessageWindow.Show("权限下发成功");
-                        });
-                        RefreshOperatorsAsync(CurrentPosition);
-                        RefreshWorkersAsync(CurrentPosition);
-                    }
-                    else
-                    {
-                        AppDispatcherInvoker(() =>
-                        {
-                            MessageWindow.Show("权限下发失败\r\n请检查通信状态或人员信息");
-                        });
-                    }
-                });
+                AuthorityService.RequestIssueUsers(currentPosition, operatorNos, workerNos, issedOptNos, issedWorkerNos, IsInspect, resp =>
+                 {
+                     if (resp != null && resp.Data)
+                     {
+                         AppDispatcherInvoker(() =>
+                         {
+                             MessageWindow.Show("权限下发成功");
+                         });
+                         RefreshOperatorsAsync(CurrentPosition);
+                         RefreshWorkersAsync(CurrentPosition);
+                     }
+                     else
+                     {
+                         AppDispatcherInvoker(() =>
+                         {
+                             MessageWindow.Show("权限下发失败\r\n请检查通信状态或人员信息");
+                         });
+                     }
+                 });
             });
         }
 
