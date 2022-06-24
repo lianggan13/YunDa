@@ -1,0 +1,13 @@
+﻿<local:PopupWindow
+    x:Class="Y.ASIS.App.Windows.ViewWarningAndFaultWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Y.ASIS.App.Windows"
+    Title="报警"
+    AllowsTransparency="True"
+    Style="{StaticResource SmallPopupWindowStyle}"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="None">
+    <Grid />
+
+</local:PopupWindow>

@@ -1,0 +1,13 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/DepotDoor.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/Door.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/Gate.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/PromptBubbleButton.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/SignalLight.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/StatusDisplayer.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/WarningLight.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

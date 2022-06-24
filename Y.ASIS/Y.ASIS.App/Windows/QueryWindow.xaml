@@ -1,0 +1,43 @@
+﻿<local:PopupWindow
+    x:Class="Y.ASIS.App.Windows.QueryWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Y.ASIS.App.Windows"
+    xmlns:uc="clr-namespace:Y.ASIS.App.UserControls"
+    AllowsTransparency="True"
+    Style="{StaticResource ConfigPopupWindowStyle}"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None">
+
+    <TabControl
+        Margin="0,8"
+        Padding="20,20,20,10"
+        Background="Transparent"
+        Style="{StaticResource ConfigTabControlStyle}">
+
+        <TabItem Height="Auto" Header="{StaticResource QueryPersonRecordText}">
+            <uc:QueryPersonControl DataContext="{Binding}" />
+        </TabItem>
+
+        <TabItem  x:Name="tabTool" Header="{StaticResource QueryToolRecordText}">
+            <uc:QueryToolControl DataContext="{Binding}" />
+        </TabItem>
+
+        <TabItem Header="{StaticResource QueryErrorRecordText}">
+            <uc:QueryFaultRecordControl DataContext="{Binding}" />
+        </TabItem>
+
+        <TabItem Header="{StaticResource QueryOperationRecordText}">
+            <uc:QueryOperationRecordControl DataContext="{Binding}" />
+        </TabItem>
+
+        <TabItem Header="{StaticResource QueryTrainNumberRecordText}">
+            <uc:QueryTrainNumberControl DataContext="{Binding}" />
+        </TabItem>
+
+    </TabControl>
+
+
+
+</local:PopupWindow>

@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="Y.ASIS.App.UserControls.ConfigUserGroupControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:helper="http://www.yd-tec.com/winfx/xaml/helper"
+             xmlns:cmd="clr-namespace:Y.ASIS.App.Common">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="0 25"
+                    Orientation="Horizontal">
+            <Button Style="{StaticResource IconButtonStyle}"
+                    helper:ButtonHelper.Icon="{StaticResource AddIcon}"
+                    Content="{StaticResource AddText}"
+                    Margin="0 0 10 0"
+                    Click="AddUserGroupButtonClick"/>
+            <Button Style="{StaticResource IconButtonStyle}"
+                    Background="#006EBD"
+                    helper:ButtonHelper.Icon="{StaticResource EditIcon}"
+                    Content="{StaticResource EditText}"
+                    Margin="0 0 10 0"
+                    Click="UpdateUserGroupButtonClick"/>
+            <Button Style="{StaticResource IconButtonStyle}"
+                    Background="#006EBD"
+                    helper:ButtonHelper.Icon="{StaticResource DeleteIcon}"
+                    Content="{StaticResource DeleteText}"
+                    Click="DeleteUserGroupButtonClick"/>
+        </StackPanel>
+        <Border Grid.Row="1"
+                Background="#123A71"/>
+        <ListView x:Name="ListViewBlock"
+                  Grid.Row="2"
+                  FontSize="14"
+                  Background="Transparent"
+                  ItemsSource="{Binding Groups}"
+                  MouseDoubleClick="OnMouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="36">
+                        <GridViewColumn.Header>
+                            <CheckBox Tag="{Binding Groups}"
+                                      Style="{StaticResource NonContentCheckBoxStyle}"
+                                      Command="{x:Static cmd:AppCommands.CheckBoxGridViewHeaderCommand}"
+                                      CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ContentPresenter,AncestorLevel=1}, Path=ActualWidth}">
+                                    <CheckBox IsChecked="{Binding IsChecked}"
+                                              HorizontalAlignment="Center"
+                                              Style="{StaticResource NonContentCheckBoxStyle}"/>
+                                </Border>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="120"
+                                    Header="序号">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Id}"
+                                           TextAlignment="Center"
+                                           MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ContentPresenter,AncestorLevel=1}, Path=ActualWidth}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="240" 
+                                    Header="班组名">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"
+                                           TextAlignment="Center"
+                                           MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ContentPresenter,AncestorLevel=1}, Path=ActualWidth}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

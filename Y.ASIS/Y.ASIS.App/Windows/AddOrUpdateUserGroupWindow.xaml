@@ -1,0 +1,69 @@
+﻿<local:PopupWindow x:Class="Y.ASIS.App.Windows.AddOrUpdateUserGroupWindow"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:local="clr-namespace:Y.ASIS.App.Windows"
+                   xmlns:helper="http://www.yd-tec.com/winfx/xaml/helper"
+                   Style="{StaticResource SmallPopupWindowStyle}"
+                   WindowStyle="None"
+                   AllowsTransparency="True"
+                   WindowStartupLocation="CenterOwner"
+                   Height="300"
+                   Width="500">
+    <local:PopupWindow.Resources>
+        <Style TargetType="{x:Type TextBox}"
+               BasedOn="{StaticResource WatermarkTextBoxStyle}">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="helper:CornerRadiusHelper.CornerRadius" Value="3" />
+            <Setter Property="BorderBrush" Value="#3E424D" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="#22242A" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="2 0" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+    </local:PopupWindow.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="80" />
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0 10">
+                <TextBlock Foreground="White"
+                           FontSize="18"
+                           VerticalAlignment="Center"
+                           Margin="0 0 10 0"
+                           FontWeight="ExtraLight">
+                    <Run Text="班组名称"/>
+                    <Run Text=":" />
+                </TextBlock>
+                <TextBox Text="{Binding UserGroup.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         helper:WatermarkHelper.Watermark="请输入班组名称"
+                         helper:WatermarkHelper.WatermarkBrush="#535866"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button Name="ConfirmButton"
+                    Style="{StaticResource IconButtonStyle}"
+                    Width="100"
+                    helper:ButtonHelper.Icon="{StaticResource ConfirmIcon}"
+                    Content="{StaticResource ConfirmText}"
+                    FontSize="16"
+                    Command="{Binding AddOrUpdateUserGroupCommand}"/>
+            <Button Style="{StaticResource IconButtonStyle}"
+                    Width="100"
+                    Margin="10 0 0 0"
+                    helper:ButtonHelper.Icon="{StaticResource CancelIcon}"
+                    Content="{StaticResource CancelText}" 
+                    FontSize="16"
+                    Click="CancelButtonClick"/>
+        </StackPanel>
+    </Grid>
+</local:PopupWindow>

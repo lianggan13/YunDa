@@ -1,0 +1,148 @@
+﻿<UserControl
+    x:Class="Y.ASIS.App.UserControls.TrackDetailsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctls="http://www.yd-tec.com/winfx/xaml/shared"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helper="http://www.yd-tec.com/winfx/xaml/helper"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:Y.ASIS.App.UserControls"
+    xmlns:vm="clr-namespace:Y.ASIS.App.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ctls:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+
+        <DataTemplate x:Key="TrackDetailsDataTemplate">
+            <Grid Width="1247" Height="490">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="340" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <StackPanel
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <ctls:StatusDisplayer VerticalAlignment="Center" Connected="{Binding CurrentPosition.State.Connected}" />
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                Foreground="#C2C8F2"
+                                Text="{StaticResource CommunicationStatusText}" />
+                        </StackPanel>
+                        <Border
+                            x:Name="LinkedBorder"
+                            Width="70"
+                            Height="50"
+                            Margin="0,0,10,0"
+                            HorizontalAlignment="Right"
+                            Background="#212D3C"
+                            CornerRadius="5"
+                            Visibility="Collapsed">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="24"
+                                Text="{StaticResource LinkText}">
+                                <TextBlock.Foreground>
+                                    <LinearGradientBrush StartPoint="0 0 " EndPoint="0 1">
+                                        <GradientStop Color="#00E4FF" />
+                                        <GradientStop Offset="1" Color="#0F61CF" />
+                                    </LinearGradientBrush>
+                                </TextBlock.Foreground>
+                            </TextBlock>
+                        </Border>
+                    </Grid>
+                    <Border
+                        Grid.Column="1"
+                        Background="#212D3C"
+                        BorderThickness="0"
+                        CornerRadius="5">
+                        <Grid>
+                            <Path
+                                Data="M5 0 335 0 A 5 5 0 0 1 340 5 L 340 45 A 5 5 0 0 1 335 50 L 5 50 A 5 5 0 0 1 0 45 L 0 5 A 5 5 0 0 1 5 0z"
+                                Stroke="#264D66"
+                                StrokeDashArray="5 2" />
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="28"
+                                Foreground="#C2D7F2">
+                                <Run Text="L-" />
+                                <Run Text="{Binding CurrentTrack.No}" />
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Grid
+                    x:Name="PositionNoGrid"
+                    Grid.Row="1"
+                    Margin="5,0,5,10"
+                    VerticalAlignment="Bottom"
+                    Visibility="Collapsed">
+                    <Border
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left"
+                        BorderBrush="#C2D7F2"
+                        BorderThickness="1"
+                        CornerRadius="3">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="Consolas"
+                            FontSize="12"
+                            Foreground="#C2D7F2"
+                            Text="I" />
+                    </Border>
+                    <Border
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Right"
+                        BorderBrush="#C2D7F2"
+                        BorderThickness="1"
+                        CornerRadius="3">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="Consolas"
+                            FontSize="12"
+                            Foreground="#C2D7F2"
+                            Text="II" />
+                    </Border>
+                </Grid>
+                <uc:PositionDetailsControl
+                    Grid.Row="2"
+                    CurrentRole="{Binding DataContext.CurrentRole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                    CurrentUser="{Binding DataContext.CurrentUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                    DataContext="{Binding CurrentTrack}" />
+            </Grid>
+            <DataTemplate.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding CurrentTrack.Type}" Value="TPPTT" />
+                        <Condition Binding="{Binding CurrentTrack.IsLinked}" Value="True" />
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter TargetName="LinkedBorder" Property="Visibility" Value="Visible" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <DataTrigger Binding="{Binding CurrentTrack.Type}" Value="TPPTT">
+                    <Setter TargetName="PositionNoGrid" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ContentControl Content="{Binding}" ContentTemplate="{StaticResource TrackDetailsDataTemplate}" />
+</UserControl>

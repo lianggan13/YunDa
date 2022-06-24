@@ -1,0 +1,238 @@
+﻿<Window
+    x:Class="Y.ASIS.App.Windows.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:frm="clr-namespace:Y.ASIS.App.Views.Frames"
+    xmlns:helper="http://www.yd-tec.com/winfx/xaml/helper"
+    xmlns:local="clr-namespace:Y.ASIS.App.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Y.ASIS.App.ViewModels"
+    Title="{StaticResource MainTitleText}"
+    Width="1920"
+    Height="1080"
+    MaxHeight="{x:Static SystemParameters.PrimaryScreenHeight}"
+    d:DataContext="{d:DesignInstance Type=vm:MainViewModel,
+                                     IsDesignTimeCreatable=True}"
+    Background="#0B0D18"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Window.DataContext>
+        <vm:MainViewModel x:Name="vm" />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid x:Name="Main">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid MouseDown="Grid_MouseDown">
+                <Grid.Background>
+                    <ImageBrush ImageSource="{StaticResource HeaderBackgroundImage}" />
+                </Grid.Background>
+                <Border
+                    Width="260"
+                    Height="32"
+                    Margin="20,24,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Background="#092D3D"
+                    CornerRadius="16">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="Lucida Sans Unicode"
+                        FontSize="18"
+                        Foreground="#48DDF7"
+                        Text="{Binding Now}" />
+                </Border>
+                <TextBlock
+                    Margin="0,4,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="28"
+                    Text="{DynamicResource TitleText}">
+                    <TextBlock.Foreground>
+                        <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                            <GradientStop Color="#42FAD0" />
+                            <GradientStop Offset="1" Color="#02DAFF" />
+                        </LinearGradientBrush>
+                    </TextBlock.Foreground>
+                </TextBlock>
+                <StackPanel
+                    x:Name="HasLoginPanel"
+                    Margin="0,32,20,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Visibility="Collapsed">
+                    <Grid Margin="0,0,10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="40" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="当前用户：" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="{Binding CurrentUser.Name}" />
+                        <Image Grid.Column="3" Source="{StaticResource PortraitImage}" />
+                    </Grid>
+                    <Button
+                        Width="100"
+                        Height="32"
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Bottom"
+                        helper:CornerRadiusHelper.CornerRadius="20"
+                        Background="#004451"
+                        BorderThickness="2"
+                        Click="LogoutButtonClick"
+                        Content="退出登录"
+                        FontSize="18"
+                        Foreground="White"
+                        Style="{StaticResource RoundedButtonStyle}">
+                        <Button.BorderBrush>
+                            <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                                <GradientStop Color="#00DFFF" />
+                                <GradientStop Offset="1" Color="#008093" />
+                            </LinearGradientBrush>
+                        </Button.BorderBrush>
+                    </Button>
+                </StackPanel>
+                <StackPanel
+                    x:Name="UnloginPanel"
+                    Margin="0,32,20,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="65"
+                        Height="32"
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        helper:CornerRadiusHelper.CornerRadius="20"
+                        Background="#004451"
+                        BorderThickness="2"
+                        Click="LoginButtonClick"
+                        Content="登录"
+                        FontSize="18"
+                        Foreground="White"
+                        Style="{StaticResource RoundedButtonStyle}">
+                        <Button.BorderBrush>
+                            <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                                <GradientStop Color="#00DFFF" />
+                                <GradientStop Offset="1" Color="#008093" />
+                            </LinearGradientBrush>
+                        </Button.BorderBrush>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel
+                    Margin="0,8,5,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal">
+                    <Button Click="Minimize_Clicked" Style="{DynamicResource Style.Button.WinTitle}">
+                        <Path Data="{DynamicResource Minimize}" Style="{DynamicResource Style.Path.WinTitle}" />
+                    </Button>
+                    <Button HorizontalAlignment="Stretch" Click="MaximizeNormalize_Clicked">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource Style.Button.WinTitle}" TargetType="{x:Type Button}">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Path Data="{DynamicResource Normalize}" Style="{DynamicResource Style.Path.WinTitle}" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=WindowState, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}" Value="Normal">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button HorizontalAlignment="Stretch" Click="MaximizeNormalize_Clicked">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource Style.Button.WinTitle}" TargetType="{x:Type Button}">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Path Data="{DynamicResource Maximize}" Style="{DynamicResource Style.Path.WinTitle}" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=WindowState, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}}" Value="Maximized">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button Click="Close_Clicked" Style="{DynamicResource Style.Button.WinTitle}">
+                        <Path Data="{DynamicResource Close}">
+                            <Path.Style>
+                                <Style BasedOn="{StaticResource Style.Path.WinTitle}" TargetType="{x:Type Path}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" Value="true">
+                                            <Setter Property="Stroke" Value="Red" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+            <Button
+                Grid.Row="1"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"
+                Click="ReturnButtoClick"
+                Content="{StaticResource ReturnText}"
+                Style="{StaticResource ReturnButtonStyle}"
+                Visibility="{Binding ElementName=positionFrm, Path=Visibility}" />
+
+            <frm:TrackFrame
+                x:Name="trackFrm"
+                Grid.Row="2"
+                Height="975"
+                Margin="20"
+                DataContext="{Binding}"
+                Visibility="Visible" />
+
+            <frm:PositionFrame
+                x:Name="positionFrm"
+                Grid.Row="2"
+                Margin="20,0,20,20"
+                DataContext="{Binding}"
+                Visibility="Collapsed" />
+
+        </Grid>
+
+        <TextBlock
+            Margin="0,0,20,5"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            FontSize="12"
+            FontStyle="Italic"
+            Foreground="#20FFFFFF">
+            <Run Text="Copyright © 2021 Chengdu YunDa Technology Co.,Ltd. All rights reserved. Version: " />
+            <Run Text="{DynamicResource Version}" />
+        </TextBlock>
+    </Grid>
+</Window>

@@ -1,0 +1,420 @@
+﻿<local:PopupWindow
+    x:Class="Y.ASIS.App.Windows.AuthorityManagerWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convert="clr-namespace:Y.ASIS.App.Converters"
+    xmlns:ctls="http://www.yd-tec.com/winfx/xaml/shared"
+    xmlns:helper="http://www.yd-tec.com/winfx/xaml/helper"
+    xmlns:local="clr-namespace:Y.ASIS.App.Windows"
+    Title="{StaticResource AuthorityManagerText}"
+    AllowsTransparency="True"
+    Style="{StaticResource ConfigPopupWindowStyle}"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="None">
+    <local:PopupWindow.Resources>
+        <ctls:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+        <ctls:ReverseBoolConverter x:Key="ReverseBoolConverter" />
+        <Style x:Key="GroupToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChecked}" Value="True">
+                    <Setter Property="IsChecked" Value="True" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate x:Key="UserDataTemplate">
+            <Grid Margin="0,10,5,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <CheckBox
+                    x:Name="PART_CheckBox"
+                    Content="{Binding Name}"
+                    IsChecked="{Binding IsChecked}"
+                    IsEnabled="{Binding Enable}" />
+                <TextBlock
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="{Binding ElementName=PART_CheckBox, Path=Foreground}"
+                    Text="{Binding No}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="GroupDataTemplate">
+            <Grid Margin="10,10,5,10" Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="280" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <CheckBox x:Name="PART_CheckBox" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleButton
+                    x:Name="PART_ToggleButton"
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource GroupToggleButtonStyle}">
+                    <TextBlock
+                        FontSize="16"
+                        Foreground="{Binding ElementName=PART_CheckBox, Path=Foreground}"
+                        Text="{Binding Name}" />
+                </ToggleButton>
+                <ItemsControl
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    MaxHeight="400"
+                    Background="Transparent"
+                    ItemTemplate="{StaticResource UserDataTemplate}"
+                    ItemsSource="{Binding Users}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                    Visibility="{Binding ElementName=PART_ToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" />
+            </Grid>
+        </DataTemplate>
+    </local:PopupWindow.Resources>
+
+    <TabControl
+        Margin="0,8"
+        Padding="20,20,20,19"
+        Background="Transparent"
+        Style="{StaticResource ConfigTabControlStyle}">
+        <TabItem Header="{StaticResource AuthorityManagerText}">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="2" />
+                    <RowDefinition />
+                    <RowDefinition Height="2" />
+                    <RowDefinition Height="80" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid
+                    Grid.ColumnSpan="7"
+                    Margin="24,0,0,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" FontSize="18">
+                            <Run Text="{StaticResource TrackText}" />
+                            <Run Text=": " />
+                        </TextBlock>
+                        <ComboBox
+                            x:Name="TrackComboBox"
+                            Width="240"
+                            Height="32"
+                            Margin="10,0,0,0"
+                            helper:CornerRadiusHelper.CornerRadius="5"
+                            Background="#10243F"
+                            BorderBrush="#1F3E66"
+                            BorderThickness="1"
+                            DisplayMemberPath="Name"
+                            FontSize="16"
+                            Foreground="#8FCFFA"
+                            ItemsSource="{Binding Tracks}"
+                            SelectedValue="{Binding CurrentTrack}"
+                            SelectionChanged="TrackComboBoxSelectionChanged" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="40,0,0,0"
+                        Orientation="Horizontal"
+                        Visibility="{Binding ElementName=PositionComboBox, Path=Visibility}">
+                        <TextBlock VerticalAlignment="Center" FontSize="18">
+                            <Run Text="{StaticResource PositionText}" />
+                            <Run Text=": " />
+                        </TextBlock>
+                        <ComboBox
+                            x:Name="PositionComboBox"
+                            Width="240"
+                            Height="32"
+                            Margin="10,0,0,0"
+                            helper:CornerRadiusHelper.CornerRadius="5"
+                            Background="#10243F"
+                            BorderBrush="#1F3E66"
+                            BorderThickness="1"
+                            DisplayMemberPath="Name"
+                            FontSize="16"
+                            Foreground="#8FCFFA"
+                            SelectedValue="{Binding CurrentPosition}"
+                            Visibility="Visible" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="2"
+                        Margin="0,0,25,0"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <CheckBox
+                            x:Name="chkInspect"
+                            Background="#10243F"
+                            BorderBrush="#1F3E66"
+                            Command="{Binding InspectCommand}"
+                            Foreground="#8FCFFA"
+                            IsChecked="{Binding IsInspect}">
+                            <CheckBox.Content>
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="18"
+                                    Foreground="White">
+                                    <Run Text="巡检特权" />
+                                </TextBlock>
+                            </CheckBox.Content>
+                        </CheckBox>
+
+                    </StackPanel>
+
+
+                </Grid>
+
+                <Border
+                    Grid.Row="1"
+                    Grid.ColumnSpan="7"
+                    Background="#0C313D" />
+                <Border
+                    Grid.Row="2"
+                    Margin="20"
+                    Background="#0C101A"
+                    BorderBrush="#1F3E66"
+                    BorderThickness="1"
+                    CornerRadius="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition MaxHeight="540" />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Height="50"
+                            VerticalAlignment="Top"
+                            Background="#082034"
+                            CornerRadius="5 5 0 0">
+                            <StackPanel
+                                Margin="10"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Rectangle
+                                    Width="2"
+                                    Height="16"
+                                    Fill="#80FFFF" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Text="{StaticResource IssuedOperatorText}" />
+                            </StackPanel>
+                        </Border>
+                        <ItemsControl
+                            Grid.Row="1"
+                            Margin="10"
+                            ItemTemplate="{StaticResource GroupDataTemplate}"
+                            ItemsSource="{Binding IssuedOperators}"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                    </Grid>
+                </Border>
+                <Border
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Margin="20"
+                    Background="#0C101A"
+                    BorderBrush="#1F3E66"
+                    BorderThickness="1"
+                    CornerRadius="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition MaxHeight="540" />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Height="50"
+                            VerticalAlignment="Top"
+                            Background="#082034"
+                            CornerRadius="5 5 0 0">
+                            <StackPanel
+                                Margin="10"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Rectangle
+                                    Width="2"
+                                    Height="16"
+                                    Fill="#80FFFF" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Text="{StaticResource IssueOperatorText}" />
+                            </StackPanel>
+                        </Border>
+                        <ItemsControl
+                            Grid.Row="1"
+                            Margin="10"
+                            ItemTemplate="{StaticResource GroupDataTemplate}"
+                            ItemsSource="{Binding UnIssueOperators}"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                    </Grid>
+                </Border>
+                <Border
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Background="#0C313D" />
+
+                <Border
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    Margin="20"
+                    Background="#0C101A"
+                    BorderBrush="#1F3E66"
+                    BorderThickness="1"
+                    CornerRadius="5"
+                    IsEnabled="{Binding IsInspect, Converter={StaticResource ReverseBoolConverter}}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition MaxHeight="540" />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Height="50"
+                            VerticalAlignment="Top"
+                            Background="#082034"
+                            CornerRadius="5 5 0 0">
+                            <StackPanel
+                                Margin="10"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Rectangle
+                                    Width="2"
+                                    Height="16"
+                                    Fill="#80FFFF" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Text="{StaticResource IssuedWorkerText}" />
+                            </StackPanel>
+                        </Border>
+                        <ItemsControl
+                            Grid.Row="1"
+                            Margin="10"
+                            ItemTemplate="{StaticResource GroupDataTemplate}"
+                            ItemsSource="{Binding IssuedWorkers}"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                    </Grid>
+                </Border>
+                <Border
+                    Grid.Row="2"
+                    Grid.Column="6"
+                    Margin="20"
+                    Background="#0C101A"
+                    BorderBrush="#1F3E66"
+                    BorderThickness="1"
+                    CornerRadius="5"
+                    IsEnabled="{Binding IsInspect, Converter={StaticResource ReverseBoolConverter}}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition MaxHeight="540" />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Height="50"
+                            VerticalAlignment="Top"
+                            Background="#082034"
+                            CornerRadius="5 5 0 0">
+                            <StackPanel
+                                Margin="10"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Rectangle
+                                    Width="2"
+                                    Height="16"
+                                    Fill="#80FFFF" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Text="{StaticResource IssueWorkerText}" />
+                            </StackPanel>
+                        </Border>
+                        <ItemsControl
+                            Grid.Row="1"
+                            Margin="10"
+                            ItemTemplate="{StaticResource GroupDataTemplate}"
+                            ItemsSource="{Binding UnIssueWorkers}"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                    </Grid>
+                </Border>
+
+                <Border
+                    Grid.Row="3"
+                    Grid.ColumnSpan="7"
+                    Background="#0C313D" />
+                <StackPanel
+                    Grid.Row="4"
+                    Grid.ColumnSpan="7"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="160"
+                        Height="40"
+                        helper:ButtonHelper.Icon="{StaticResource IssueIcon}"
+                        helper:ViewBoxHelper.Height="24"
+                        helper:ViewBoxHelper.Width="26"
+                        Command="{Binding IssueUsersCommand}"
+                        Content="{StaticResource IssueText}"
+                        FontSize="16"
+                        Style="{StaticResource IconButtonStyle}" />
+                    <Button
+                        Width="160"
+                        Height="40"
+                        Margin="30,0,0,0"
+                        helper:ButtonHelper.Icon="{StaticResource RevokeIcon}"
+                        helper:ViewBoxHelper.Height="22"
+                        helper:ViewBoxHelper.Width="36"
+                        Command="{Binding RevokeUsersCommand}"
+                        Content="{StaticResource RevokeText}"
+                        FontSize="16"
+                        Style="{StaticResource IconButtonStyle}" />
+                </StackPanel>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</local:PopupWindow>

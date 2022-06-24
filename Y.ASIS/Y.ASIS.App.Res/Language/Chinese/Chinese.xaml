@@ -1,0 +1,190 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--#region common-->
+    <sys:String x:Key="CancelText" options:Freeze="True">取消</sys:String>
+    <sys:String x:Key="HandleText" options:Freeze="True">处理</sys:String>
+    <!--#endregion-->
+
+    <!--#region login-->
+    <sys:String x:Key="LoginText" options:Freeze="True">登录</sys:String>
+    <sys:String x:Key="WelcomeText" options:Freeze="True">欢迎登录</sys:String>
+    <sys:String x:Key="InputUsernameText" options:Freeze="True">请输入用户名</sys:String>
+    <sys:String x:Key="InputPasswordText" options:Freeze="True">请输入密码</sys:String>
+    <!--#endregion-->
+
+    <!--#region main-->
+    <sys:String x:Key="MainTitleText" options:Freeze="True">国铁安全联锁监控系统</sys:String>
+    <sys:String x:Key="CurrentUserText" options:Freeze="True">当前用户：</sys:String>
+    <sys:String x:Key="EnterDepotText" options:Freeze="True">入库</sys:String>
+    <sys:String x:Key="LeaveDepotText" options:Freeze="True">出库</sys:String>
+    <sys:String x:Key="AdjustTrainText" options:Freeze="True">调车</sys:String>
+    <sys:String x:Key="ResetText" options:Freeze="True">复位</sys:String>
+    <sys:String x:Key="EnterOrLeaveDepotWarningText" options:Freeze="True">进/出库警示</sys:String>
+    <sys:String x:Key="ConfigText" options:Freeze="True">配置</sys:String>
+    <sys:String x:Key="AuthorityManagerText" options:Freeze="True">权限管理</sys:String>
+    <sys:String x:Key="IssuedAuthorityText" options:Freeze="True">权限下发</sys:String>
+    <sys:String x:Key="RevokeAuthorityText" options:Freeze="True">权限回收</sys:String>
+    <sys:String x:Key="QueryText" options:Freeze="True">查询</sys:String>
+    <sys:String x:Key="InputText" options:Freeze="True">请输入</sys:String>
+    <sys:String x:Key="ReturnText" options:Freeze="True">返回</sys:String>
+    <sys:String x:Key="WarningMessageText" options:Freeze="True">故障/报警提示</sys:String>
+    <sys:String x:Key="DepotText" options:Freeze="True">检修库</sys:String>
+    <sys:String x:Key="TitleText" options:Freeze="True">检修作业安全联锁系统</sys:String>
+    <sys:String x:Key="LinkText" options:Freeze="True">重联</sys:String>
+    <sys:String x:Key="PositionDisconnectedText" options:Freeze="True">通信异常，请检查设备连接...</sys:String>
+    <sys:String x:Key="ServerConnectedText" options:Freeze="True">联锁服务</sys:String>
+    <sys:String x:Key="PLCConnectedText" options:Freeze="True">PLC</sys:String>
+    <sys:String x:Key="SwitchConnectedText" options:Freeze="True">切换板卡</sys:String>
+    <sys:String x:Key="AlgorithmConnectedText" options:Freeze="True">算法服务</sys:String>
+    <!--#endregion-->
+
+    <!--#region position-->
+    <sys:String x:Key="AllowOpeningText" options:Freeze="True">允许分闸</sys:String>
+    <sys:String x:Key="RefuseOpeningText" options:Freeze="True">拒绝分闸</sys:String>
+    <sys:String x:Key="AllowClosingText" options:Freeze="True">允许合闸</sys:String>
+    <sys:String x:Key="RefuseClosingText" options:Freeze="True">拒绝合闸</sys:String>
+
+    <sys:String x:Key="OpeningWarningText" options:Freeze="True">分闸警示</sys:String>
+    <sys:String x:Key="OpeningText" options:Freeze="True">分闸</sys:String>
+    <sys:String x:Key="CheckElecText" options:Freeze="True">验电</sys:String>
+    <sys:String x:Key="GroundingText" options:Freeze="True">接地</sys:String>
+
+    <sys:String x:Key="EvacuatedWarningText" options:Freeze="True">撤离警示</sys:String>
+    <sys:String x:Key="RemoveGroundingText" options:Freeze="True">撤接地</sys:String>
+    <sys:String x:Key="RemoveCheckElecText" options:Freeze="True">撤验电</sys:String>
+    <sys:String x:Key="ClosingWarningText" options:Freeze="True">合闸警示</sys:String>
+    <sys:String x:Key="ClosingText" options:Freeze="True">合闸</sys:String>
+
+    <sys:String x:Key="ResetPositionText" options:Freeze="True">人数清零</sys:String>
+
+    <sys:String x:Key="SafeConfirmText" options:Freeze="True">安全确认</sys:String>
+    <sys:String x:Key="HasConfirmText" options:Freeze="True">已确认</sys:String>
+    <sys:String x:Key="ConfirmItemText" options:Freeze="True">确认项</sys:String>
+    <sys:String x:Key="RecognizeResultText" options:Freeze="True">图像识别结果</sys:String>
+    <sys:String x:Key="SafeConfirmHintText" options:Freeze="True">已人工确认, 可执行下一步操作</sys:String>
+    <sys:String x:Key="ConnectStatusText" options:Freeze="True">通讯状态</sys:String>
+    <sys:String x:Key="OptionMessageText" options:Freeze="True">操作记录</sys:String>
+    <sys:String x:Key="WorkerText" options:Freeze="True">作业人员</sys:String>
+    <sys:String x:Key="IssuedWorkerText" options:Freeze="True">已下发-作业人员</sys:String>
+    <sys:String x:Key="IssuedOperatorText" options:Freeze="True">已下发-操作人员</sys:String>
+    <sys:String x:Key="IssueWorkerText" options:Freeze="True">新增-作业人员</sys:String>
+    <sys:String x:Key="IssueOperatorText" options:Freeze="True">新增-操作人员</sys:String>
+    <sys:String x:Key="CommunicationStatusText" options:Freeze="True">通讯状态</sys:String>
+    <!--#endregion-->
+
+    <!--  region query  -->
+    <sys:String x:Key="QueryPersonRecordText" options:Freeze="True">人员记录</sys:String>
+    <sys:String x:Key="QueryToolRecordText" options:Freeze="True">工具记录</sys:String>
+    <sys:String x:Key="QueryErrorRecordText" options:Freeze="True">故障/报警记录</sys:String>
+    <sys:String x:Key="QueryOperationRecordText" options:Freeze="True">操作记录</sys:String>
+    <sys:String x:Key="QueryTrainNumberRecordText" options:Freeze="True">车号记录</sys:String>
+    <!--#endregion-->
+
+    <!--#region manager-->
+    <sys:String x:Key="InterfaceManagerText" options:Freeze="True">接口配置</sys:String>
+    <sys:String x:Key="RoleManagerText" options:Freeze="True">角色配置</sys:String>
+    <sys:String x:Key="UserManagerText" options:Freeze="True">人员配置</sys:String>
+    <sys:String x:Key="TrackManagerText" options:Freeze="True">股道配置</sys:String>
+    <sys:String x:Key="TitleManagerText" options:Freeze="True">标题配置</sys:String>
+    <sys:String x:Key="DeviceManagerText" options:Freeze="True">设备类型</sys:String>
+    <sys:String x:Key="MessageManagerText" options:Freeze="True">消息类型</sys:String>
+    <sys:String x:Key="AddText" options:Freeze="True">新增</sys:String>
+    <sys:String x:Key="EditText" options:Freeze="True">编辑</sys:String>
+    <sys:String x:Key="DeleteText" options:Freeze="True">删除</sys:String>
+
+
+    <sys:String x:Key="IndexText" options:Freeze="True">序号</sys:String>
+    <sys:String x:Key="RoleNameText" options:Freeze="True">角色名称</sys:String>
+    <sys:String x:Key="AuthText" options:Freeze="True">权限</sys:String>
+    <sys:String x:Key="DescribeText" options:Freeze="True">说明</sys:String>
+    <sys:String x:Key="AddRoleText" options:Freeze="True">新增角色</sys:String>
+    <sys:String x:Key="EditRoleText" options:Freeze="True">编辑角色</sys:String>
+    <sys:String x:Key="InputRoleNameText" options:Freeze="True">请输入角色名称</sys:String>
+
+    <sys:String x:Key="InterfaceNameText" options:Freeze="True">接口名称</sys:String>
+    <sys:String x:Key="InterfaceStateText" options:Freeze="True">接口状态</sys:String>
+    <sys:String x:Key="AuthKeyText" options:Freeze="True">通信密钥</sys:String>
+    <sys:String x:Key="EnableText" options:Freeze="True">启用</sys:String>
+    <sys:String x:Key="IsEnableText" options:Freeze="True">是否启用</sys:String>
+    <sys:String x:Key="DisableText" options:Freeze="True">禁用</sys:String>
+    <sys:String x:Key="PushAddressText" options:Freeze="True">推送地址</sys:String>
+    <sys:String x:Key="AddInterfaceText" options:Freeze="True">新增接口</sys:String>
+    <sys:String x:Key="EditInterfaceText" options:Freeze="True">编辑接口</sys:String>
+    <sys:String x:Key="InputInterfaceNameText" options:Freeze="True">请输入接口名称</sys:String>
+    <sys:String x:Key="InputInterfacePushAddressText" options:Freeze="True">请输入信息推送地址</sys:String>
+    <sys:String x:Key="GenerateText" options:Freeze="True">生成</sys:String>
+
+    <sys:String x:Key="WorkNoText" options:Freeze="True">工号</sys:String>
+    <sys:String x:Key="InputWorkNoText" options:Freeze="True">请输入工号</sys:String>
+    <sys:String x:Key="CardNoText" options:Freeze="True">卡号</sys:String>
+    <sys:String x:Key="InputCardNoText" options:Freeze="True">请录入卡号</sys:String>
+    <sys:String x:Key="AccountNameText" options:Freeze="True">用户名</sys:String>
+    <sys:String x:Key="InputAccountNameText" options:Freeze="True">请输入用户名</sys:String>
+    <sys:String x:Key="NameText" options:Freeze="True">姓名</sys:String>
+    <sys:String x:Key="InputNameText" options:Freeze="True">请输入姓名</sys:String>
+    <sys:String x:Key="RoleText" options:Freeze="True">角色</sys:String>
+    <sys:String x:Key="PhotoText" options:Freeze="True">照片</sys:String>
+    <sys:String x:Key="AddUserText" options:Freeze="True">新增人员</sys:String>
+    <sys:String x:Key="EditUserText" options:Freeze="True">编辑人员</sys:String>
+    <sys:String x:Key="ReadText" options:Freeze="True">读取</sys:String>
+    <sys:String x:Key="RecordingText" options:Freeze="True">录入</sys:String>
+    <sys:String x:Key="RecordPhotoText" options:Freeze="True">录入照片</sys:String>
+    <sys:String x:Key="ReRecordingText" options:Freeze="True">重新录入</sys:String>
+    <sys:String x:Key="UploadText" options:Freeze="True">上传</sys:String>
+    <sys:String x:Key="PasswordText" options:Freeze="True">密码</sys:String>
+    <sys:String x:Key="ComfirmPasswordText" options:Freeze="True">确认密码</sys:String>
+    <sys:String x:Key="InputComfirmPasswordText" options:Freeze="True">请输入确认密码</sys:String>
+    <sys:String x:Key="LookUpText" options:Freeze="True">查看</sys:String>
+    <sys:String x:Key="LookUpPhotoText" options:Freeze="True">查看照片</sys:String>
+
+    <sys:String x:Key="ResourceKeyText" options:Freeze="True">键名</sys:String>
+    <sys:String x:Key="TitleContentText" options:Freeze="True">标题内容</sys:String>
+    <sys:String x:Key="TitleEditText" options:Freeze="True">标题编辑</sys:String>
+    <sys:String x:Key="InputTitleContentText" options:Freeze="True">请输入标题内容</sys:String>
+
+    <sys:String x:Key="InputDescribeText" options:Freeze="True">请输入说明信息</sys:String>
+    <sys:String x:Key="ConfirmText" options:Freeze="True">确认</sys:String>
+    <sys:String x:Key="AllSelectText" options:Freeze="True">全选</sys:String>
+
+    <sys:String x:Key="TrackText" options:Freeze="True">股道</sys:String>
+    <sys:String x:Key="PositionText" options:Freeze="True">列位</sys:String>
+
+    <sys:String x:Key="IssueText" options:Freeze="True">下发权限</sys:String>
+    <sys:String x:Key="RevokeText" options:Freeze="True">撤销权限</sys:String>
+
+    <!--#region position operation-->
+
+    <sys:String x:Key="Position_Connection_True" options:Freeze="True">列位通信恢复</sys:String>
+    <sys:String x:Key="Position_Connection_False" options:Freeze="True">列位通信断开，请检查连接...</sys:String>
+
+    <sys:String x:Key="PositionOperation_Isolation_0" options:Freeze="True">隔离开关初始化中</sys:String>
+    <sys:String x:Key="PositionOperation_Isolation_1" options:Freeze="True">隔离开关 合闸状态</sys:String>
+    <sys:String x:Key="PositionOperation_Isolation_2" options:Freeze="True">隔离开关 分闸状态</sys:String>
+    <sys:String x:Key="PositionOperation_Isolation_3" options:Freeze="True">隔离开关 合闸中...</sys:String>
+    <sys:String x:Key="PositionOperation_Isolation_4" options:Freeze="True">隔离开关 分闸中...</sys:String>
+    <sys:String x:Key="PositionOperation_Isolation_10" options:Freeze="True">隔离开关 故障</sys:String>
+
+    <sys:String x:Key="PositionOperation_ElecResult_1" options:Freeze="True">验电有电</sys:String>
+    <sys:String x:Key="PositionOperation_ElecResult_2" options:Freeze="True">验电无电</sys:String>
+
+    <sys:String x:Key="PositionOperation_Grounding_1_0" options:Freeze="True">接地装置初始化中</sys:String>
+    <sys:String x:Key="PositionOperation_Grounding_1_1" options:Freeze="True">接地装置 接地状态</sys:String>
+    <sys:String x:Key="PositionOperation_Grounding_1_2" options:Freeze="True">接地装置 撤接地状态</sys:String>
+    <sys:String x:Key="PositionOperation_Grounding_1_3" options:Freeze="True">接地装置 挂接地中...</sys:String>
+    <sys:String x:Key="PositionOperation_Grounding_1_4" options:Freeze="True">接地装置 撤接地中...</sys:String>
+    <sys:String x:Key="PositionOperation_Grounding_1_10" options:Freeze="True">接地装置 故障</sys:String>
+
+
+    <sys:String x:Key="PositionOperation_Grounding_2_0" options:Freeze="True">接地装置[{0}]初始化中</sys:String>
+    <sys:String x:Key="PositionOperation_Grounding_2_1" options:Freeze="True">接地装置[{0}] 接地状态</sys:String>
+    <sys:String x:Key="PositionOperation_Grounding_2_2" options:Freeze="True">接地装置[{0}] 撤接地状态</sys:String>
+    <sys:String x:Key="PositionOperation_Grounding_2_3" options:Freeze="True">接地装置[{0}] 挂接地中...</sys:String>
+    <sys:String x:Key="PositionOperation_Grounding_2_4" options:Freeze="True">接地装置[{0}] 撤接地中...</sys:String>
+    <sys:String x:Key="PositionOperation_Grounding_2_10" options:Freeze="True">接地装置[{0}] 故障</sys:String>
+    <!--#endregion-->
+
+    <!--#endregion-->
+</ResourceDictionary>

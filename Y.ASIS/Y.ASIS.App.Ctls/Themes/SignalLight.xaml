@@ -1,0 +1,90 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ctls="clr-namespace:Y.ASIS.App.Ctls.Controls"
+                    xmlns:cvt="clr-namespace:Y.ASIS.App.Ctls.Converters"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/Style/Styles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
+    <sys:String x:Key="AllowText" options:Freeze="True">允许</sys:String>
+    <sys:String x:Key="FobidText" options:Freeze="True">禁止</sys:String>
+
+    <cvt:BrushToColorConverter x:Key="BrushToColor" />
+
+    <Style TargetType="{x:Type ctls:SignalLight}">
+        <Setter Property="Width" Value="40" />
+        <Setter Property="Height" Value="90" />
+        <Setter Property="LightSize" Value="30" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ctls:SignalLight}">
+                    <Border x:Name="PART_Bd"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            BorderThickness="1"
+                            BorderBrush="#CFCAEE"
+                            Background="Black">
+                        <Border.ContextMenu>
+                            <ContextMenu Style="{StaticResource DefaultContextMenuStyle}">
+                                <MenuItem Header="{StaticResource AllowText}"
+                                          Margin="0 0 0 2"
+                                          Style="{StaticResource DefaultMenuItemStyle}"
+                                          IsEnabled="{TemplateBinding EnableAllow}"
+                                          Command="{TemplateBinding Command}"
+                                          CommandParameter="{TemplateBinding AllowCommandParameter}"/>
+                                <MenuItem Header="{StaticResource FobidText}"
+                                          Style="{StaticResource DefaultMenuItemStyle}"
+                                          IsEnabled="{TemplateBinding EnableForbid}"
+                                          Command="{TemplateBinding Command}"
+                                          CommandParameter="{TemplateBinding ForbidCommandParameter}"/>
+                            </ContextMenu>
+                        </Border.ContextMenu>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Ellipse x:Name="Top" 
+                                     Fill="#766C6C"
+                                     Width="{TemplateBinding LightSize}"
+                                     Height="{TemplateBinding LightSize}"
+                                     StrokeThickness="0"
+                                     Stroke="Transparent">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect ShadowDepth="0"
+                                                      Color="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Ellipse,AncestorLevel=1},Converter={StaticResource BrushToColor}, Path=Fill}"/>
+                                </Ellipse.Effect>
+                            </Ellipse>
+                            <Ellipse x:Name="Bottom" 
+                                     Grid.Row="1"
+                                     Fill="#766C6C"
+                                     Width="{TemplateBinding LightSize}"
+                                     Height="{TemplateBinding LightSize}">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect ShadowDepth="0"
+                                                      Color="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Ellipse,AncestorLevel=1},Converter={StaticResource BrushToColor}, Path=Fill}"/>
+                                </Ellipse.Effect>
+                            </Ellipse>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="State" Value="White">
+                            <Setter TargetName="Top" Property="Fill" Value="#766C6C" />
+                            <Setter TargetName="Bottom" Property="Fill" Value="#FFFFFF" />
+                        </Trigger>
+                        <Trigger Property="State" Value="Red">
+                            <Setter TargetName="Top" Property="Fill" Value="#FF0000" />
+                            <Setter TargetName="Bottom" Property="Fill" Value="#766C6C" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

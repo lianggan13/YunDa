@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Res;component/Color/Color.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Res;component/Font/Font.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Res;component/Icon/Icon.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Res;component/Image/Image.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Res;component/Language/Language.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Res;component/Style/Style.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+ 
+</ResourceDictionary>

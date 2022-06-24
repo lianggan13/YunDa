@@ -1,0 +1,133 @@
+﻿<local:PopupWindow
+    x:Class="Y.ASIS.App.Windows.SafeConfirmWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctls="clr-namespace:Y.ASIS.App.Ctls.Controls;assembly=Y.ASIS.App.Ctls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Y.ASIS.App.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Y.ASIS.App.ViewModels"
+    Title="{Binding Position.SafeConfirm.Name}"
+    Width="600"
+    Height="400"
+    Loaded="SafeConfirmWindow_Loaded"
+    d:DataContext="{d:DesignInstance Type=vm:SafeConfirmViewModel}"
+    AllowsTransparency="True"
+    Style="{StaticResource SmallPopupWindowStyle}"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <local:PopupWindow.DataContext>
+        <vm:SafeConfirmViewModel x:Name="vm" />
+    </local:PopupWindow.DataContext>
+
+    <Grid Margin="20">
+        <Grid Visibility="{Binding Path=Run, ElementName=loadingWait, Converter={StaticResource BoolToVisibilityIsTrueToCollapsed}}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="80" />
+            </Grid.RowDefinitions>
+
+            <ListView
+                Background="Transparent"
+                FontSize="14"
+                ItemsSource="{Binding Position.SafeConfirm.Conditions}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="180" Header="{StaticResource ConfirmItemText}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter, AncestorLevel=1}, Path=ActualWidth}"
+                                        Text="{Binding Text}"
+                                        TextAlignment="Center" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="180" Header="{StaticResource RecognizeResultText}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter, AncestorLevel=1}, Path=ActualWidth}" TextAlignment="Center">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
+                                                <Setter Property="FontSize" Value="20" />
+                                                <Setter Property="Text" Value="&#xf00d;" />
+                                                <Setter Property="Foreground" Value="Red" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=IsSafe, TargetNullValue=False}" Value="True">
+                                                        <Setter Property="Text" Value="&#xf00c;" />
+                                                        <Setter Property="Foreground" Value="Green" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="140" Header="{StaticResource PhotoText}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button
+                                        MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter, AncestorLevel=1}, Path=ActualWidth}"
+                                        HorizontalAlignment="Center"
+                                        HorizontalContentAlignment="Center"
+                                        Command="{Binding DataContext.LookUpPhotoCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"
+                                        CommandParameter="{Binding}"
+                                        Content="查看"
+                                        Style="{StaticResource TextButtonStyle}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <StackPanel
+                Grid.Row="1"
+                x:Name="spTxt"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding ManualConfirm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Foreground="Gray"
+                    Text="{StaticResource SafeConfirmHintText}" />
+            </StackPanel>
+            <StackPanel
+                x:Name="spBtn"
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Command="{Binding PositionConfirmCommand}"
+                    Content="{StaticResource HasConfirmText}"
+                    FontSize="16" />
+            </StackPanel>
+        </Grid>
+
+        <StackPanel
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            Visibility="{Binding Path=Run, ElementName=loadingWait, Converter={StaticResource BoolToVisibility}}">
+            <ctls:LoadingWait
+                x:Name="loadingWait"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Radius="60"
+                Run="{Binding IsLoading}" />
+            <TextBlock
+                Margin="0,10,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="19"
+                Foreground="#3DB4CC"
+                Text="正在识别..." />
+        </StackPanel>
+    </Grid>
+</local:PopupWindow>

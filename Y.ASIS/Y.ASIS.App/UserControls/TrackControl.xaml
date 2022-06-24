@@ -1,0 +1,84 @@
+﻿<UserControl
+    x:Class="Y.ASIS.App.UserControls.TrackControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctls="http://www.yd-tec.com/winfx/xaml/shared"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helper="http://www.yd-tec.com/winfx/xaml/helper"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:Y.ASIS.App.Models"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:uc="clr-namespace:Y.ASIS.App.UserControls"
+    Width="1405"
+    Height="100"
+    d:DataContext="{d:DesignInstance Type=model:Track}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ctls:BoolToBrushConverter x:Key="BoolToBrush">
+            <ctls:BoolToBrushConverter.TrueBrush>
+                <SolidColorBrush Color="#02DAFF" />
+            </ctls:BoolToBrushConverter.TrueBrush>
+            <ctls:BoolToBrushConverter.FalseBrush>
+                <SolidColorBrush Color="#99AFCC" />
+            </ctls:BoolToBrushConverter.FalseBrush>
+        </ctls:BoolToBrushConverter>
+
+        <DataTemplate x:Key="TrackDataTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="45" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="1287" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}, Path=IsSelected, Converter={StaticResource BoolToBrush}}">
+                    <Run Text="L-" />
+                    <Run Text="{Binding No}" />
+                </TextBlock>
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Background="#142842" />
+                <StackPanel
+                    x:Name="IsLinkedPanel"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Visibility="Collapsed">
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        FontSize="18"
+                        Foreground="White"
+                        Text="{StaticResource LinkText}" />
+                    <CheckBox
+                        Background="Transparent"
+                        Foreground="#02DAFF"
+                        IsChecked="{Binding IsLinked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource NonContentCheckBoxStyle}" />
+                </StackPanel>
+                <uc:PositionControl
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    DataContext="{Binding}" />
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Type}" Value="TPPTT">
+                    <Setter TargetName="IsLinkedPanel" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ContentControl Content="{Binding}" ContentTemplate="{StaticResource TrackDataTemplate}" />
+</UserControl>

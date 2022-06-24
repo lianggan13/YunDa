@@ -1,0 +1,32 @@
+﻿<local:PopupWindow x:Class="Y.ASIS.App.Windows.ConfigWindow"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:uc="clr-namespace:Y.ASIS.App.UserControls"
+                   xmlns:local="clr-namespace:Y.ASIS.App.Windows"
+                   Style="{StaticResource ConfigPopupWindowStyle}"
+                   AllowsTransparency="True"
+                   WindowStyle="None"
+                   WindowStartupLocation="CenterOwner"
+                   Title="配置">
+    <TabControl Style="{StaticResource ConfigTabControlStyle}"
+                Background="Transparent"
+                Padding="20 20 20 19"
+                Margin="0 8"
+                TabControl.SelectionChanged="OnTabItemSelectionChanged">
+        <TabItem Header="角色管理"
+                 Tag="RefreshRoles">
+            <uc:ConfigRoleControl DataContext="{Binding}"/>
+        </TabItem>
+        <TabItem Header="班组管理"
+                 Tag="RefreshUserGroups">
+            <uc:ConfigUserGroupControl DataContext="{Binding}"/>
+        </TabItem>
+        <TabItem Header="人员管理"
+                 Tag="RefreshUsers">
+            <uc:ConfigUserControl DataContext="{Binding}"/>
+        </TabItem>
+        <TabItem Header="标题管理">
+            <uc:ConfigTitleControl DataContext="{Binding}"/>
+        </TabItem>
+    </TabControl>
+</local:PopupWindow>

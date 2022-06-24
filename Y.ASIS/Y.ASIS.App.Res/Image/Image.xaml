@@ -1,0 +1,137 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:opt="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+    <!--#region background-->
+    <BitmapImage
+        x:Key="LoginBackgroundImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Background/LoginBackgroundImage.png" />
+    <BitmapImage
+        x:Key="HeaderBackgroundImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Background/HeaderBackgroundImage.png" />
+    <!--#endregion-->
+
+    <!--#region border-->
+
+    <BitmapImage
+        x:Key="TrainDepotBorderImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Border/TrainDepotBorderImage.png" />
+    <BitmapImage
+        x:Key="TrackMessageBorderImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Border/TrackMessageBorderImage.png" />
+    <BitmapImage
+        x:Key="PositionBorderImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Border/PositionBorderImage.png" />
+    <BitmapImage
+        x:Key="TrackDetailsMessageBorderImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Border/TrackDetailsMessageBorderImage.png" />
+    <BitmapImage
+        x:Key="TrackDetailsWorkerBorderImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Border/TrackDetailsWorkerBorderImage.png" />
+    <BitmapImage
+        x:Key="TrackDetailsVideoBorderImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Border/TrackDetailsVideoBorderImage.png" />
+    <BitmapImage
+        x:Key="TrackDeviceStatusBorderImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Border/TrackDeviceStatusBorderImage.png" />
+    <BitmapImage
+        x:Key="PopupContainerBorderImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Border/PopupContainerBorderImage.png" />
+    <!--#endregion-->
+
+    <!--#region track-->
+    <BitmapImage
+        x:Key="Track500x20Image"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Track/Track500x20Image.png" />
+    <BitmapImage
+        x:Key="Track1063x20Image"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Track/Track1063x20Image.png" />
+    <BitmapImage
+        x:Key="Track574x14Image"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Track/Track574x14Image.png" />
+    <BitmapImage
+        x:Key="Track1238x14Image"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Track/Track1238x14Image.png" />
+    <!--#endregion-->
+
+    <!--#region train-->
+    <BitmapImage
+        x:Key="Train336x20Image"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Train/Train336x20Image.png" />
+    <BitmapImage
+        x:Key="Train526x20Image"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Train/Train526x20Image.png" />
+    <BitmapImage
+        x:Key="Train651x80Image"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Train/Train651x80Image.png" />
+    <BitmapImage
+        x:Key="Train348x43Image"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Train/Train348x43Image.png" />
+
+    <BitmapImage
+        x:Key="Train336x20Image_Gray"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Train/Train336x20Image_Gray.png" />
+    <BitmapImage
+        x:Key="Train526x20Image_Gray"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Train/Train526x20Image_Gray.png" />
+    <BitmapImage
+        x:Key="Train651x80Image_Gray"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Train/Train651x80Image_Gray.png" />
+    <BitmapImage
+        x:Key="Train348x43Image_Gray"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Train/Train348x43Image_Gray.png" />
+    <!--#endregion-->
+
+    <!--#region other-->
+    <BitmapImage
+        x:Key="PortraitImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Other/PortraitImage.png" />
+    <BitmapImage
+        x:Key="VideoPlaceHolderImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Other/VideoPlaceHolderImage.png" />
+    <BitmapImage
+        x:Key="GangwayImage"
+        opt:Freeze="true"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Other/PositionGangwayImage.png" />
+    <BitmapImage
+        x:Key="TabItemCheckedImage"
+        opt:Freeze="True"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Other/TabItemCheckedImage.png" />
+    <BitmapImage
+        x:Key="TabItemUncheckImage"
+        opt:Freeze="True"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Other/TabItemUncheckImage.png" />
+    <BitmapImage
+        x:Key="Ganyway116x18Image"
+        opt:Freeze="True"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Other/Ganyway116x18Image.png" />
+    <BitmapImage
+        x:Key="Ganyway160x26Image"
+        opt:Freeze="True"
+        UriSource="pack://application:,,,/Y.ASIS.App.Res;component/Image/Other/Ganyway160x26Image.png" />
+    <!--#endregion-->
+</ResourceDictionary>

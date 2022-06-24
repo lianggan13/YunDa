@@ -1,0 +1,23 @@
+﻿<local:PopupWindow
+    x:Class="Y.ASIS.App.Windows.ViewVideoWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cc="clr-namespace:Y.ASIS.App.Controls"
+    xmlns:local="clr-namespace:Y.ASIS.App.Windows"
+    Title="实时视频"
+    AllowsTransparency="False"
+    MouseDown="Window_MouseDown"
+    Style="{StaticResource SmallPopupWindowStyle}"
+    WindowStartupLocation="CenterOwner"
+    WindowState="Maximized"
+    WindowStyle="None">
+    <Grid>
+        <Image
+            x:Name="VideoBlock"
+            Margin="20"
+            Stretch="Fill" />
+        <cc:HwndRender x:Name="render" Visibility="Collapsed"  />
+    </Grid>
+
+
+</local:PopupWindow>

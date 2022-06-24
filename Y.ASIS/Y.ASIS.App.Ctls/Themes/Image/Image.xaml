@@ -1,0 +1,29 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:opt="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+    <BitmapImage
+        x:Key="LeftGateCloseImage"
+        opt:Freeze="True"
+        UriSource="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/Image/LeftGateCloseImage.png" />
+    <BitmapImage
+        x:Key="RightGateCloseImage"
+        opt:Freeze="True"
+        UriSource="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/Image/RightGateCloseImage.png" />
+    <BitmapImage
+        x:Key="GateOpenImage"
+        opt:Freeze="True"
+        UriSource="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/Image/GateOpenImage.png" />
+    <BitmapImage
+        x:Key="LeftGateCloseOfflineImg"
+        opt:Freeze="True"
+        UriSource="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/Image/gate(left)_close_offline.png" />
+    <BitmapImage
+        x:Key="RightGateCloseOfflineImg"
+        opt:Freeze="True"
+        UriSource="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/Image/gate(right)_close_offline.png" />
+    <BitmapImage
+        x:Key="GateOpenOffline"
+        opt:Freeze="True"
+        UriSource="pack://application:,,,/Y.ASIS.App.Ctls;component/Themes/Image/gate_open_offline.png" />
+</ResourceDictionary>

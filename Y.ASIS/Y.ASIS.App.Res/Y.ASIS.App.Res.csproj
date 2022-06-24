@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{191D4A20-D118-4DD8-90EB-9702B36EB946}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>Y.ASIS.App.Res</RootNamespace>
+    <AssemblyName>Y.ASIS.App.Res</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helper\AnimationHelper.cs" />
+    <Compile Include="Helper\ButtonHelper.cs" />
+    <Compile Include="Helper\CornerRadiusHelper.cs" />
+    <Compile Include="Helper\IconHelper.cs" />
+    <Compile Include="Helper\PasswordBoxHelper.cs" />
+    <Compile Include="Helper\ViewBoxHelper.cs" />
+    <Compile Include="Helper\WatermarkHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Resource Include="Font\fontawesome-webfont.ttf" />
+    <Resource Include="Font\iconfont.ttf" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Color\Color.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Font\Font.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Icon\Icon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Image\Image.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Language\Chinese\Chinese.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Language\English\English.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Language\Language.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Style.Path.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Style\Style.Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Style.Calendar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Style.CheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Style.ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Style.ItemsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Style.ListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Style.PasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Style.ScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Style.TabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Style.TextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Style.ToggleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Background\LoginBackgroundImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Other\PortraitImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Border\TrackMessageBorderImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Track\Track1063x20Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Border\PositionBorderImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Other\VideoPlaceHolderImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Border\TrainDepotBorderImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Other\PositionGangwayImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Other\TabItemCheckedImage.png" />
+    <Resource Include="Image\Other\TabItemUncheckImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Border\ManagerBorderImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Background\HeaderBackgroundImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Track\Track500x20Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Train\Train526x20Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Train\Train336x20Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Train\Train651x80Image.png" />
+    <Resource Include="Image\Train\Train348x43Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Border\TrackDeviceStatusBorderImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Border\TrackDetailsMessageBorderImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Border\TrackDetailsWorkerBorderImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Border\TrackDetailsVideoBorderImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Other\Ganyway116x18Image.png" />
+    <Resource Include="Image\Other\Ganyway160x26Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Track\Track1238x14Image.png" />
+    <Resource Include="Image\Track\Track574x14Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Border\PopupContainerBorderImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Train\Train336x20Image_Gray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Train\Train348x43Image_Gray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Train\Train526x20Image_Gray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Train\Train651x80Image_Gray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Background\startup.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,312 @@
+﻿<UserControl
+    x:Class="Y.ASIS.App.UserControls.QueryOperationRecordControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:appcvt="clr-namespace:Y.ASIS.App.Converters"
+    xmlns:helper="http://www.yd-tec.com/winfx/xaml/helper"
+    xmlns:uc="clr-namespace:Y.ASIS.App.UserControls">
+    <UserControl.Resources>
+        <appcvt:DateTimeAdjustConverter x:Key="StartDateAdjust" SubDays="7" />
+        <appcvt:DateTimeAdjustConverter
+            x:Key="EndDateAdjust"
+            AddDays="1"
+            SubSeconds="1" />
+        <appcvt:OperationTypeToTextConverter x:Key="OperationTypeToText" />
+
+        <Style BasedOn="{StaticResource WatermarkTextBoxStyle}" TargetType="{x:Type TextBox}">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="helper:CornerRadiusHelper.CornerRadius" Value="3" />
+            <Setter Property="BorderBrush" Value="#1F3E66" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="#10243F" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="2,0" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1" />
+            <RowDefinition />
+            <RowDefinition Height="41" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="15,10,0,10" Orientation="Horizontal">
+
+            <StackPanel
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="ExtraLight"
+                    Foreground="White">
+                    <Run Text="人员工号" />
+                    <Run Text=":" />
+                </TextBlock>
+                <TextBox
+                    x:Name="UserNoTextBlock"
+                    Width="160"
+                    Foreground="#8FCFFA" />
+                <!--  Text="{Binding Role.no, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />  -->
+            </StackPanel>
+
+            <StackPanel
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="ExtraLight"
+                    Foreground="White">
+                    <Run Text="股道" />
+                    <Run Text=":" />
+                </TextBlock>
+                <ComboBox
+                    x:Name="TrackComboBox"
+                    Width="160"
+                    Height="32"
+                    Background="#10243F"
+                    BorderBrush="#1F3E66"
+                    BorderThickness="1"
+                    DisplayMemberPath="Name"
+                    FontSize="16"
+                    Foreground="#8FCFFA"
+                    ItemsSource="{Binding Tracks}"
+                    SelectedValuePath="Id" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="ExtraLight"
+                    Foreground="White">
+                    <Run Text="操作内容" />
+                    <Run Text=":" />
+                </TextBlock>
+                <ComboBox
+                    x:Name="OperationTypeComboBox"
+                    Width="230"
+                    Height="32"
+                    Background="#10243F"
+                    BorderBrush="#1F3E66"
+                    BorderThickness="1"
+                    DisplayMemberPath="Key"
+                    FontSize="16"
+                    Foreground="#8FCFFA"
+                    ItemsSource="{Binding OperationTypeCode}"
+                    SelectedValuePath="Value" />
+            </StackPanel>
+
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            Margin="15,10,0,10"
+            Orientation="Horizontal">
+            <StackPanel
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="ExtraLight"
+                    Foreground="White">
+                    <Run Text="故障发生时间" />
+                    <Run Text=":" />
+                </TextBlock>
+                <uc:DatePicker
+                    x:Name="StartDate"
+                    Width="180"
+                    Height="32"
+                    Date="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Date, Converter={StaticResource StartDateAdjust}, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
+                    EndDate="{Binding ElementName=EndDate, Path=Date}"
+                    FontSize="16"
+                    Foreground="#8FCFFA" />
+                <Border
+                    Width="12"
+                    Height="1"
+                    Margin="10,0"
+                    Background="#93D4FF" />
+                <uc:DatePicker
+                    x:Name="EndDate"
+                    Width="180"
+                    Height="32"
+                    Date="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Date, Converter={StaticResource EndDateAdjust}, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}"
+                    FontSize="16"
+                    Foreground="#8FCFFA"
+                    StartDate="{Binding ElementName=StartDate, Path=Date}" />
+            </StackPanel>
+
+            <Button
+                Margin="0,0,10,0"
+                helper:ButtonHelper.Icon="{StaticResource QueryIcon}"
+                Click="QueryButtonClick"
+                Content="{StaticResource QueryText}"
+                Style="{StaticResource IconButtonStyle}" />
+        </StackPanel>
+
+        <ListView
+            x:Name="ListViewBlock"
+            Grid.Row="3"
+            Background="Transparent"
+            FontSize="14">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="80" Header="序号">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter, AncestorLevel=1}, Path=ActualWidth}"
+                                    Text="{Binding ViewIndex}"
+                                    TextAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="100" Header="工号">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter, AncestorLevel=1}, Path=ActualWidth}"
+                                    Text="{Binding User.No}"
+                                    TextAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="120" Header="姓名">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter, AncestorLevel=1}, Path=ActualWidth}"
+                                    Text="{Binding User.Name}"
+                                    TextAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="200" Header="班组">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter, AncestorLevel=1}, Path=ActualWidth}"
+                                    Text="{Binding User.UserGroup}"
+                                    TextAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="200" Header="股道">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter, AncestorLevel=1}, Path=ActualWidth}"
+                                    Text="{Binding Track}"
+                                    TextAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="300" Header="操作内容">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter, AncestorLevel=1}, Path=ActualWidth}"
+                                    Text="{Binding OperationCode, Converter={StaticResource OperationTypeToText}}"
+                                    TextAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="240" Header="时间">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    MinWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter, AncestorLevel=1}, Path=ActualWidth}"
+                                    Text="{Binding Time, StringFormat='yyyy-MM-dd HH:mm:ss'}"
+                                    TextAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Border Grid.Row="4">
+            <StackPanel
+                Margin="20,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="2.5,0"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="ExtraLight"
+                    Foreground="#3DB4CC">
+                    <Run Text="共" />
+                    <Run Text="{Binding Total, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}" />
+                    <Run Text="条记录" />
+                </TextBlock>
+                <Button
+                    Width="24"
+                    Height="24"
+                    Margin="5,0"
+                    helper:ButtonHelper.Icon="{StaticResource FirstPageIcon}"
+                    Click="FirstPageButtonClick"
+                    Foreground="#3DB4CC"
+                    Style="{StaticResource OnlyIconButtonStyle}" />
+
+                <Button
+                    Width="24"
+                    Height="24"
+                    Margin="5,0"
+                    helper:ButtonHelper.Icon="{StaticResource PreviousPageIcon}"
+                    Click="PreviousPageButtonClick"
+                    Foreground="#3DB4CC"
+                    Style="{StaticResource OnlyIconButtonStyle}" />
+
+                <TextBlock
+                    Margin="5,0"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="ExtraLight"
+                    Foreground="#3DB4CC"
+                    Text="{Binding Index, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}" />
+
+                <Button
+                    Width="24"
+                    Height="24"
+                    Margin="5,0"
+                    helper:ButtonHelper.Icon="{StaticResource NextPageIcon}"
+                    Click="NextPageButtonClick"
+                    Foreground="#3DB4CC"
+                    Style="{StaticResource OnlyIconButtonStyle}" />
+
+                <Button
+                    Width="24"
+                    Height="24"
+                    Margin="5,0"
+                    helper:ButtonHelper.Icon="{StaticResource LastPageIcon}"
+                    Click="LastPageButtonClick"
+                    Foreground="#3DB4CC"
+                    Style="{StaticResource OnlyIconButtonStyle}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

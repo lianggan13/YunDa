@@ -1,0 +1,658 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1CDA594A-4C28-4959-BB9E-13A9FF08049A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Y.ASIS.App</RootNamespace>
+    <AssemblyName>Y.ASIS.App</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo_colorful.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Emgu.CV.UI, Version=3.4.3.3016, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <HintPath>..\packages\EMGU.CV.3.4.3.3016\lib\net35\Emgu.CV.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.World, Version=3.4.3.3016, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <HintPath>..\packages\EMGU.CV.3.4.3.3016\lib\net35\Emgu.CV.World.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.2.0.0\lib\net452\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Self, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Hosting.Self.2.0.0\lib\net452\Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Y.ASIS.Common\Dlls\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.1.1.2225.0\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.GLControl.1.1.2225.0\lib\net20\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Renderer.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferenceItem\Renderer.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.12.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.12.0\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.113.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.113.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Common\AppCommands.cs" />
+    <Compile Include="Common\AppGlobal.cs" />
+    <Compile Include="Common\AppMessages.cs" />
+    <Compile Include="Common\WindowManager.cs" />
+    <Compile Include="Communication\Algorithm\AlgorithmDetectRequest.cs" />
+    <Compile Include="Communication\Algorithm\AlgorithmVersionRequest.cs" />
+    <Compile Include="Communication\Algorithm\ServiceVersionRequest.cs" />
+    <Compile Include="Communication\Algorithm\AlgorithmHeartRequest.cs" />
+    <Compile Include="Communication\Algorithm\AlgorithmBaseRequest.cs" />
+    <Compile Include="Communication\Api\ApiRequest.cs" />
+    <Compile Include="Communication\Api\AuthRequest.cs" />
+    <Compile Include="Communication\Api\FunctionRequest.cs" />
+    <Compile Include="Communication\Api\ProjectRequest.cs" />
+    <Compile Include="Communication\Api\RoleRequest.cs" />
+    <Compile Include="Communication\Api\UserGroupRequest.cs" />
+    <Compile Include="Communication\Api\UserRequest.cs" />
+    <Compile Include="Communication\Api\WarningRequest.cs" />
+    <Compile Include="Communication\Base\BaseRequest.cs" />
+    <Compile Include="Communication\Api\HeartRequest.cs" />
+    <Compile Include="Communication\Api\LoginRequest.cs" />
+    <Compile Include="Services\AlgorithmService.cs" />
+    <Compile Include="Services\AuthorityService.cs" />
+    <Compile Include="Services\CameraService\HIKCamera.cs" />
+    <Compile Include="Services\CameraService\Camera.cs" />
+    <Compile Include="Services\CameraService\DaHuaCamera.cs" />
+    <Compile Include="Services\CameraService\HIKNVRService.cs" />
+    <Compile Include="Services\NancyService.cs" />
+    <Compile Include="Communication\Api\PositionRequest.cs" />
+    <Compile Include="Communication\Api\TrackRequest.cs" />
+    <Compile Include="Communication\Exception\WebException.cs" />
+    <Compile Include="Communication\Query\QueryRequest.cs" />
+    <Compile Include="Controls\VideoControl.xaml.cs">
+      <DependentUpon>VideoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VideoPanel.xaml.cs">
+      <DependentUpon>VideoPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\BoolReverseConverter.cs" />
+    <Compile Include="Converters\BoolToTextConverter.cs" />
+    <Compile Include="Converters\ContainsIntValueToBoolConverter.cs" />
+    <Compile Include="Converters\ContainsIntValueToVisibilityConverter.cs" />
+    <Compile Include="Converters\DateTimeAdjustConverter.cs" />
+    <Compile Include="Converters\DoubleValueToTextConverter.cs" />
+    <Compile Include="Converters\FaultTypeToTextConverter.cs" />
+    <Compile Include="Converters\GroundingToVisibilityConverter.cs" />
+    <Compile Include="Converters\DoubleValueToBrushConverter.cs" />
+    <Compile Include="Converters\ICollectionToCountConverter.cs" />
+    <Compile Include="Converters\IEnumableToTextConverter.cs" />
+    <Compile Include="Converters\IntValueToDepotDoorStateConverter.cs" />
+    <Compile Include="Converters\DoubleValueToElecTextConverter.cs" />
+    <Compile Include="Converters\IntValueToDoorStateConverter.cs" />
+    <Compile Include="Converters\IntValueToGateStateConverter.cs" />
+    <Compile Include="Converters\IntValueToPositionNameConverter.cs" />
+    <Compile Include="Converters\IntValueToSignalLightStateConverter.cs" />
+    <Compile Include="Converters\IntValueToWarningStateConverter.cs" />
+    <Compile Include="Converters\IsolationAndElecResultToOcsVisibilityConverter.cs" />
+    <Compile Include="Converters\IssueTypeToTextConverter.cs" />
+    <Compile Include="Converters\LoopRToVisibilityConverter.cs" />
+    <Compile Include="Converters\MessageTypeToBrushConverter.cs" />
+    <Compile Include="Converters\MutiSignalLightAndGateVisiblityConverter.cs" />
+    <Compile Include="Converters\ObjectIsNullToVisibilityConverter.cs" />
+    <Compile Include="Converters\OperationTypeToTextConverter.cs" />
+    <Compile Include="Converters\PlatformsToWorkerCountConverter.cs" />
+    <Compile Include="Converters\PlatformsToWorkersConverter.cs" />
+    <Compile Include="Converters\PositionIdToSignalLightCommandParameterConverter.cs" />
+    <Compile Include="Converters\PositionStateToOcsVisibilityConverter.cs" />
+    <Compile Include="Converters\RoleIdToRoleNameConverter.cs" />
+    <Compile Include="Converters\RoleToVisibilityConverter.cs" />
+    <Compile Include="Converters\StringToVisibilityConverter.cs" />
+    <Compile Include="Converters\TracksToPositionsConverter.cs" />
+    <Compile Include="Converters\TrackTypeToVisibilityConverter.cs" />
+    <Compile Include="Converters\UserFunctionToTextConverter.cs" />
+    <Compile Include="Converters\UserFunctionToVisibilityConverter.cs" />
+    <Compile Include="Converters\UserGroupIdToGroupNameConverter.cs" />
+    <Compile Include="Converters\VideoTypeToNameConverter.cs" />
+    <Compile Include="Database\AppDatabase.cs" />
+    <Compile Include="Database\DbBase.cs" />
+    <Compile Include="Database\SqliteConn.cs" />
+    <Compile Include="Database\SqliteHelper.cs" />
+    <Compile Include="Test\Tester.cs" />
+    <Compile Include="Utility\RestSharpHelper.cs" />
+    <Compile Include="Utility\LogHelper.cs" />
+    <Compile Include="Common\SafeConfirmManager.cs" />
+    <Compile Include="Models\EnumerableObject.cs" />
+    <Compile Include="Models\ExternalSystem.cs" />
+    <Compile Include="Models\FaultMessages.cs" />
+    <Compile Include="Models\Function.cs" />
+    <Compile Include="Models\KeyOrTool.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\OperationRecord.cs" />
+    <Compile Include="Models\Platform.cs" />
+    <Compile Include="Models\Position.cs" />
+    <Compile Include="Models\PositionState.cs" />
+    <Compile Include="Models\Record.cs" />
+    <Compile Include="Models\RequestClasses.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\SafeConfirm.cs" />
+    <Compile Include="Models\Title.cs" />
+    <Compile Include="Models\ToolAuthRecord.cs" />
+    <Compile Include="Models\Track.cs" />
+    <Compile Include="Models\Train.cs" />
+    <Compile Include="Models\TrainNumberRecord.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserAuthRecord.cs" />
+    <Compile Include="Models\UserGroup.cs" />
+    <Compile Include="Models\VideoStream.cs" />
+    <Compile Include="Models\Worker.cs" />
+    <Compile Include="Selector\PositionDataTemplateSelector.cs" />
+    <Compile Include="Services\PositionService.cs" />
+    <Compile Include="UserControls\BlockTitleControl.xaml.cs">
+      <DependentUpon>BlockTitleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ConfigRoleControl.xaml.cs">
+      <DependentUpon>ConfigRoleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ConfigTitleControl.xaml.cs">
+      <DependentUpon>ConfigTitleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ConfigUserControl.xaml.cs">
+      <DependentUpon>ConfigUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ConfigUserGroupControl.xaml.cs">
+      <DependentUpon>ConfigUserGroupControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DatePicker.xaml.cs">
+      <DependentUpon>DatePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DateTimePicker.xaml.cs">
+      <DependentUpon>DateTimePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MessageListControl.xaml.cs">
+      <DependentUpon>MessageListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PositionDetailsControl.xaml.cs">
+      <DependentUpon>PositionDetailsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\QueryFaultRecordControl.xaml.cs">
+      <DependentUpon>QueryFaultRecordControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\QueryOperationRecordControl.xaml.cs">
+      <DependentUpon>QueryOperationRecordControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\QueryPersonControl.xaml.cs">
+      <DependentUpon>QueryPersonControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\QueryToolControl.xaml.cs">
+      <DependentUpon>QueryToolControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\QueryTrainNumberControl.xaml.cs">
+      <DependentUpon>QueryTrainNumberControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TrackDetailsControl.xaml.cs">
+      <DependentUpon>TrackDetailsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PositionControl.xaml.cs">
+      <DependentUpon>PositionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TrackControl.xaml.cs">
+      <DependentUpon>TrackControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TrainDetailsControl.xaml.cs">
+      <DependentUpon>TrainDetailsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WorkerListControl.xaml.cs">
+      <DependentUpon>WorkerListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\CardUtil.cs" />
+    <Compile Include="Utility\ImageUtil.cs" />
+    <Compile Include="Utility\VisualTreeUtil.cs" />
+    <Compile Include="ViewModels\AddOrUpdateRoleViewModel.cs" />
+    <Compile Include="ViewModels\AddOrUpdateUserGroupViewModel.cs" />
+    <Compile Include="ViewModels\AddOrUpdateUserViewModel.cs" />
+    <Compile Include="ViewModels\AuthorityManagerViewModel.cs" />
+    <Compile Include="ViewModels\ConfigViewModel.cs" />
+    <Compile Include="ViewModels\HandleWarningAndFaultViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\QueryViewModel.cs" />
+    <Compile Include="ViewModels\SafeConfirmViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\ViewModelMessage.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Frames\PositionFrame.xaml.cs">
+      <DependentUpon>PositionFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Frames\TrackFrame.xaml.cs">
+      <DependentUpon>TrackFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddOrUpdateRoleWindow.xaml.cs">
+      <DependentUpon>AddOrUpdateRoleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddOrUpdateUserGroupWindow.xaml.cs">
+      <DependentUpon>AddOrUpdateUserGroupWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddOrUpdateUserWindow.xaml.cs">
+      <DependentUpon>AddOrUpdateUserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AuthorityManagerWindow.xaml.cs">
+      <DependentUpon>AuthorityManagerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ConfigWindow.xaml.cs">
+      <DependentUpon>ConfigWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MessageWindow.xaml.cs">
+      <DependentUpon>MessageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PopupWindowFrame.xaml.cs">
+      <DependentUpon>PopupWindowFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\QueryWindow.xaml.cs">
+      <DependentUpon>QueryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SafeConfirmWindow.xaml.cs">
+      <DependentUpon>SafeConfirmWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\StartupView.xaml.cs">
+      <DependentUpon>StartupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TakeUserPhotoWindow.xaml.cs">
+      <DependentUpon>TakeUserPhotoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UpdateTitleWindow.xaml.cs">
+      <DependentUpon>UpdateTitleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ViewDetectPhotoWindow.xaml.cs">
+      <DependentUpon>ViewDetectPhotoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ViewHandleWarningAndFaultWindow.xaml.cs">
+      <DependentUpon>ViewHandleWarningAndFaultWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ViewUserPhotoWindow.xaml.cs">
+      <DependentUpon>ViewUserPhotoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ViewVideoWindow.xaml.cs">
+      <DependentUpon>ViewVideoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ViewWarningAndFaultWindow.xaml.cs">
+      <DependentUpon>ViewWarningAndFaultWindow.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Config\log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\start.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="OpenTK.dll.config" />
+    <None Include="Config\OperationDictionary.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Config\SafeConfirmConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Y.ASIS.App.Ctls\Y.ASIS.App.Ctls.csproj">
+      <Project>{53e2ebc5-26a3-43ea-a932-b44c3709f045}</Project>
+      <Name>Y.ASIS.App.Ctls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Y.ASIS.App.Res\Y.ASIS.App.Res.csproj">
+      <Project>{191d4a20-d118-4dd8-90eb-9702b36eb946}</Project>
+      <Name>Y.ASIS.App.Res</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Y.ASIS.Common\Y.ASIS.Common.csproj">
+      <Project>{3f724ac7-dc6d-4c36-98d4-4ee6eba41db1}</Project>
+      <Name>Y.ASIS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Y.DaHua.SDK\Y.DaHua.SDK.csproj">
+      <Project>{b010112f-f5c0-423c-9e2f-9b30758185df}</Project>
+      <Name>Y.DaHua.SDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Y.HIKNVR.SDK\Y.HIKNVR.SDK.csproj">
+      <Project>{70141336-54a8-4363-8ab8-357cecc562c5}</Project>
+      <Name>Y.HIKNVR.SDK</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Config\haarcascade_frontalface_alt.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Resource Include="logo_colorful.ico" />
+    <Content Include="ReferenceItem\d3dx9_43.dll" />
+    <Content Include="ReferenceItem\Emgu.CV.World.dll" />
+    <Content Include="ReferenceItem\hfrdapi.dll" />
+    <Content Include="ReferenceItem\Renderer.Core.dll" />
+    <Content Include="ReferenceItem\SlimDX.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\VideoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\VideoPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\BlockTitleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ConfigRoleControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ConfigTitleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ConfigUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ConfigUserGroupControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DatePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\DateTimePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\MessageListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PositionDetailsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\QueryFaultRecordControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\QueryOperationRecordControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\QueryPersonControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\QueryToolControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\QueryTrainNumberControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TrackDetailsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PositionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TrackControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TrainDetailsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\WorkerListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Frames\PositionFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Frames\TrackFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddOrUpdateRoleWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\AddOrUpdateUserGroupWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\AddOrUpdateUserWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\AuthorityManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ConfigWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MessageWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PopupWindowFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\QueryWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SafeConfirmWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\StartupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TakeUserPhotoWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\UpdateTitleWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ViewDetectPhotoWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ViewHandleWarningAndFaultWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ViewUserPhotoWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ViewVideoWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ViewWarningAndFaultWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\EMGU.CV.3.4.3.3016\build\EMGU.CV.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EMGU.CV.3.4.3.3016\build\EMGU.CV.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Import Project="..\packages\EMGU.CV.3.4.3.3016\build\EMGU.CV.targets" Condition="Exists('..\packages\EMGU.CV.3.4.3.3016\build\EMGU.CV.targets')" />
+</Project>

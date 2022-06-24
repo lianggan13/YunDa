@@ -1,0 +1,131 @@
+﻿{
+  //"SafeConfirm": {
+  //	"Identifier": "::AsGlobalPV:Interaction.Notarize_state1",
+  //	"NamespaceIndex": 6
+  //},
+
+  // "远程安全确认" 
+  // "00=初始化状态",
+
+  // "01=允许分闸前确认/允许设备对位" 
+  // "02=允许验电前确认",
+  // "03=允许接地前确认" 
+  // "04=允许门禁开启前确认",
+
+  // "05=允许人员撤离撤接地前确认" 
+  // "06=允许撤验电前确认",
+  // "07=允许合闸警示前确认" 
+  // "08=允许合闸前确认",
+  // "09=允许合闸结果确认": null,
+
+  /********** 断电流程 1 2 3 4 **********/
+  /********** 送电流程 5 6 7 8 9 **********/
+
+  "1": {
+    "Name": "分闸申请(分闸)",
+    "Conditions": [
+      {
+        "Text": "隔离开关处于合闸状态",
+        "Type": "Isolation",
+        "SafeValues": [ 1 ]
+      },
+      {
+        "Text": "受电弓处于降弓状态",
+        "Type": "Pantograph",
+        "SafeValues": [ 2 ]
+      }
+    ]
+  },
+  "2": {
+    "Name": "验电",
+    "Conditions": [
+      {
+        "Text": "隔离开关处于分闸状态",
+        "Type": "Isolation",
+        "SafeValues": [ 0 ]
+      }
+    ]
+  },
+  "3": {
+    "Name": "接地",
+    "Conditions": [
+      {
+        "Text": "验电杆(钩)已挂接",
+        "Type": "Elec",
+        "SafeValues": [ 11 ]
+      }
+    ]
+  },
+  "4": {
+    "Name": "开启平台门禁",
+    "Conditions": [
+      {
+        "Text": "接地杆已挂接",
+        "Type": "Grounding",
+        "SafeValues": [ 5 ]
+      }
+    ]
+  },
+
+
+  "5": {
+    "Name": "撤接地",
+    "Conditions": [
+      {
+        "Text": "平台人数为0",
+        "Type": "Platform",
+        "SafeValues": [ 0 ]
+      },
+      {
+        "Text": "渡板处于收回状态",
+        "Type": "Gangway",
+        "SafeValues": [ 0 ]
+      }
+    ]
+  },
+  "6": {
+    "Name": "撤验电",
+    "Conditions": [
+      {
+        "Text": "接地杆已撤接",
+        "Type": "Grounding",
+        "SafeValues": [ 4 ]
+      }
+    ]
+  },
+  "7": {
+    "Name": "合闸警示",
+    "Conditions": [
+      {
+        "Text": "验电杆(钩)已撤接",
+        "Type": "Elec",
+        "SafeValues": [ 10 ]
+      }
+    ]
+  },
+  "8": {
+    "Name": "合闸申请(合闸)",
+    "Conditions": [
+      {
+        "Text": "隔离开关处于分闸状态",
+        "Type": "Isolation",
+        "SafeValues": [ 0 ]
+      },
+      {
+        "Text": "受电弓处于降弓状态",
+        "Type": "Pantograph",
+        "SafeValues": [ 2 ]
+      }
+    ]
+  },
+  "9": {
+    "Name": "合闸完成",
+    "Conditions": [
+      {
+        "Text": "隔离开关处于合闸状态",
+        "Type": "Isolation",
+        "SafeValues": [1]
+      }
+    ]
+  }
+}

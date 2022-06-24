@@ -1,0 +1,81 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Y.ASIS.App.Res;component/Image/Image.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="ConfigTabControlStyle" TargetType="{x:Type TabControl}">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabControl}">
+                    <ControlTemplate.Resources>
+                        <Style x:Key="{x:Type TabItem}" TargetType="{x:Type TabItem}">
+                            <Setter Property="Width" Value="130" />
+                            <Setter Property="Height" Value="36" />
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Margin" Value="0 0 10 0"/>
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type TabItem}">
+                                        <Grid Width="{TemplateBinding Width}"
+                                              Height="{TemplateBinding Height}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                            <Image x:Name="PART_Image"
+                                                   Source="{StaticResource TabItemUncheckImage}"
+                                                   Stretch="Fill"/>
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                              Content="{TemplateBinding Header}"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="PART_Image" Property="Source" Value="{StaticResource TabItemCheckedImage}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ControlTemplate.Resources>
+                    <Grid ClipToBounds="True"
+                          SnapsToDevicePixels="True"
+                          KeyboardNavigation.TabNavigation="Local">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="4" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <VirtualizingStackPanel Orientation="Horizontal"
+                                                Background="Transparent"
+                                                IsItemsHost="True"
+                                                Margin="20 0 0 0"
+                                                KeyboardNavigation.TabIndex="1"/>
+                        <Border Grid.Row="1"
+                                BorderThickness="1"
+                                BorderBrush="#077E95"/>
+                        <Border Grid.Row="2"
+                                Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                                              Content="{TemplateBinding SelectedContent}"
+                                              ContentStringFormat="{TemplateBinding SelectedContentStringFormat}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

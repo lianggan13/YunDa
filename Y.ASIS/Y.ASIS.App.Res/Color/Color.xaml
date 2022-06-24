@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="HasEleclColor">#FF3939</Color>
+    <Color x:Key="NoEleclColor">#22AC38</Color>
+    <Color x:Key="WarningColor">#F38313</Color>
+
+    <SolidColorBrush x:Key="HasEleclBrush" Color="{StaticResource HasEleclColor}" />
+    <SolidColorBrush x:Key="NoEleclBrush" Color="{StaticResource NoEleclColor}" />
+    <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}" />
+</ResourceDictionary>

@@ -1,0 +1,79 @@
+﻿<local:PopupWindow
+    x:Class="Y.ASIS.App.Windows.ViewHandleWarningAndFaultWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:appcvt="clr-namespace:Y.ASIS.App.Converters"
+    xmlns:helper="http://www.yd-tec.com/winfx/xaml/helper"
+    xmlns:local="clr-namespace:Y.ASIS.App.Windows"
+    Title="处理报警"
+    Width="800"
+    Height="300"
+    AllowsTransparency="True"
+    Style="{StaticResource SmallPopupWindowStyle}"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="700" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="1"
+            VerticalAlignment="Center">
+            <StackPanel
+                Margin="0"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontSize="30"
+                    FontWeight="ExtraLight"
+                    Foreground="#80FFFF">
+                    <Run Text="备注" />
+                    <Run Text=":" />
+                </TextBlock>
+                <TextBox
+                    Width="600"
+                    helper:WatermarkHelper.Watermark="报警处理信息"
+                    helper:WatermarkHelper.WatermarkBrush="#535866"
+                    FontSize="35"
+                    Text="{Binding Current.Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="3"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Button
+                Name="ConfirmButton"
+                Width="100"
+                Height="40"
+                helper:ButtonHelper.Icon="{StaticResource ConfirmIcon}"
+                Command="{Binding HandleWarningCommand}"
+                Content="{StaticResource HandleText}"
+                FontSize="16"
+                Style="{StaticResource IconButtonStyle}" />
+            <Button
+                Width="100"
+                Height="40"
+                Margin="10,0,0,0"
+                helper:ButtonHelper.Icon="{StaticResource CancelIcon}"
+                Click="OnCloseButtonClick"
+                Content="{StaticResource CancelText}"
+                FontSize="16"
+                Style="{StaticResource IconButtonStyle}" />
+        </StackPanel>
+    </Grid>
+</local:PopupWindow>

@@ -1,0 +1,1310 @@
+﻿<UserControl
+    x:Class="Y.ASIS.App.UserControls.PositionControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:appcvt="clr-namespace:Y.ASIS.App.Converters"
+    xmlns:common="clr-namespace:Y.ASIS.App.Common"
+    xmlns:ctls="http://www.yd-tec.com/winfx/xaml/shared"
+    xmlns:helper="http://www.yd-tec.com/winfx/xaml/helper"
+    xmlns:local="clr-namespace:Y.ASIS.App.UserControls"
+    xmlns:selector="clr-namespace:Y.ASIS.App.Selector"
+    xmlns:uc="clr-namespace:Y.ASIS.App.UserControls">
+    <UserControl.Resources>
+        <ctls:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+        <ctls:BoolToVisibilityConverter x:Key="BoolToVisibilityIsTrueToCollapsed" IsTrueToVisible="False" />
+        <ctls:ReverseVisibilityConverter x:Key="ReverseVisibility" />
+
+        <appcvt:IntValueToWarningStateConverter x:Key="IntValueToWarningState" />
+        <appcvt:ContainsIntValueToVisibilityConverter x:Key="ContainsIntValueToShow" />
+        <appcvt:ContainsIntValueToVisibilityConverter x:Key="ContainsIntValueToHide" Reverse="True" />
+        <appcvt:ContainsIntValueToBoolConverter x:Key="ContainsIntValueToBool" />
+        <appcvt:GroundingToVisibilityConverter x:Key="GroundingToVisibility" />
+        <appcvt:LoopRToVisibilityConverter x:Key="LoopRToVisibility" />
+        <appcvt:IntValueToSignalLightStateConverter x:Key="IntValueToSignalLightState" />
+        <appcvt:ObjectIsNullToVisibilityConverter x:Key="ObjectIsNullToVisibility" />
+
+        <appcvt:PositionIdToSignalLightCommandParameterConverter x:Key="PositionIdToSignalLightCommandParameter" />
+        <appcvt:PlatformsToWorkerCountConverter x:Key="PlatformsToWorkerCount" />
+
+        <appcvt:IsolationAndElecResultToOcsVisibilityConverter x:Key="IsolationAndElecResultToOcsVisibility" />
+
+        <DataTemplate x:Key="TrainNoDataTemplate">
+            <Grid PreviewKeyDown="TrainNoPreviewKeyDown">
+                <Button Width="0" Height="0" />
+                <Border
+                    x:Name="Bg"
+                    Width="{Binding ElementName=TrainNoBox, Path=ActualWidth}"
+                    Height="{Binding ElementName=TrainNoBox, Path=ActualHeight}"
+                    Background="#03090D"
+                    BorderBrush="#99AFCC"
+                    BorderThickness="1"
+                    CornerRadius="3"
+                    Visibility="Collapsed" />
+                <TextBox
+                    x:Name="TrainNoBox"
+                    Width="120"
+                    Height="16"
+                    helper:WatermarkHelper.Watermark="{StaticResource InputText}"
+                    helper:WatermarkHelper.WatermarkBrush="#99AFCC"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    CaretBrush="#99AFCC"
+                    FontSize="10"
+                    Foreground="#99AFCC"
+                    Style="{StaticResource WatermarkTextBoxStyle}"
+                    Text="{Binding ., Mode=TwoWay, NotifyOnSourceUpdated=True}"
+                    TextAlignment="Center" />
+            </Grid>
+            <DataTemplate.Triggers>
+                <Trigger SourceName="TrainNoBox" Property="IsFocused" Value="True">
+                    <Setter TargetName="Bg" Property="Visibility" Value="Visible" />
+                </Trigger>
+                <Trigger SourceName="TrainNoBox" Property="Text" Value="">
+                    <Setter TargetName="Bg" Property="Visibility" Value="Visible" />
+                </Trigger>
+                <Trigger SourceName="TrainNoBox" Property="Text" Value="{x:Null}">
+                    <Setter TargetName="Bg" Property="Visibility" Value="Visible" />
+                </Trigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <DataTemplate x:Key="WorkerCountDataTemplate">
+            <StackPanel
+                Height="22"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Viewbox Width="18">
+                    <Path Data="{StaticResource WorkerIcon}" Fill="#C2C8F2" />
+                </Viewbox>
+                <TextBlock
+                    Margin="3,0"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    Foreground="#C2C8F2"
+                    Text="×" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="#C2C8F2"
+                    Text="{Binding PassCount}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TPTTrainDataTemplate">
+            <Grid Width="506" Height="70">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="1" />
+                    <RowDefinition Height="16" />
+                </Grid.RowDefinitions>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Viewbox
+                        x:Name="LeftPantographBox"
+                        Width="28"
+                        Height="10"
+                        VerticalAlignment="Bottom">
+                        <Path
+                            x:Name="LeftPantographIcon"
+                            Data="{StaticResource LeftPantographDownIcon}"
+                            Fill="#2BC1FF" />
+                    </Viewbox>
+                    <Viewbox
+                        x:Name="RightPantographBox"
+                        Grid.Column="2"
+                        Width="28"
+                        Height="10"
+                        Margin="380,0,0,0"
+                        VerticalAlignment="Bottom">
+                        <Path
+                            x:Name="RightPantographIcon"
+                            Data="{StaticResource RightPantographDownIcon}"
+                            Fill="#2BC1FF" />
+                    </Viewbox>
+                </StackPanel>
+                <Image
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    Source="{StaticResource Train526x20Image}" />
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding LeftPantograph}" Value="Up">
+                    <Setter TargetName="LeftPantographBox" Property="Width" Value="29" />
+                    <Setter TargetName="LeftPantographBox" Property="Height" Value="33" />
+                    <Setter TargetName="LeftPantographIcon" Property="Data" Value="{StaticResource LeftPantographUpIcon}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RightPantograph}" Value="Up">
+                    <Setter TargetName="RightPantographBox" Property="Width" Value="29" />
+                    <Setter TargetName="RightPantographBox" Property="Height" Value="33" />
+                    <Setter TargetName="RightPantographIcon" Property="Data" Value="{StaticResource RightPantographUpIcon}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TPPTTTrainDataTemplate">
+            <Grid Width="336" Height="70">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="1" />
+                    <RowDefinition Height="16" />
+                </Grid.RowDefinitions>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Viewbox
+                        x:Name="LeftPantographBox"
+                        Width="28"
+                        Height="10"
+                        VerticalAlignment="Bottom">
+                        <Path
+                            x:Name="LeftPantographIcon"
+                            Data="{StaticResource LeftPantographDownIcon}"
+                            Fill="#2BC1FF" />
+                    </Viewbox>
+                    <Viewbox
+                        x:Name="RightPantographBox"
+                        Grid.Column="2"
+                        Width="28"
+                        Height="10"
+                        Margin="200,0,0,0"
+                        VerticalAlignment="Bottom">
+                        <Path
+                            x:Name="RightPantographIcon"
+                            Data="{StaticResource RightPantographDownIcon}"
+                            Fill="#2BC1FF" />
+                    </Viewbox>
+                </StackPanel>
+                <Image
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    Source="{StaticResource Train336x20Image}" />
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding LeftPantograph}" Value="Up">
+                    <Setter TargetName="LeftPantographBox" Property="Width" Value="29" />
+                    <Setter TargetName="LeftPantographBox" Property="Height" Value="33" />
+                    <Setter TargetName="LeftPantographIcon" Property="Data" Value="{StaticResource LeftPantographUpIcon}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RightPantograph}" Value="Up">
+                    <Setter TargetName="RightPantographBox" Property="Width" Value="29" />
+                    <Setter TargetName="RightPantographBox" Property="Height" Value="33" />
+                    <Setter TargetName="RightPantographIcon" Property="Data" Value="{StaticResource RightPantographUpIcon}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TPTTTrainDataTemplate">
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource TPPTTTrainDataTemplate}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="TPTPositionDataTemplate">
+            <Grid Width="1287" Height="100">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="45" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="1063" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="30" />
+                </Grid.ColumnDefinitions>
+                <Rectangle
+                    Grid.Row="2"
+                    Grid.ColumnSpan="7"
+                    Fill="#0B0D18"
+                    Stroke="#CA79F2"
+                    StrokeDashArray="4 3"
+                    StrokeThickness="2"
+                    Visibility="{Binding Positions[0].IsSelected, Converter={StaticResource BoolToVisibility}}" />
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Margin="0,8,0,0"
+                    VerticalAlignment="Top">
+                    <Image Source="{StaticResource Track1063x20Image}" />
+                </Grid>
+                <Grid Grid.RowSpan="2" Grid.Column="3">
+                    <ContentControl
+                        x:Name="TrainControl"
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Positions[0].State.Trains[0]}"
+                        ContentTemplate="{StaticResource TPTTrainDataTemplate}"
+                        Visibility="{Binding Positions[0].State.Trains[0], Converter={StaticResource ObjectIsNullToVisibility}}" />
+                    <ContentControl
+                        Margin="0,0,0,45"
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Positions[0].State.Platforms}"
+                        ContentTemplate="{StaticResource WorkerCountDataTemplate}" />
+                </Grid>
+                <Border
+                    Grid.Row="1"
+                    Grid.ColumnSpan="7"
+                    helper:AnimationHelper.Flash="True"
+                    Background="#80FF0000"
+                    Visibility="{Binding Positions[0].State.Apply, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='1|2'}" />
+                <Border
+                    Grid.Row="1"
+                    Grid.ColumnSpan="7"
+                    Background="Transparent"
+                    DataContext="{Binding Positions[0]}"
+                    MouseDown="PositionMouseDown" />
+                <Grid
+                    Grid.RowSpan="2"
+                    Grid.Column="3"
+                    Visibility="{Binding ElementName=TrainControl, Path=Visibility}">
+                    <ContentControl
+                        Margin="0,0,0,1"
+                        VerticalAlignment="Bottom"
+                        Content="{Binding Positions[0].State.Trains[0].No}"
+                        ContentTemplate="{StaticResource TrainNoDataTemplate}" />
+                </Grid>
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|0|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[0], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[0], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|0|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[0], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[0], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|1|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[1], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[1], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|1|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[1], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[1], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:WarningLight
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="25.2"
+                    Height="26.8"
+                    Margin="10,0,10,5"
+                    VerticalAlignment="Center"
+                    State="{Binding Positions[0].State.Warning, Converter={StaticResource IntValueToWarningState}}" />
+                <ctls:WarningLight
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    Width="25.2"
+                    Height="26.8"
+                    Margin="10,0,10,5"
+                    VerticalAlignment="Center"
+                    State="{Binding Positions[0].State.Warning, Converter={StaticResource IntValueToWarningState}}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="5"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|4|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[4], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[4], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|4|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[4], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[4], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="6"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|5|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[5], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[5], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|5|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[5], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[5], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <Canvas Grid.RowSpan="2" Grid.Column="3">
+
+                    <!--  来电端  -->
+                    <Path
+                        Data="M -50 32 0 32 0 22"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2" />
+
+                    <!--  隔离开关 合闸  -->
+                    <Path
+                        Data="M 0 22 31 22"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='1'}" />
+
+                    <!--  隔离开关 分闸中  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M 0 22 31 22"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='4'}" />
+
+                    <!--  隔离开关 分闸  -->
+                    <Path
+                        x:Name="IsolationOpen"
+                        Data="M 0 22 30 15"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='2'}" />
+
+                    <!--  隔离开关 合闸中  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M 0 22 30 15"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='3'}" />
+
+                    <!--  隔离开关 异常  -->
+                    <Path
+                        Data="M 0 22 30 15"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='0|10'}" />
+
+                    <!--  接触网 有电  -->
+                    <Path
+                        Data="M 30 22 30 32 1112 32"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding ElementName=OcsNoElec, Path=Visibility, Converter={StaticResource ReverseVisibility}}" />
+
+                    <!--  接触网 无电  -->
+                    <Path
+                        x:Name="OcsNoElec"
+                        Data="M 30 22 30 32 1112 32"
+                        Stroke="{StaticResource NoEleclBrush}"
+                        StrokeThickness="2">
+                        <Path.Visibility>
+                            <MultiBinding Converter="{StaticResource IsolationAndElecResultToOcsVisibility}">
+                                <MultiBinding.Bindings>
+                                    <Binding Path="Positions[0].State.Isolation" />
+                                    <Binding Path="Positions[0].State.ElecResult" />
+                                </MultiBinding.Bindings>
+                            </MultiBinding>
+                        </Path.Visibility>
+                    </Path>
+
+                    <!--  接地装置 动作状态  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Grounding[0], Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='3|4'}" />
+                    <!--  接地装置 异常状态  -->
+                    <Path
+                        Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Grounding[0], Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='0|10'}" />
+
+                    <!--  接地装置 挂接状态  -->
+                    <Grid Visibility="{Binding Positions[0].State.Grounding, Converter={StaticResource GroundingToVisibility}}">
+                        <!--  接地装置 正常  -->
+                        <Path
+                            x:Name="GroundingNoElec"
+                            Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                            Stroke="{StaticResource NoEleclBrush}"
+                            StrokeThickness="2"
+                            Visibility="{Binding Positions[0].State.LoopR, Converter={StaticResource LoopRToVisibility}}" />
+
+                        <!--  接地装置 回路电阻大于阈值  -->
+                        <Path
+                            Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                            Stroke="{StaticResource WarningBrush}"
+                            StrokeThickness="2"
+                            Visibility="{Binding ElementName=GroundingNoElec, Path=Visibility, Converter={StaticResource ReverseVisibility}}" />
+                    </Grid>
+                </Canvas>
+                <Border
+                    Grid.Row="1"
+                    Grid.ColumnSpan="7"
+                    Background="#5FFFFFFF"
+                    Visibility="{Binding Positions[0].State.Connected, Converter={StaticResource BoolToVisibilityIsTrueToCollapsed}}">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="Red"
+                        Text="{StaticResource PositionDisconnectedText}" />
+                </Border>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TPTTPositionDataTemplate">
+            <Grid Width="1287" Height="100">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="45" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="501.5" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="501.5" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="30" />
+                </Grid.ColumnDefinitions>
+                <Rectangle
+                    Grid.Row="2"
+                    Grid.ColumnSpan="10"
+                    Fill="#0B0D18"
+                    Stroke="#CA79F2"
+                    StrokeDashArray="4 3"
+                    StrokeThickness="2"
+                    Visibility="{Binding Positions[0].IsSelected, Converter={StaticResource BoolToVisibility}}" />
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Grid.ColumnSpan="4"
+                    Margin="0,8,0,0"
+                    VerticalAlignment="Top">
+                    <Image Source="{StaticResource Track1063x20Image}" />
+                </Grid>
+                <ContentControl
+                    Grid.RowSpan="2"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="6"
+                    Margin="0,0,0,45"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Content="{Binding Positions[0].State.Platforms}"
+                    ContentTemplate="{StaticResource WorkerCountDataTemplate}" />
+                <ContentControl
+                    x:Name="ITrainControl"
+                    Grid.RowSpan="2"
+                    Grid.Column="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Content="{Binding Positions[0].State.Trains[0]}"
+                    ContentTemplate="{StaticResource TPTTTrainDataTemplate}"
+                    Visibility="{Binding Positions[0].State.Trains[0], Converter={StaticResource ObjectIsNullToVisibility}, ConverterParameter='hide'}" />
+                <ContentControl
+                    x:Name="IITrainControl"
+                    Grid.RowSpan="2"
+                    Grid.Column="6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Content="{Binding Positions[0].State.Trains[1]}"
+                    ContentTemplate="{StaticResource TPTTTrainDataTemplate}"
+                    Visibility="{Binding Positions[0].State.Trains[1], Converter={StaticResource ObjectIsNullToVisibility}, ConverterParameter='hide'}" />
+
+                <Border
+                    Grid.Row="1"
+                    Grid.ColumnSpan="10"
+                    Background="Transparent"
+                    DataContext="{Binding Positions[0]}"
+                    MouseDown="PositionMouseDown" />
+                <ContentControl
+                    Grid.RowSpan="2"
+                    Grid.Column="3"
+                    Margin="0,0,0,1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Content="{Binding Positions[0].State.Trains[0].No}"
+                    ContentTemplate="{StaticResource TrainNoDataTemplate}"
+                    Visibility="{Binding ElementName=ITrainControl, Path=Visibility}" />
+                <ContentControl
+                    Grid.RowSpan="2"
+                    Grid.Column="6"
+                    Margin="0,0,0,1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Content="{Binding Positions[0].State.Trains[1].No}"
+                    ContentTemplate="{StaticResource TrainNoDataTemplate}"
+                    Visibility="{Binding ElementName=IITrainControl, Path=Visibility}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|0|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[0], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[0], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|0|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[0], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[0], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|1|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[1], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[1], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|1|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[1], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[1], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:WarningLight
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="25.2"
+                    Height="26.8"
+                    Margin="10,0,10,5"
+                    VerticalAlignment="Center"
+                    State="{Binding Positions[0].State.Warning, Converter={StaticResource IntValueToWarningState}}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|2|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[2], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[2], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|2|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[2], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[2], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="5"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|3|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[3], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[3], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|3|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[3], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[3], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:WarningLight
+                    Grid.Row="1"
+                    Grid.Column="7"
+                    Width="25.2"
+                    Height="26.8"
+                    Margin="10,0,10,5"
+                    VerticalAlignment="Center"
+                    State="{Binding Positions[0].State.Warning, Converter={StaticResource IntValueToWarningState}}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="8"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|4|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[4], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[4], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|4|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[4], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[4], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="9"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|5|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[5], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[5], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|5|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[5], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[5], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <Canvas Grid.RowSpan="2" Grid.Column="3">
+                    <!--  来电端  -->
+                    <Path
+                        Data="M -50 32 0 32 0 22"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2" />
+
+                    <!--  隔离开关 合闸  -->
+                    <Path
+                        Data="M 0 22 31 22"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='1'}" />
+
+                    <!--  隔离开关 分闸中  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M 0 22 31 22"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='4'}" />
+
+                    <!--  隔离开关 分闸  -->
+                    <Path
+                        x:Name="IsolationOpen"
+                        Data="M 0 22 30 15"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, TargetNullValue=Collapsed, FallbackValue=Collapsed, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='2'}" />
+
+                    <!--  隔离开关 合闸中  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M 0 22 30 15"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='3'}" />
+
+                    <!--  隔离开关 异常  -->
+                    <Path
+                        Data="M 0 22 30 15"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, TargetNullValue=Collapsed, FallbackValue=Collapsed, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='0|10'}" />
+
+                    <!--  接触网 有电  -->
+                    <Path
+                        Data="M 30 22 30 32 1112 32"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding ElementName=OcsNoElec, Path=Visibility, Converter={StaticResource ReverseVisibility}}" />
+
+                    <!--  接触网 无电  -->
+                    <Path
+                        x:Name="OcsNoElec"
+                        Data="M 30 22 30 32 1112 32"
+                        Stroke="{StaticResource NoEleclBrush}"
+                        StrokeThickness="2">
+                        <Path.Visibility>
+                            <MultiBinding Converter="{StaticResource IsolationAndElecResultToOcsVisibility}">
+                                <MultiBinding.Bindings>
+                                    <Binding Path="Positions[0].State.Isolation" />
+                                    <Binding Path="Positions[0].State.ElecResult" />
+                                </MultiBinding.Bindings>
+                            </MultiBinding>
+                        </Path.Visibility>
+                    </Path>
+
+                    <!--  接地装置 动作状态  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Grounding[0], Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='3|4'}" />
+                    <!--  接地装置 异常状态  -->
+                    <Path
+                        Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Grounding[0], Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='0|10'}" />
+
+                    <!--  接地装置 挂接状态  -->
+                    <Grid Visibility="{Binding Positions[0].State.Grounding, Converter={StaticResource GroundingToVisibility}}">
+                        <!--  接地装置 正常  -->
+                        <Path
+                            x:Name="GroundingNoElec"
+                            Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                            Stroke="{StaticResource NoEleclBrush}"
+                            StrokeThickness="2"
+                            Visibility="{Binding Positions[0].State.LoopR, Converter={StaticResource LoopRToVisibility}}" />
+
+                        <!--  接地装置 回路电阻大于阈值  -->
+                        <Path
+                            Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                            Stroke="{StaticResource WarningBrush}"
+                            StrokeThickness="2"
+                            Visibility="{Binding ElementName=GroundingNoElec, Path=Visibility, Converter={StaticResource ReverseVisibility}}" />
+                    </Grid>
+                </Canvas>
+
+                <Border
+                    Grid.Row="1"
+                    Grid.ColumnSpan="10"
+                    helper:AnimationHelper.Flash="True"
+                    Background="#80FF0000"
+                    Visibility="{Binding Positions[0].State.Connected, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityIsTrueToCollapsed}}" />
+                <!--  Visibility="{Binding Positions[0].State.Apply, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='1|2'}" />  -->
+
+                <Border
+                    Grid.Row="1"
+                    Grid.ColumnSpan="10"
+                    Background="#5FFFFFFF"
+                    Visibility="{Binding Positions[0].State.Connected, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityIsTrueToCollapsed}}">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="Red"
+                        Text="{StaticResource PositionDisconnectedText}" />
+                </Border>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TPPTTPositionDataTemplate">
+            <Grid Width="1287" Height="100">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="45" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="500" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="500" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="30" />
+                </Grid.ColumnDefinitions>
+                <Rectangle
+                    Grid.Row="2"
+                    Grid.ColumnSpan="5"
+                    Fill="#0B0D18"
+                    Stroke="#CA79F2"
+                    StrokeDashArray="4 3"
+                    StrokeThickness="2"
+                    Visibility="{Binding Positions[0].IsSelected, Converter={StaticResource BoolToVisibility}}" />
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Margin="0,8,0,0"
+                    VerticalAlignment="Top">
+                    <Image Source="{StaticResource Track500x20Image}" />
+                </Grid>
+                <Grid
+                    Grid.RowSpan="2"
+                    Grid.Column="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom">
+                    <ContentControl
+                        x:Name="ITrainControl"
+                        Content="{Binding Positions[0].State.Trains[0]}"
+                        ContentTemplate="{StaticResource TPTTTrainDataTemplate}"
+                        Visibility="{Binding Positions[0].State.Trains[0], Converter={StaticResource ObjectIsNullToVisibility}}" />
+                    <ContentControl
+                        Margin="0,0,0,45"
+                        Content="{Binding Positions[0].State.Platforms}"
+                        ContentTemplate="{StaticResource WorkerCountDataTemplate}" />
+                </Grid>
+                <Border
+                    Grid.Row="1"
+                    Grid.ColumnSpan="5"
+                    helper:AnimationHelper.Flash="True"
+                    Background="#80FF0000"
+                    Visibility="{Binding Positions[0].State.Apply, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='1|2'}" />
+                <Border
+                    Grid.Row="1"
+                    Grid.ColumnSpan="5"
+                    Background="Transparent"
+                    DataContext="{Binding Positions[0]}"
+                    MouseDown="PositionMouseDown" />
+                <Grid
+                    Grid.RowSpan="2"
+                    Grid.Column="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom">
+                    <ContentControl
+                        Margin="0,0,0,1"
+                        Content="{Binding Positions[0].State.Trains[0].No}"
+                        ContentTemplate="{StaticResource TrainNoDataTemplate}"
+                        Visibility="{Binding ElementName=ITrainControl, Path=Visibility}" />
+                </Grid>
+                <Rectangle
+                    Grid.Row="2"
+                    Grid.Column="5"
+                    Grid.ColumnSpan="5"
+                    Fill="#0B0D18"
+                    Stroke="#CA79F2"
+                    StrokeDashArray="4 3"
+                    StrokeThickness="2"
+                    Visibility="{Binding Positions[1].IsSelected, Converter={StaticResource BoolToVisibility}}" />
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="6"
+                    Margin="0,8,0,0"
+                    VerticalAlignment="Top">
+                    <Image Source="{StaticResource Track500x20Image}" />
+                </Grid>
+                <Grid
+                    Grid.RowSpan="2"
+                    Grid.Column="6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom">
+                    <ContentControl
+                        x:Name="IITrainControl"
+                        Content="{Binding Positions[1].State.Trains[0]}"
+                        ContentTemplate="{StaticResource TPTTTrainDataTemplate}"
+                        Visibility="{Binding Positions[1].State.Trains[0], Converter={StaticResource ObjectIsNullToVisibility}}" />
+                    <ContentControl
+                        Margin="0,0,0,45"
+                        Content="{Binding Positions[1].State.Platforms}"
+                        ContentTemplate="{StaticResource WorkerCountDataTemplate}" />
+                </Grid>
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="5"
+                    Grid.ColumnSpan="5"
+                    helper:AnimationHelper.Flash="True"
+                    Background="#80FF0000"
+                    Visibility="{Binding Positions[0].State.Apply, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='1|2'}" />
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="5"
+                    Grid.ColumnSpan="5"
+                    Background="Transparent"
+                    DataContext="{Binding Positions[1]}"
+                    MouseDown="PositionMouseDown" />
+                <Grid
+                    Grid.RowSpan="2"
+                    Grid.Column="6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom">
+                    <ContentControl
+                        Margin="0,0,0,1"
+                        Content="{Binding Positions[1].State.Trains[0].No}"
+                        ContentTemplate="{StaticResource TrainNoDataTemplate}"
+                        Visibility="{Binding ElementName=IITrainControl, Path=Visibility}" />
+                </Grid>
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|0|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[0], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[0], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|0|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[0], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[0], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|1|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[1], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[1], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|1|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[1], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[1], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:WarningLight
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="25.2"
+                    Height="26.8"
+                    Margin="10,0,10,5"
+                    VerticalAlignment="Center"
+                    State="{Binding Positions[0].State.Warning, Converter={StaticResource IntValueToWarningState}}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|2|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[0].State.SignalLightCommand[2], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[0].State.SignalLightCommand[2], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[0].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|2|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[0].State.SignalLight[2], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[0].State.SignalLight[2], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="5"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[1].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|3|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[1].State.SignalLightCommand[3], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[1].State.SignalLightCommand[3], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[1].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|3|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[1].State.SignalLight[3], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[1].State.SignalLight[3], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:WarningLight
+                    Grid.Row="1"
+                    Grid.Column="7"
+                    Width="25.2"
+                    Height="26.8"
+                    Margin="10,0,10,5"
+                    VerticalAlignment="Center"
+                    State="{Binding Positions[1].State.Warning, Converter={StaticResource IntValueToWarningState}}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="8"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[1].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|4|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[1].State.SignalLightCommand[4], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[1].State.SignalLightCommand[4], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[1].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|4|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[1].State.SignalLight[4], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[1].State.SignalLight[4], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <ctls:SignalLight
+                    Grid.Row="1"
+                    Grid.Column="9"
+                    Width="14.3"
+                    Height="29.1"
+                    AllowCommandParameter="{Binding Positions[1].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|5|101'}"
+                    Command="{x:Static common:AppCommands.PositionSignalLightSwitchCommand}"
+                    CornerRadius="6"
+                    EnableAllow="{Binding Positions[1].State.SignalLightCommand[5], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='1'}"
+                    EnableForbid="{Binding Positions[1].State.SignalLightCommand[5], Converter={StaticResource ContainsIntValueToBool}, ConverterParameter='2'}"
+                    ForbidCommandParameter="{Binding Positions[1].State.PositionId, Converter={StaticResource PositionIdToSignalLightCommandParameter}, ConverterParameter='|5|102'}"
+                    LightSize="10"
+                    State="{Binding Positions[1].State.SignalLight[5], Converter={StaticResource IntValueToSignalLightState}}"
+                    Visibility="{Binding Positions[1].State.SignalLight[5], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <Canvas
+                    Grid.RowSpan="2"
+                    Grid.Column="3"
+                    ClipToBounds="False">
+
+                    <!--  来电端  -->
+                    <Path
+                        Data="M -50 32 0 32 0 22"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2" />
+
+                    <!--  隔离开关 合闸  -->
+                    <Path
+                        Data="M 0 22 31 22"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='1'}" />
+
+                    <!--  隔离开关 分闸中  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M 0 22 31 22"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='4'}" />
+
+                    <!--  隔离开关 分闸  -->
+                    <Path
+                        Data="M 0 22 30 15"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='2'}" />
+
+                    <!--  隔离开关 合闸中  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M 0 22 30 15"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='3'}" />
+
+                    <!--  隔离开关 异常  -->
+                    <Path
+                        Data="M 0 22 30 15"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='0|10'}" />
+
+                    <!--  接触网 有电  -->
+                    <Path
+                        Data="M 30 22 30 32 520 32"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding ElementName=OcsNoElec1, Path=Visibility, Converter={StaticResource ReverseVisibility}}" />
+
+                    <!--  接触网 无电  -->
+                    <Path
+                        x:Name="OcsNoElec1"
+                        Data="M 30 22 30 32 520 32"
+                        Stroke="{StaticResource NoEleclBrush}"
+                        StrokeThickness="2">
+                        <Path.Visibility>
+                            <MultiBinding Converter="{StaticResource IsolationAndElecResultToOcsVisibility}">
+                                <MultiBinding.Bindings>
+                                    <Binding Path="Positions[0].State.Isolation" />
+                                    <Binding Path="Positions[0].State.ElecResult" />
+                                </MultiBinding.Bindings>
+                            </MultiBinding>
+                        </Path.Visibility>
+                    </Path>
+
+                    <!--  左接地装置 动作状态  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Grounding[0], Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='3|4'}" />
+                    <!--  左接地装置 异常状态  -->
+                    <Path
+                        Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Grounding[0], Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='0|10'}" />
+
+                    <!--  右接地装置 动作状态  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M460 32 460 85 M 450 85 470 85 M 453 88 467 88 M 456 91 464 91"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Grounding[1], Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='3|4'}" />
+
+                    <!--  右接地装置 异常状态  -->
+                    <Path
+                        Data="M460 32 460 85 M 450 85 470 85 M 453 88 467 88 M 456 91 464 91"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[0].State.Grounding[1], Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='0|10'}" />
+
+                    <!--  左接地装置 挂接状态  -->
+                    <Grid Visibility="{Binding Positions[0].State.Grounding, Converter={StaticResource GroundingToVisibility}}">
+                        <!--  左接地装置 正常  -->
+                        <Path
+                            x:Name="LeftGroundingNoElec1"
+                            Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                            Stroke="{StaticResource NoEleclBrush}"
+                            StrokeThickness="2"
+                            Visibility="{Binding Positions[0].State.LoopR, Converter={StaticResource LoopRToVisibility}}" />
+
+                        <!--  左接地装置 回路电阻大于阈值  -->
+                        <Path
+                            Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                            Stroke="{StaticResource WarningBrush}"
+                            StrokeThickness="2"
+                            Visibility="{Binding ElementName=LeftGroundingNoElec1, Path=Visibility, Converter={StaticResource ReverseVisibility}}" />
+                    </Grid>
+
+                    <!--  右接地装置 挂接状态  -->
+                    <Grid Visibility="{Binding Positions[0].State.Grounding, Converter={StaticResource GroundingToVisibility}, ConverterParameter='1'}">
+                        <!--  右接地装置 正常  -->
+                        <Path
+                            x:Name="RightGroundingNoElec1"
+                            Data="M460 32 460 85 M 450 85 470 85 M 453 88 467 88 M 456 91 464 91"
+                            Stroke="{StaticResource NoEleclBrush}"
+                            StrokeThickness="2"
+                            Visibility="{Binding Positions[0].State.LoopR, Converter={StaticResource LoopRToVisibility}, ConverterParameter='1'}" />
+
+                        <!--  右接地装置 回路电阻大于阈值  -->
+                        <Path
+                            Data="M460 32 460 85 M 450 85 470 85 M 453 88 467 88 M 456 91 464 91"
+                            Stroke="{StaticResource WarningBrush}"
+                            StrokeThickness="2"
+                            Visibility="{Binding ElementName=RightGroundingNoElec1, Path=Visibility, Converter={StaticResource ReverseVisibility}}" />
+                    </Grid>
+                </Canvas>
+                <Grid
+                    Grid.Column="4"
+                    Grid.ColumnSpan="2"
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <Path
+                        Data="M0 10 10 0 20 10 10 20z"
+                        Stroke="#7A8799"
+                        StrokeThickness="2" />
+                </Grid>
+                <Canvas
+                    Grid.RowSpan="2"
+                    Grid.Column="6"
+                    ClipToBounds="False">
+
+                    <!--  来电端  -->
+                    <Path
+                        Data="M 550 32 500 32 500 22"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2" />
+
+                    <!--  隔离开关 合闸  -->
+                    <Path
+                        Data="M500 22 470 22"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[1].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='1'}" />
+
+                    <!--  隔离开关 分闸中  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M500 22 470 22"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[1].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='4'}" />
+
+                    <!--  隔离开关 分闸  -->
+                    <Path
+                        Data="M 500 22 470 15"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[1].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='2'}" />
+
+                    <!--  隔离开关 合闸中  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M 500 22 470 15"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[1].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='3'}" />
+
+                    <!--  隔离开关 异常  -->
+                    <Path
+                        Data="M 500 22 470 15"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[1].State.Isolation, Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='0|10'}" />
+
+                    <!--  接触网 有电  -->
+                    <Path
+                        Data="M 470 22 470 32 -20 32"
+                        Stroke="{StaticResource HasEleclBrush}"
+                        StrokeThickness="2"
+                        Visibility="{Binding ElementName=OcsNoElec2, Path=Visibility, Converter={StaticResource ReverseVisibility}}" />
+
+                    <!--  接触网 无电  -->
+                    <Path
+                        x:Name="OcsNoElec2"
+                        Data="M 470 22 470 32 -20 32"
+                        Stroke="{StaticResource NoEleclBrush}"
+                        StrokeThickness="2">
+                        <Path.Visibility>
+                            <MultiBinding Converter="{StaticResource IsolationAndElecResultToOcsVisibility}">
+                                <MultiBinding.Bindings>
+                                    <Binding Path="Positions[1].State.Isolation" />
+                                    <Binding Path="Positions[1].State.ElecResult" />
+                                </MultiBinding.Bindings>
+                            </MultiBinding>
+                        </Path.Visibility>
+                    </Path>
+
+                    <!--  左接地装置 动作状态  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[1].State.Grounding[0], Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='3|4'}" />
+                    <!--  左接地装置 异常状态  -->
+                    <Path
+                        Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[1].State.Grounding[0], Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='0|10'}" />
+
+                    <!--  右接地装置 动作状态  -->
+                    <Path
+                        helper:AnimationHelper.Flash="True"
+                        Data="M460 32 460 85 M 450 85 470 85 M 453 88 467 88 M 456 91 464 91"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[1].State.Grounding[1], Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='3|4'}" />
+
+                    <!--  右接地装置 异常状态  -->
+                    <Path
+                        Data="M460 32 460 85 M 450 85 470 85 M 453 88 467 88 M 456 91 464 91"
+                        Stroke="Gray"
+                        StrokeThickness="2"
+                        Visibility="{Binding Positions[1].State.Grounding[1], Converter={StaticResource ContainsIntValueToShow}, ConverterParameter='0|10'}" />
+
+                    <!--  左接地装置 挂接状态  -->
+                    <Grid Visibility="{Binding Positions[1].State.Grounding, Converter={StaticResource GroundingToVisibility}}">
+                        <!--  左接地装置 正常  -->
+                        <Path
+                            x:Name="LeftGroundingNoElec2"
+                            Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                            Stroke="{StaticResource NoEleclBrush}"
+                            StrokeThickness="2"
+                            Visibility="{Binding Positions[1].State.LoopR, Converter={StaticResource LoopRToVisibility}}" />
+
+                        <!--  左接地装置 回路电阻大于阈值  -->
+                        <Path
+                            Data="M40 32 40 85 M 30 85 50 85 M 33 88 47 88 M 36 91 44 91"
+                            Stroke="{StaticResource WarningBrush}"
+                            StrokeThickness="2"
+                            Visibility="{Binding ElementName=LeftGroundingNoElec2, Path=Visibility, Converter={StaticResource ReverseVisibility}}" />
+                    </Grid>
+
+                    <!--  右接地装置 挂接状态  -->
+                    <Grid Visibility="{Binding Positions[1].State.Grounding, Converter={StaticResource GroundingToVisibility}, ConverterParameter='1'}">
+                        <!--  右接地装置 正常  -->
+                        <Path
+                            x:Name="RightGroundingNoElec2"
+                            Data="M460 32 460 85 M 450 85 470 85 M 453 88 467 88 M 456 91 464 91"
+                            Stroke="{StaticResource NoEleclBrush}"
+                            StrokeThickness="2"
+                            Visibility="{Binding Positions[1].State.LoopR, Converter={StaticResource LoopRToVisibility}, ConverterParameter='1'}" />
+
+                        <!--  右接地装置 回路电阻大于阈值  -->
+                        <Path
+                            Data="M460 32 460 85 M 450 85 470 85 M 453 88 467 88 M 456 91 464 91"
+                            Stroke="{StaticResource WarningBrush}"
+                            StrokeThickness="2"
+                            Visibility="{Binding ElementName=RightGroundingNoElec2, Path=Visibility, Converter={StaticResource ReverseVisibility}}" />
+                    </Grid>
+                </Canvas>
+
+                <Border
+                    Grid.Row="1"
+                    Grid.ColumnSpan="5"
+                    Background="#5FFFFFFF"
+                    Visibility="{Binding Positions[0].State.Connected, Converter={StaticResource BoolToVisibilityIsTrueToCollapsed}}">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="Red"
+                        Text="{StaticResource PositionDisconnectedText}" />
+                </Border>
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="5"
+                    Grid.ColumnSpan="5"
+                    Background="#5FFFFFFF"
+                    Visibility="{Binding Positions[1].State.Connected, Converter={StaticResource BoolToVisibilityIsTrueToCollapsed}}">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="Red"
+                        Text="{StaticResource PositionDisconnectedText}" />
+                </Border>
+            </Grid>
+        </DataTemplate>
+
+        <selector:PositionDataTemplateSelector
+            x:Key="PositionSelector"
+            TPPTTPositionDataTemplate="{StaticResource TPPTTPositionDataTemplate}"
+            TPTPositionDataTemplate="{StaticResource TPTPositionDataTemplate}"
+            TPTTPositionDataTemplate="{StaticResource TPTTPositionDataTemplate}" />
+    </UserControl.Resources>
+
+    <ContentControl Content="{Binding}" ContentTemplateSelector="{StaticResource PositionSelector}" />
+</UserControl>

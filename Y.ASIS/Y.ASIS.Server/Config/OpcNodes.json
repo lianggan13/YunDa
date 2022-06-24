@@ -1,0 +1,202 @@
+{
+  "SystemState": {
+    "Identifier": "::AsGlobalPV:State.Sys",
+    "NamespaceIndex": 6
+  },
+  "SystemError": {
+    "Identifier": "::AsGlobalPV:State.Err_Sys",
+    "NamespaceIndex": 6
+  },
+  "SystemType": {
+    "Identifier": "::AsGlobalPV:State.Type",
+    "NamespaceIndex": 6
+  },
+  "SystemTime": {
+    "Identifier": "::AsGlobalPV:Interaction.Datatime",
+    "NamespaceIndex": 6
+  },
+  "TrackNo": {
+    "Identifier": "::AsGlobalPV:State.Num_Track",
+    "NamespaceIndex": 6
+  },
+  "PositionNo": {
+    "Identifier": "::AsGlobalPV:State.Num_Table",
+    "NamespaceIndex": 6
+  },
+  "IsolationState": {
+    "Identifier": "::AsGlobalPV:State.QS",
+    "NamespaceIndex": 6
+  },
+  "IsolationError": {
+    "Identifier": "::AsGlobalPV:State.ErrQS",
+    "NamespaceIndex": 6
+  },
+  "GroundingState": {
+    "Identifier": "::AsGlobalPV:State.GND",
+    "NamespaceIndex": 6
+  },
+  "GroundingError": {
+    "Identifier": "::AsGlobalPV:State.ErrGND",
+    "NamespaceIndex": 6
+  },
+  "ElecState": {
+    "Identifier": "::AsGlobalPV:State.Elsc",
+    "NamespaceIndex": 6
+  },
+  "ElecResult": {
+    "Identifier": "::AsGlobalPV:State.Resultelsc",
+    "NamespaceIndex": 6
+  },
+  "ElecError": {
+    "Identifier": "::AsGlobalPV:State.Errelsc",
+    "NamespaceIndex": 6
+  },
+  "LEDState": {
+    "Identifier": "::AsGlobalPV:State.LED",
+    "NamespaceIndex": 6
+  },
+  "TopPersonInfo": {
+    "Identifier": "::AsGlobalPV:State.Person_info",
+    "NamespaceIndex": 6
+  },
+  "DoorState": {
+    "Identifier": "::AsGlobalPV:State.Door_state",
+    "NamespaceIndex": 6
+  },
+  "DoorLocker": {
+    "Identifier": "::AsGlobalPV:State.Door_lock",
+    "NamespaceIndex": 6
+  },
+  "DoorIndex": {
+    "Identifier": "::AsGlobalPV:State.Door_index",
+    "NamespaceIndex": 6
+  },
+  "OperatorReaderState": {
+    "Identifier": "::AsGlobalPV:State.WG",
+    "NamespaceIndex": 6
+  },
+  "OperatorPersonInfo": {
+    "Identifier": "::AsGlobalPV:State.Operator",
+    "NamespaceIndex": 6
+  },
+  "PassCount": {
+    "Identifier": "::AsGlobalPV:State.Passcount",
+    "NamespaceIndex": 6
+  },
+  "ElecValue": {
+    "Identifier": "::AsGlobalPV:State.Valueelsc",
+    "NamespaceIndex": 6
+  },
+  "GroundingResistance": {
+    "Identifier": "::AsGlobalPV:State.R_GND",
+    "NamespaceIndex": 6
+  },
+  "LoopResistance": {
+    "Identifier": "::AsGlobalPV:State.R_loop",
+    "NamespaceIndex": 6
+  },
+  "GangwayState": {
+    "Identifier": "::AsGlobalPV:State.Gangway",
+    "NamespaceIndex": 6
+  },
+  "TrainState": {
+    "Identifier": "::AsGlobalPV:State.Porttrain",
+    "NamespaceIndex": 6
+  },
+  "GateState": {
+    "Identifier": "::AsGlobalPV:State.ZQDL",
+    "NamespaceIndex": 6
+  },
+  "DepotGateState": {
+    "Identifier": "::AsGlobalPV:State.Gate",
+    "NamespaceIndex": 6
+  },
+  "WarningState": {
+    "Identifier": "::AsGlobalPV:State.Warning",
+    "NamespaceIndex": 6
+  },
+  "SignalLightState": {
+    "Identifier": "::AsGlobalPV:State.Signal",
+    "NamespaceIndex": 6
+  },
+  "ToolState": {
+    "Identifier": "::AsGlobalPV:State.Kit",
+    "NamespaceIndex": 6
+  },
+  "OperationMode": {
+    "Identifier": "::AsGlobalPV:State.Mode",
+    "NamespaceIndex": 6
+  },
+  "OperationFlow": {
+    "Identifier": "::AsGlobalPV:State.IDE_pro",
+    "NamespaceIndex": 6
+  },
+  "OperationRecordState": {
+    "Identifier": "::AsGlobalPV:Record.S_operation",
+    "NamespaceIndex": 6
+  },
+  "FaultRecordState": {
+    "Identifier": "::AsGlobalPV:Record.S_fault",
+    "NamespaceIndex": 6
+  },
+  "AccessRecordState": {
+    "Identifier": "::AsGlobalPV:Record.S_info",
+    "NamespaceIndex": 6
+  },
+  "OperationRecord": {
+    "Identifier": "::AsGlobalPV:Record.Operation",
+    "NamespaceIndex": 6
+  },
+  "FaultRecord": {
+    "Identifier": "::AsGlobalPV:Record.Fault",
+    "NamespaceIndex": 6
+  },
+  "AccessRecord": {
+    "Identifier": "::AsGlobalPV:Record.Person_info",
+    "NamespaceIndex": 6
+  },
+  "OperationCommand": {
+    "Identifier": "::AsGlobalPV:Interaction.Cmd",
+    "NamespaceIndex": 6
+  },
+  "OperationApply": {
+    "Identifier": "::AsGlobalPV:Interaction.Apply",
+    "NamespaceIndex": 6
+  },
+  "EnableReset": {
+    "Identifier": "::AsGlobalPV:Interaction.Notarize_state0",
+    "NamespaceIndex": 6
+  },
+  "SafeConfirm": {
+    "Identifier": "::AsGlobalPV:Interaction.Notarize_state1",
+    "NamespaceIndex": 6
+  },
+  "AlgorithmResult": {
+    "Identifier": "::AsGlobalPV:Interaction.Notarize_state2",
+    "NamespaceIndex": 6
+  },
+  "SignalLightCommand": {
+    "Identifier": "::AsGlobalPV:Interaction.Cmd_signal",
+    "NamespaceIndex": 6
+  },
+  "GateCommand": {
+    "Identifier": "::AsGlobalPV:Interaction.Cmd_ZQDL",
+    "NamespaceIndex": 6
+  },
+  "Operators": {
+    "Identifier": "::AsGlobalPV:Interaction.Operation_a",
+    "NamespaceIndex": 6
+  },
+  "Workers": {
+    "Identifier": "::AsGlobalPV:Interaction.Operation_b",
+    "NamespaceIndex": 6
+  },
+  "ID_Inspect": {
+    "Identifier": "::AsGlobalPV:Interaction.ID_Inspect",
+    "NamespaceIndex": 6
+  },
+  "AlgorithmMsg": {
+    "Identifier": "::AsGlobalPV:Interaction.Msg_show",
+    "NamespaceIndex": 6
+  }
+}
