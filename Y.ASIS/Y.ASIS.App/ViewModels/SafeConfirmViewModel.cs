@@ -10,6 +10,7 @@ using Y.ASIS.App.Windows;
 using Y.ASIS.Common.Models;
 using Y.ASIS.Common.MVVMFoundation;
 
+
 namespace Y.ASIS.App.ViewModels
 {
     public class SafeConfirmViewModel : ViewModelBase

@@ -37,6 +37,8 @@
             GreaterThanBrush="{StaticResource HasEleclBrush}"
             LessThanBrush="#22AC38"
             Threshold="20" />
+
+        <!--  GreaterThanBrush="{StaticResource WarningBrush}"  -->
         <appcvt:DoubleValueToBrushConverter
             x:Key="LoopRValueToBrush"
             GreaterThanBrush="{StaticResource WarningBrush}"
@@ -44,6 +46,8 @@
             Threshold="5" />
 
         <appcvt:DoubleValueToTextConverter x:Key="LoopRValueToText" Threshold="500.0" />
+        <appcvt:BrushToCollapsedConverter x:Key="BrushToCollapsed" TragetBrush="{StaticResource WarningBrush}" />
+
 
         <appcvt:IntValueToDoorStateConverter x:Key="IntValueToDoorState" />
         <appcvt:ObjectIsNullToVisibilityConverter x:Key="ObjectIsNullToVisibility" />
@@ -1268,11 +1272,13 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Background="{Binding Positions[0].State.LoopR[0], Converter={StaticResource LoopRValueToBrush}}"
-                        CornerRadius="3">
+                        CornerRadius="3"
+                        Visibility="{Binding Path=Background, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BrushToCollapsed}}">
                         <StackPanel
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Orientation="Horizontal">
+
                             <Path
                                 VerticalAlignment="Center"
                                 Data="{StaticResource ResistanceIcon}"
@@ -1281,7 +1287,8 @@
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center"
                                 FontSize="18"
-                                Foreground="White">
+                                Foreground="White"
+                                Visibility="Hidden">
                                 <Run Text="{Binding Positions[0].State.LoopR[0], Converter={StaticResource LoopRValueToText}}" />
                                 <Run Text="Ω" />
                             </TextBlock>

@@ -1,6 +1,9 @@
-﻿using Y.ASIS.App.Communication.Algorithm;
+﻿using System.Windows;
+using Y.ASIS.App.Common;
+using Y.ASIS.App.Communication.Algorithm;
 using Y.ASIS.App.Services;
 using Y.ASIS.App.Services.CameraService;
+using Y.ASIS.App.Windows;
 using Y.ASIS.Common.Utils;
 using Y.HIKNVR.SDK;
 
@@ -9,6 +12,31 @@ public static class Tester
 {
     public static void TestSafeConfirm()
     {
+        var vm = AppGlobal.Instance.MainVM;
+
+
+        int no = 1;
+        var sc = SafeConfirmManager.Instance.GetSafeConfirm(no); // data comes from SafeConfirmConfig.json
+        if (sc != null)
+        {
+            vm.CurrentPosition.SafeConfirm = sc;
+
+            PositionService.ApplyVideoCondition(vm.CurrentPosition, sc);
+        }
+
+
+        return;
+        if (vm.CurrentPosition != null)
+        {
+            SafeConfirmWindow window = new SafeConfirmWindow(vm.CurrentPosition, vm.CurrentUser)
+            {
+                Owner = Application.Current.MainWindow,
+            };
+            window.ShowDialog();
+        }
+
+        return;
+
         var ss = AlgorithmService.DetectSafety(22, "");
 
         return;
@@ -34,4 +62,6 @@ public static class Tester
         var dt1 = TimeUtil.TimeStamp();
         var dt2 = TimeUtil.TimeStamp();
     }
+
+
 }
