@@ -1,6 +1,5 @@
-﻿using Y.ASIS.Models.Enums;
-
-using Y.ASIS.Common.MVVMFoundation;
+﻿using Y.ASIS.Common.MVVMFoundation;
+using Y.ASIS.Models.Enums;
 namespace Y.ASIS.App.Models
 {
     /// <summary>
@@ -15,7 +14,10 @@ namespace Y.ASIS.App.Models
         public string No
         {
             get { return no; }
-            set { SetProperty(ref no, value); }
+            set
+            {
+                SetProperty(ref no, value);
+            }
         }
 
         private PantographState leftPantograph;
@@ -48,31 +50,8 @@ namespace Y.ASIS.App.Models
 
             set
             {
-
-                //state = value;
-                //OnPropertyChanged(nameof(State));
-
                 SetProperty(ref state, value);
-
             }
-        }
-
-
-        public override bool Equals(object obj)
-        {
-            if (!(obj is Train train))
-            {
-                return false;
-            }
-
-            return No == train.no
-                && LeftPantograph == train.leftPantograph
-                && RightPantograph == train.RightPantograph;
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
         }
     }
 

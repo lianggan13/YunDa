@@ -52,8 +52,9 @@
                     FontSize="10"
                     Foreground="#99AFCC"
                     Style="{StaticResource WatermarkTextBoxStyle}"
-                    Text="{Binding ., Mode=TwoWay, NotifyOnSourceUpdated=True}"
+                    Text="{Binding No, Mode=TwoWay, NotifyOnSourceUpdated=True}"
                     TextAlignment="Center" />
+                <!--  Text="{Binding ., Mode=TwoWay, NotifyOnSourceUpdated=True}"  -->
             </Grid>
             <DataTemplate.Triggers>
                 <Trigger SourceName="TrainNoBox" Property="IsFocused" Value="True">
@@ -259,7 +260,7 @@
                     <ContentControl
                         Margin="0,0,0,1"
                         VerticalAlignment="Bottom"
-                        Content="{Binding Positions[0].State.Trains[0].No}"
+                        Content="{Binding Positions[0].State.Trains[0], UpdateSourceTrigger=PropertyChanged}"
                         ContentTemplate="{StaticResource TrainNoDataTemplate}" />
                 </Grid>
                 <ctls:SignalLight
@@ -524,16 +525,17 @@
                     Margin="0,0,0,1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
-                    Content="{Binding Positions[0].State.Trains[0].No}"
+                    Content="{Binding Positions[0].State.Trains[0], UpdateSourceTrigger=PropertyChanged}"
                     ContentTemplate="{StaticResource TrainNoDataTemplate}"
                     Visibility="{Binding ElementName=ITrainControl, Path=Visibility}" />
+
                 <ContentControl
                     Grid.RowSpan="2"
                     Grid.Column="6"
                     Margin="0,0,0,1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
-                    Content="{Binding Positions[0].State.Trains[1].No}"
+                    Content="{Binding Positions[0].State.Trains[1], UpdateSourceTrigger=PropertyChanged}"
                     ContentTemplate="{StaticResource TrainNoDataTemplate}"
                     Visibility="{Binding ElementName=IITrainControl, Path=Visibility}" />
                 <ctls:SignalLight
@@ -827,7 +829,7 @@
                     VerticalAlignment="Bottom">
                     <ContentControl
                         Margin="0,0,0,1"
-                        Content="{Binding Positions[0].State.Trains[0].No}"
+                        Content="{Binding Positions[0].State.Trains[0], UpdateSourceTrigger=PropertyChanged}"
                         ContentTemplate="{StaticResource TrainNoDataTemplate}"
                         Visibility="{Binding ElementName=ITrainControl, Path=Visibility}" />
                 </Grid>
@@ -883,7 +885,7 @@
                     VerticalAlignment="Bottom">
                     <ContentControl
                         Margin="0,0,0,1"
-                        Content="{Binding Positions[1].State.Trains[0].No}"
+                        Content="{Binding Positions[1].State.Trains[0], UpdateSourceTrigger=PropertyChanged}"
                         ContentTemplate="{StaticResource TrainNoDataTemplate}"
                         Visibility="{Binding ElementName=IITrainControl, Path=Visibility}" />
                 </Grid>

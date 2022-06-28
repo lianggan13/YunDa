@@ -64,7 +64,6 @@ namespace Y.ASIS.App.Windows
                 //    });
                 //}
 
-
                 pdct = svr; // nvr && svr;
             });
 

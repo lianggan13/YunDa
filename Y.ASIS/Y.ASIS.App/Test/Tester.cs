@@ -1,6 +1,10 @@
-﻿using System.Windows;
+﻿using RestSharp;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
 using Y.ASIS.App.Common;
 using Y.ASIS.App.Communication.Algorithm;
+using Y.ASIS.App.Models;
 using Y.ASIS.App.Services;
 using Y.ASIS.App.Services.CameraService;
 using Y.ASIS.App.Windows;
@@ -61,6 +65,83 @@ public static class Tester
     {
         var dt1 = TimeUtil.TimeStamp();
         var dt2 = TimeUtil.TimeStamp();
+    }
+
+
+
+
+    public static void TestGetTrackStates()
+    {
+        Task.Run(async () =>
+        {
+            while (true)
+            {
+                string Host = "http://192.168.1.87:8080/";
+                string AuthKey = "5555555555555555";
+
+                var client = new RestClient(Host);
+                client.AddDefaultHeader("AuthKey", AuthKey);
+
+                var apiUrl = "api/trackstate";
+                var request = new RestRequest(apiUrl, Method.POST);
+                request.Timeout = 3000;
+                var response = client.Execute(request);
+                var values = response.Content;
+                if (string.IsNullOrEmpty(values))
+                {
+
+                }
+
+                await Task.Delay(300);
+            }
+        });
+
+        Console.Read();
+    }
+
+    static Random rand = new Random();
+
+
+    public static void TestPlatform(Position position, PositionStateNet value)
+    {
+        //if (id == 2)
+        //{
+        //    value.Platforms[0].Doors = new ObservableCollection<int>() { rand.Next(0, 5) };
+        //}
+        //if (rand.Next(100) > 50)
+        //{
+        //    if (value.Platforms.Count > 1)
+        //        value.Platforms[0].Doors[0] = rand.Next(1, 5);
+        //    //value.Platforms[0].Doors[0] = rand.Next(1, 5);
+        //}
+    }
+
+
+    public static void TestTrain(Position position, Y.ASIS.App.Models.PositionStateNet value)
+    {
+
+        if (value.Trains.Count == 0)
+        {
+            var train1 = new Train()
+            {
+                No = "290017",
+                State = rand.Next(1, 4).ToString(),
+            };
+
+            var train2 = new Train()
+            {
+                No = "290017",
+                State = rand.Next(1, 4).ToString(),
+            };
+
+            value.Trains.Add(train1);
+            value.Trains.Add(train2);
+        }
+
+        if (rand.Next(1000) > 800)
+        {
+            value.Trains[1] = null;
+        }
     }
 
 

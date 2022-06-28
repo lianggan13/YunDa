@@ -99,8 +99,6 @@ namespace Y.ASIS.App.Models
             }
         }
 
-        Random rand = new Random();
-
         public void SetPosState(PositionStateNet value)
         {
             // 减少界面刷新的频率
@@ -129,22 +127,14 @@ namespace Y.ASIS.App.Models
                 state.Grounding = value.Grounding;  // 接地 开关状态
                 state.ElecState = value.ElecState;  // 验电 开关状态
                 state.ElecResult = value.ElecResult;
-                state.ElecValue = value.ElecValue;  // -1d;// value.ElecValue;
+                state.ElecValue = value.ElecValue;
 
-                //if (id == 2)
-                //{
-                //    value.Platforms[0].Doors = new ObservableCollection<int>() { rand.Next(0, 5) };
-                //}
-                //if (rand.Next(100) > 50)
-                //{
-                //    if (value.Platforms.Count > 1)
-                //        value.Platforms[0].Doors[0] = rand.Next(1, 5);
-                //    //value.Platforms[0].Doors[0] = rand.Next(1, 5);
-                //}
-
+                //Tester.TestPlatform(this, value);
                 state.Platforms = value.Platforms;
 
+                //Tester.TestTrain(this, value);
                 state.Trains = value.Trains;        // 列车
+
                 state.LoopR = value.LoopR;
                 state.GroundingR = value.GroundingR;
                 state.SignalLight = value.SignalLight;
