@@ -666,8 +666,15 @@ namespace Y.ASIS.Server.Device
 
                 for (int i = 0; i < gangway.Length; i++)
                 {
-                    int index = indexes[i];
-                    Position.State.Platforms[index].Gangway = gangway[i];
+                    try
+                    {
+                        int index = indexes[i];
+                        Position.State.Platforms[index].Gangway = gangway[i];
+                    }
+                    catch (Exception)
+                    {
+                    }
+
                 }
                 Position.State.UpdateLastTime();
                 return;
@@ -700,12 +707,23 @@ namespace Y.ASIS.Server.Device
                 return;
             }
             Dictionary<int, List<int>> pairs = GetPlatformDoorState(states, lockers, indexes);
+
+            //int platformsCount = Position.State.Platforms.Count;
+            //int index = 1;
+            //foreach (var item in pairs)
+            //{
+            //    if (index >= platformsCount) continue;
+            //    Position.State.Platforms[item.Key].Doors = item.Value;
+            //    HIKNVRService.LinkDoorVideo(Position, item.Key, item.Value);
+            //    index++;
+            //}
+
             pairs.ForEach(pair =>
             {
                 Position.State.Platforms[pair.Key].Doors = pair.Value;
-
                 HIKNVRService.LinkDoorVideo(Position, pair.Key, pair.Value);
             });
+
             Position.State.UpdateLastTime();
         }
 

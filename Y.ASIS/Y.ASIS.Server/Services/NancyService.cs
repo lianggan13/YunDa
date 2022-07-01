@@ -105,7 +105,8 @@ namespace Y.ASIS.Server.Services
         private Response BeforeCall(NancyContext ctx)
         {
             if (!ctx.Request.Url.Path.EndsWith("/api/heart"))
-                LogHelper.Info($">> [{DateTime.Now}] {ctx.Request.UserHostAddress} {ctx.Request.Method} {ctx.Request.Url}");
+                //Task.Run(() => LogHelper.Info($">> [{DateTime.Now}] {ctx.Request.UserHostAddress} {ctx.Request.Method} {ctx.Request.Url}"));
+                Console.WriteLine($">> [{DateTime.Now}] {ctx.Request.UserHostAddress} {ctx.Request.Method} {ctx.Request.Url}");
             if (ctx.ResolvedRoute.Description.Path == "/api/user/photo/{name}")
             {
                 return null;
@@ -297,6 +298,8 @@ namespace Y.ASIS.Server.Services
             ISet<int> operatorNos = new HashSet<int>(@params.OperatorNos);
             userNos.AddRange(workerNos);
             userNos.AddRange(operatorNos);
+
+
 
             bool success1 = plc.RevokeUsers(workerNos, operatorNos);
             bool success2 = AttendanceManager.Instance.DeleteUsers(workerNos);
@@ -1138,7 +1141,23 @@ namespace Y.ASIS.Server.Services
         private object GetTrackState(dynamic arg)
         {
             var states = DataProvider.Instance.TrackList.Select(t => t.State).ToList();
-            //var message = states?.JsonSerialize();
+            //states.ForEach(x =>
+            //{
+            //    x.PositionStates.ForEach(a =>
+            //    {
+            //        a.Platforms.ForEach(b =>
+            //        {
+            //            int i = 1;
+            //            foreach (var item in b.Doors)
+            //            {
+            //                b.DoorsSn = i + "";
+            //                b.State = item;
+            //            }
+            //        });
+            //    });
+            //});
+
+           // Console.WriteLine(states?.JsonSerialize()) ;
             return ResponseData.Success(states);
         }
 
