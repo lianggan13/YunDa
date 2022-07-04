@@ -71,22 +71,6 @@ namespace Y.ASIS.Server.Services
 
             return no;
         }
-
-        public int WearCheck(int channel, out string capture)
-        {
-            capture = null;
-            AlgorithmDetectRequest request = new AlgorithmDetectRequest(DetectType.Cloth, MethodType.SDK, 33);
-            if (request != null)
-            {
-                var response = request.Request<ResponseData<DetectData>>();
-                if (response != null && response.IsSuccess)
-                {
-                    capture = response.Data.Photo;
-                    return response.Data.Result;
-                }
-            }
-            return -1;
-        }
     }
 
     class RecognizeResult

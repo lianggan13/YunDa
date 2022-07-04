@@ -231,7 +231,7 @@
             FontSize="12"
             FontStyle="Italic"
             Foreground="#20FFFFFF">
-            <Run Text="Copyright © 2021 Chengdu YunDa Technology Co.,Ltd. All rights reserved. Version: " />
+            <Run Text="Copyright © 2022 Chengdu YunDa Technology Co.,Ltd. All rights reserved. Version: " />
             <Run Text="{DynamicResource Version}" />
         </TextBlock>
     </Grid>

@@ -25,7 +25,7 @@ namespace Y.ASIS.Server.Services
 {
     public class NancyService : NancyModule
     {
-        private const string AuthKey = "AuthKey";
+        private const string AuthKey = nameof(AuthKey);
 
         public NancyService()
         {
@@ -51,7 +51,7 @@ namespace Y.ASIS.Server.Services
             Get("/api/user/photo/{name}", GetUserPhoto);
             Get("/api/users", GetUsers);
             Post("/api/user", AddOrUpdateUser);
-            Post("/api/user/upsert", UpsertUser); // 强制更新或添加
+            Post("/api/user/upsert", UpsertUser);
             Post("/api/user/photo", UploadUserPhoto);
             Post("/api/users/delete", DeleteUsers);
 
@@ -89,7 +89,6 @@ namespace Y.ASIS.Server.Services
 
             Post("/api/project", Project);
             Post("/api/trackstate", GetTrackState);
-
         }
 
         #region common components (aop)

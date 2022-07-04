@@ -22,7 +22,7 @@
             <ctls:ReverseBoolConverter x:Key="ReverseBoolConverter" />
             <ctls:BoolToVisibilityConverter x:Key="BoolToVisibility" />
             <ctls:BoolToVisibilityConverter x:Key="BoolToVisibilityIsTrueToCollapsed" IsTrueToVisible="False" />
-            <sys:String x:Key="Version">1.0.0.10</sys:String>
+            <sys:String x:Key="Version">V1.3.0.1</sys:String>
 
             <!--#region popup window-->
             <Style x:Key="SmallPopupWindowStyle" TargetType="{x:Type windows:PopupWindow}">
