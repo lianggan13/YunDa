@@ -23,23 +23,17 @@ namespace AlgorithmServer
             }
 
             #region Test
-            try
-            {
 
-                //Tester.TestCapture();
+            //Tester.TestCapture();
 
-                Tester.Init();
-                Tester.TestSdkTrain();
-                Tester.TestSdkSafety();
-                Tester.TestPersonnel();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            //Tester.Init();
+            //Tester.TestSdkTrain();
+            //Tester.TestSdkSafety();
+            //Tester.TestPersonnel();
 
-            Console.ReadKey();
-            return;
+            //Console.ReadKey();
+            //return;
+
             #endregion
 
             ClothCheckAlgorithm.Init();

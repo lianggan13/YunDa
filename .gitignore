@@ -342,3 +342,5 @@ healthchecksdb
 App.config
 
 AlgorithmServer/3rdPartDll/
+
+!/Y.ASIS/Y.DaHua.SDK/x64/
