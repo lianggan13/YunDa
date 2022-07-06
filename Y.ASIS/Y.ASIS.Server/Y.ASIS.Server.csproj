@@ -279,6 +279,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\DB\Shen12\ASIS_DeviceInfo.js" />
     <Content Include="Config\DB\BaiSe\ASIS_DeviceInfo.js" />
     <Content Include="Config\DB\BaiSe\ASIS_ExternalSystem.js" />
     <Content Include="Config\DB\Shen12\ASIS_Position.js" />

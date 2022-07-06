@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Y.ASIS.Common.Models.Enums;
 using Y.ASIS.Server.Database;
@@ -78,13 +79,14 @@ public static class Tester
 
     public static void TestIPVoice()
     {
-        SpeakerManager.Instance.Start(new List<int>() { 5 }, "，，，张亮 请打开，，，");
-        SpeakerManager.Instance.Start(new List<int>() { 6 }, "，，，11股道 如果有声音，请通知张亮，，，");
+        while (true)
+        {
+            SpeakerManager.Instance.Start(new List<int>() {2}, "老陈让你过来 速度 加急");
 
+            Thread.Sleep(20 * 1000);
+        }
         //var positionId = 1;
         //SpeakerManager.Instance.SwitchOff(DataProvider.Instance.GetPosition(positionId).SpeakerIds, positionId.ToString());
-
-
     }
 
     public static void TestRecord()

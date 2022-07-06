@@ -344,12 +344,17 @@ namespace Y.ASIS.Server.Services
             });
 
 
+            //if(ServerGlobal.Project == ProjectType.NationalRailway_BaiSe)
+            //{
+
+            //}
+
             OperationRecord record = new OperationRecord()
             {
                 Index = pos.Index,
                 Time = DateTime.Now,
                 TrackNo = DataProvider.Instance.GetTrackByPosId(pos.ID).No,
-                WorkerNo = ServerGlobal.CurrentUser.No.ToString(),
+                WorkerNo = ServerGlobal.CurrentUser?.No.ToString(),
                 OperationCode = $"{(int)PLCOperateCode.手动消除权限}",
             };
             DataProvider.Instance.AddOrUpdateOperationRecord(record);

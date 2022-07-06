@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.ServiceProcess;
 using System.Threading;
+using System.Threading.Tasks;
 using Y.ASIS.Server.Install;
 using Y.ASIS.Server.Services.Main;
 
@@ -11,6 +12,11 @@ namespace Y.ASIS.Server
     {
         public static void Main(string[] args)
         {
+            //测试音柱
+            //Task.Run(() =>
+            //{
+            //    Tester.TestIPVoice();
+            //});
             bool runservice = !(Environment.UserInteractive || Debugger.IsAttached);
             if (runservice)
             {

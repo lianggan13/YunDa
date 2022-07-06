@@ -14,7 +14,7 @@ namespace Y.ASIS.Server.Common
     {
         public static User CurrentUser { get; set; }
 
-        public static ProjectType Project { get; set; }
+        public static ProjectType Project { get; set; } = ProjectType.Shenzhen12;
         public static string ExecuteDirectory { get; }
 
         public static string ServerHostUrl { get; }

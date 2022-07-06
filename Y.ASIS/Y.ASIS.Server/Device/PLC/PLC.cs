@@ -730,6 +730,7 @@ namespace Y.ASIS.Server.Device
         private Dictionary<int, List<int>> GetPlatformDoorState(byte[] states, byte[] lockers, byte[] indexes)
         {
             Dictionary<int, List<int>> pairs = new Dictionary<int, List<int>>();
+            if(states.Length!= indexes.Length) return pairs;
             for (int i = 0; i < states.Length; i++)
             {
                 int index = indexes[i];
@@ -774,7 +775,7 @@ namespace Y.ASIS.Server.Device
                 {
                     LogHelper.Error(ex.Message, ex);
                 }
-            }
+            } 
 
             return pairs;
         }
@@ -807,6 +808,16 @@ namespace Y.ASIS.Server.Device
 
         private void OnTrainStateChanged(dynamic value)
         {
+            if ( Position.ID ==46)
+            {
+
+            }
+
+            if (Position.ID == 47)
+            {
+                // 47 列位的 PLC(10.60.26.2) 有问题，收不到 车 数据
+            }
+
             if (value == null)
                 return;
             // 00 = 初始化检测中
@@ -857,7 +868,10 @@ namespace Y.ASIS.Server.Device
                 {
                     Position.State.Trains[i].State = states[i].ToString();
                 }
+                if(Position.ID == 47)
+                {
 
+                }
                 //  11 = 未配置
             }
         }
