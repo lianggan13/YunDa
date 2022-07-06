@@ -15,7 +15,7 @@ namespace Y.ASIS.App.Services
         public static void RequestIssueUsers(Position pos, List<int> operatorNos, List<int> workerNos,
                                             IEnumerable<int> issedOptNos, IEnumerable<int> issedWorkerNos,
                                             bool? isInspect,
-                                            Action<ResponseData<bool>> callback)
+                                            Action<ResponseData<object>> callback)
         {
             if (AppGlobal.Instance.Project == ProjectType.NationalRailway_BaiSe) // NationalRailway_BaiSe
             {
@@ -48,7 +48,7 @@ namespace Y.ASIS.App.Services
             }
 
             PositionIssueUsersRequest request = new PositionIssueUsersRequest(pos.Id, operatorNos, workerNos, isInspect);
-            request.RequestAsync<ResponseData<bool>>(resp =>
+            request.RequestAsync<ResponseData<object>>(resp =>
             {
                 callback?.Invoke(resp);
             });
@@ -57,10 +57,10 @@ namespace Y.ASIS.App.Services
 
         public static void RequestRevokeUsers(Position pos,
                                               List<int> operatorNos, List<int> workerNos,
-                                              Action<ResponseData<bool>> callback)
+                                              Action<ResponseData<object>> callback)
         {
             PositionRevokeUsersRequest request = new PositionRevokeUsersRequest(pos.Id, operatorNos, workerNos);
-            request.RequestAsync<ResponseData<bool>>(resp =>
+            request.RequestAsync<ResponseData<object>>(resp =>
             {
                 callback?.Invoke(resp);
             });

@@ -221,6 +221,7 @@
     <Compile Include="Models\Train.cs" />
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Services\DeviceService.cs" />
+    <Compile Include="Services\IPSpeaker\IPSpeakerService.cs" />
     <Compile Include="Services\Main\MainService.cs">
       <SubType>Component</SubType>
     </Compile>

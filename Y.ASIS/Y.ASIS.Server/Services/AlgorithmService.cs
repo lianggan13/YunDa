@@ -71,22 +71,6 @@ namespace Y.ASIS.Server.Services
 
             return no;
         }
-
-        public int WearCheck(int channel, out string capture)
-        {
-            capture = null;
-            AlgorithmDetectRequest request = new AlgorithmDetectRequest(DetectType.Cloth, MethodType.SDK, 33);
-            if (request != null)
-            {
-                var response = request.Request<ResponseData<DetectData>>();
-                if (response != null && response.IsSuccess)
-                {
-                    capture = response.Data.Photo;
-                    return response.Data.Result;
-                }
-            }
-            return -1;
-        }
     }
 
     class RecognizeResult
@@ -99,7 +83,7 @@ namespace Y.ASIS.Server.Services
     #region 算法接口，暂放于此，后期封装
     public class DetectData
     {
-        public int Result { get; set; }
+        public string Result { get; set; }
         public string Photo { get; set; }
     }
 
@@ -257,9 +241,9 @@ namespace Y.ASIS.Server.Services
                 {
                     return JsonConvert.DeserializeObject<T>(json);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    return default;
+                    LogHelper.Error(ex.Message, ex);
                 }
             }
             return default;

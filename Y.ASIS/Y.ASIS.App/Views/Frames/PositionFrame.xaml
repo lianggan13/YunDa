@@ -61,7 +61,7 @@
                 VerticalAlignment="Bottom"
                 Orientation="Horizontal">
 
-                <!--  apply mode (mode == 1) buttons  -->
+                <!--  apply mode (mode == 1 批复) buttons  -->
                 <StackPanel
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -111,7 +111,7 @@
                     </StackPanel>
                 </StackPanel>
 
-                <!--  remote mode (mode == 2) buttons  -->
+                <!--  remote mode (mode == 2 远程) buttons  -->
                 <StackPanel
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -202,6 +202,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
+
                     <ctls:PromptBubbleButton
                         x:Name="safeConfirmBtn"
                         Click="SafeConfirmButtonClick"
@@ -210,6 +211,7 @@
                         Visibility="{Binding CurrentRole, Converter={StaticResource RoleToVisibility}, ConverterParameter='6'}" />
                 </StackPanel>
             </StackPanel>
+
 
             <StackPanel
                 Margin="20"

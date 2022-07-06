@@ -53,19 +53,9 @@ namespace Y.ASIS.App.Windows
                 _ = Utils.CardUtil.GetCardUid();
 
                 bool nvr = HIKNVRService.Login();
-                bool svr = HeartRequest.Ping();
+                bool srp = HeartRequest.Ping();
 
-                //if (!svr)
-                //{
-                //    Application.Current.Dispatcher.Invoke(() =>
-                //    {
-                //        MessageWindow.Show("上位机启动失败，请首先确保服务启动.");
-                //        Close();
-                //    });
-                //}
-
-
-                pdct = svr; // nvr && svr;
+                pdct = srp; // nvr && svr;
             });
 
             AppGlobal.Env = pdct ? AppEnvironment.Production : AppEnvironment.Development;

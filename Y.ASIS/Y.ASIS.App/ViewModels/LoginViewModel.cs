@@ -3,6 +3,7 @@ using Y.ASIS.App.Communication;
 using Y.ASIS.App.Models;
 using Y.ASIS.App.Windows;
 using Y.ASIS.Common.ExtensionMethod;
+using Y.ASIS.Common.Manager;
 using Y.ASIS.Common.Models;
 using Y.ASIS.Common.MVVMFoundation;
 
@@ -12,14 +13,14 @@ namespace Y.ASIS.App.ViewModels
     {
         public RelayCommand LoginCommand { get; set; }
 
-        private string no = "290017";
+        private string no;
         public string No
         {
             get { return no; }
             set { SetProperty(ref no, value); }
         }
 
-        private string password = "1918";
+        private string password;
         public string Password
         {
             get { return password; }
@@ -28,6 +29,9 @@ namespace Y.ASIS.App.ViewModels
 
         public LoginViewModel()
         {
+            No = LocalConfigManager.GetAppSettingValue("Login.No");
+            Password = LocalConfigManager.GetAppSettingValue("Login.Password");
+
             InitCommands();
         }
 

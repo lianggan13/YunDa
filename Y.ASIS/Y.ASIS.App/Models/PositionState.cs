@@ -274,8 +274,6 @@ namespace Y.ASIS.App.Models
                         platforms = new ObservableCollection<Platform>();
                     }
 
-                    //platforms.Clear();
-
                     for (int i = 0; i < value?.Count; i++)
                     {
                         var v = value.ElementAtOrDefault(i);
@@ -291,24 +289,28 @@ namespace Y.ASIS.App.Models
                                     new { Position, DoorIndex = i, DoorStates = v.Doors });
                             }
 
-                            platforms[i] = value[i]; // update platform
+                            platforms[i] = v; // update platform
                         }
-                        else if (p == null)
+                        else
                         {
-                            platforms.Add(v); // add platform
-
+                            if (platforms.Count < i + 1)
+                            {
+                                platforms.Add(v);  // add platform
+                            }
+                            else
+                            {
+                                platforms[i] = v; // update platform
+                            }
                         }
                     }
 
-                    if (platforms.Count > value.Count)
-                    {
-                        for (int i = value.Count; i < platforms.Count; i++)
-                        {
-                            platforms.RemoveAt(i);
-                        }
-                    }
-
-                    //platforms = value;
+                    //if (platforms.Count > value.Count)
+                    //{
+                    //    for (int i = value.Count; i < platforms.Count; i++)
+                    //    {
+                    //        platforms.RemoveAt(i);
+                    //    }
+                    //}
 
                     if (platforms.Count > 0)
                     {
@@ -327,37 +329,80 @@ namespace Y.ASIS.App.Models
             }
         }
 
-        private ObservableCollection<Train> trains; //= new ObservableCollection<Train>();
+        private ObservableCollection<Train> trains;
         public ObservableCollection<Train> Trains
         {
             get { return trains; }
             set
             {
-                if (value != null)
+                if (trains == null || value == null
+                    || !JsonConvert.SerializeObject(value).Equals(JsonConvert.SerializeObject(trains)))
                 {
+                    if (trains == null)
+                    {
+                        trains = new ObservableCollection<Train>();
+                    }
+
                     for (int i = 0; i < value?.Count; i++)
                     {
-                        var v = value.ElementAt(i);
-                        var t = trains?.ElementAtOrDefault(i);
-                        if (t == null || v == null)
-                            continue;
+                        var v = value.ElementAtOrDefault(i);
+                        var t = trains.ElementAtOrDefault(i);
 
-                        // 1 --> 3
-                        if (t.State == "1" && v.State == "3")
+                        if (v != null && t != null)
                         {
-                            trains[i] = null;
+                            if (string.IsNullOrEmpty(t.No))
+                            {
+                                t.No = v.No;
+                            }
+                            t.LeftPantograph = v.LeftPantograph;
+                            t.RightPantograph = v.RightPantograph;
+                            t.State = v.State;
+
+                            //trains[i] = value[i]; // update train
                         }
-
-                        // 3 --> 1
-                        if (t.State == "3" && v.State == "1")
+                        else
                         {
-                            trains[i] = null;
+                            if (trains.Count < i + 1)
+                            {
+                                trains.Add(v); // add train
+                            }
+                            else
+                            {
+                                trains[i] = v; // update train
+                            }
                         }
                     }
 
-                    trains = new ObservableCollection<Train>(value?.ToList());   // 来自 Server 的 value,对本地赋值时，进行深拷贝
                     OnPropertyChanged(nameof(Trains));
                 }
+
+                #region old code
+                //if (value != null)
+                //{
+                //    for (int i = 0; i < value?.Count; i++)
+                //    {
+                //        var v = value.ElementAt(i);
+                //        var t = trains?.ElementAtOrDefault(i);
+                //        if (t == null || v == null)
+                //            continue;
+
+                //        // 有车 --> 异常： 01 --> 03
+                //        if (t.State == "1" && v.State == "3")
+                //        {
+                //            trains[i] = null;
+                //        }
+
+                //        // 异常 --> 无车： 03 --> 02
+                //        if (t.State == "3" && v.State == "1")
+                //        {
+                //            trains[i] = null;
+                //        }
+                //    }
+
+                //    trains = new ObservableCollection<Train>(value?.ToList());   // 来自 Server 的 value,对本地赋值时，进行深拷贝
+                //    OnPropertyChanged(nameof(Trains));
+                //}
+                #endregion
             }
         }
 

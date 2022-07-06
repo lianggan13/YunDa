@@ -25,7 +25,7 @@ namespace Y.ASIS.Server.Services
 {
     public class NancyService : NancyModule
     {
-        private const string AuthKey = "AuthKey";
+        private const string AuthKey = nameof(AuthKey);
 
         public NancyService()
         {
@@ -51,7 +51,7 @@ namespace Y.ASIS.Server.Services
             Get("/api/user/photo/{name}", GetUserPhoto);
             Get("/api/users", GetUsers);
             Post("/api/user", AddOrUpdateUser);
-            Post("/api/user/upsert", UpsertUser); // 强制更新或添加
+            Post("/api/user/upsert", UpsertUser);
             Post("/api/user/photo", UploadUserPhoto);
             Post("/api/users/delete", DeleteUsers);
 
@@ -82,23 +82,13 @@ namespace Y.ASIS.Server.Services
             Post("/api/query/operations", QueryOperations);
             Post("/api/query/issue/tools", QueryTools);
             Post("/api/query/trainnumbers", QueryTrainNumbers);
-            //Get("/api/positions/workers/{id}", GetAuthWorkers);
-            //Get("/api/positions/operators/{id}", GetAuthOperators);
-
-            //Post("/api/positions/auth/workers/{id}", AuthWorkers);
-            //Post("/api/positions/auth/operators/{id}", AuthOperators);
-            //Post("/api/positions/revokeAuth/workers/{id}", RevokeAuthWorkers);
-            //Post("/api/positions/revokeAuth/operators/{id}", RevokeAuthOperators);
 
             Post("/api/warning/handle", HandleWarning);
             Get("/api/warnings/unhandle/count", GetUnhandleWarningsCount);
             Get("/api/tools/{id}", GetTools);
 
-            //Post("/KeyServer/app/tools/bindRfid", GetBind);
-            //Post("/KeyServer/app//tools/bindRfid", GetBind);
             Post("/api/project", Project);
             Post("/api/trackstate", GetTrackState);
-
         }
 
         #region common components (aop)

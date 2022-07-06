@@ -13,6 +13,8 @@ using Y.ASIS.Server.Device;
 using Y.ASIS.Server.Device.Speaker;
 using Y.ASIS.Server.Services;
 using Y.ASIS.Server.Services.CameraService;
+using Y.ASIS.Server.Services.IPSpeaker;
+
 public static class Tester
 {
     public static void TestAlgorithm()
@@ -26,7 +28,6 @@ public static class Tester
 
     public static void TestLinkVideo()
     {
-
         //HIKNVRService.Switch(2);
         //HIKNVRService.Switch(HIKNVR.SDK.CameraLayout.IX, new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
         //HIKNVRService.SwitchAll();
@@ -77,16 +78,97 @@ public static class Tester
 
     }
 
+
+
     public static void TestIPVoice()
     {
-        while (true)
-        {
-            SpeakerManager.Instance.Start(new List<int>() {2}, "老陈让你过来 速度 加急");
+        //SpeakerManager.Instance.Start(new List<int>() { 5 }, "，，，张亮 请打开，，，");
+        //SpeakerManager.Instance.Start(new List<int>() { 6 }, "，，，11股道 如果有声音，请通知张亮，，，");
 
             Thread.Sleep(20 * 1000);
-        }
+        
         //var positionId = 1;
         //SpeakerManager.Instance.SwitchOff(DataProvider.Instance.GetPosition(positionId).SpeakerIds, positionId.ToString());
+
+
+        DataProvider.Instance.DeviceInfos.ForEach(d =>
+        {
+            DeviceService.BuildDevice(d);
+        });
+
+        var poss = DataProvider.Instance.TrackList.SelectMany(t => t.Positions);
+        foreach (var pos in poss)
+        {
+            var speakers = SpeakerManager.Instance.Devices.Values?.Where(s => pos.DeviceIds.Contains(s.Info.ID));
+            pos.SpeakerIds = speakers?.Select(s => s.TerminalId)?.ToList();
+        }
+
+        Task.Run(async () =>
+        {
+            Random rand = new Random();
+
+            while (true)
+            {
+                int doorstate = -1;
+                if (rand.Next(1000) > 500)
+                {
+                    doorstate = 1;
+                }
+                else
+                {
+                    doorstate = 2;
+                }
+
+                IPSpeakerService.MonitorDoorState(poss.ElementAt(0), 0, new List<int>() { doorstate });
+                await Task.Delay(TimeSpan.FromSeconds(rand.Next(4, 10)));
+            }
+        });
+
+        Task.Run(async () =>
+        {
+            Random rand = new Random();
+
+            while (true)
+            {
+                int doorstate = -1;
+                if (rand.Next(1000) > 500)
+                {
+                    doorstate = 1;
+                }
+                else
+                {
+                    doorstate = 2;
+                }
+
+                IPSpeakerService.MonitorDoorState(poss.ElementAt(0), 1, new List<int>() { doorstate });
+                await Task.Delay(TimeSpan.FromSeconds(rand.Next(4, 10)));
+            }
+        });
+
+
+
+        Task.Run(async () =>
+        {
+            Random rand = new Random();
+
+            while (true)
+            {
+                int doorstate = -1;
+                if (rand.Next(1000) < 500)
+                {
+                    doorstate = 1;
+                }
+                else
+                {
+                    doorstate = 2;
+                }
+
+                IPSpeakerService.MonitorDoorState(poss.ElementAt(1), 1, new List<int>() { doorstate });
+                await Task.Delay(TimeSpan.FromSeconds(rand.Next(4, 10)));
+            }
+        });
+
+        Console.ReadKey();
     }
 
     public static void TestRecord()
@@ -141,4 +223,5 @@ public static class Tester
         Console.ReadKey();
 
     }
+
 }

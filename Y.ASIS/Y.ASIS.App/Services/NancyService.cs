@@ -43,6 +43,7 @@ namespace Y.ASIS.App.Services
                             ViewModel.UpdateDevice(deviceState);
                             break;
                         case PushDataType.Fault:
+                            break;
                             ViewModel.AddFaultRecord(json.JsonDeserialize<PushMessage<FaultRecord>>().Data);
                             ViewModel.RefreshUnhandleWarningsCount();
                             break;
