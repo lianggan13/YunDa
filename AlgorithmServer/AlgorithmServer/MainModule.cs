@@ -108,8 +108,7 @@ namespace AlgorithmServer
         private Response BeforeCall(NancyContext ctx)
         {
             if (!ctx.Request.Url.Path.EndsWith("/api/heart"))
-                Console.WriteLine($">> {ctx.Request.UserHostAddress} {ctx.Request.Method} {ctx.Request.Url}");
-
+                Console.WriteLine($">> [{DateTime.Now}] {ctx.Request.UserHostAddress} {ctx.Request.Method} {ctx.Request.Url}");
             return null;
         }
         private void AfterCall(NancyContext ctx)

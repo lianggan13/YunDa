@@ -246,6 +246,14 @@ public class Tester
             string path = ImageHelper.SaveImage(data, $"Channel_{chan}_{DateTime.Now:yyyy-MM-dd}.png");
 
             Console.WriteLine(path);
+
+            MethodParam param = new MethodParam();
+            using (MemoryStream stream = new MemoryStream(data))
+            {
+                param.Mat = Mat.FromStream(stream, ImreadModes.AnyColor);
+                param.Image = Image.FromStream(stream);
+            }
+
         }
 
 
