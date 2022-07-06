@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
-using Y.ASIS.App.Common;
 using Y.ASIS.App.Communication.Algorithm;
 using Y.ASIS.App.Models;
 using Y.ASIS.App.Services.CameraService;
@@ -95,45 +94,46 @@ namespace Y.ASIS.App.Services
 
                 var condition = video.Condition;
                 var task = Task.Run(() =>
-                 {
-                     BitmapImage img = null;
-                     DetectResult result = null;
-                     outPhotos[condition.Text] = null;
-                     try
-                     {
-                         var heart = AlgorithmService.Heartbeat(); // cheak heartbeat before detecting
+                {
+                    BitmapImage img = null;
+                    DetectResult result = null;
+                    outPhotos[condition.Text] = null;
+                    try
+                    {
+                        var heart = AlgorithmService.Heartbeat(); // cheak heartbeat before detecting
 
-                         if (heart != null)
-                         {
-                             result = AlgorithmService.DetectSafety(video.Channel, video.Extension);
-                             if (result != null)
-                             {
-                                 condition.RecognizeValues = new List<int>() { int.Parse(result.Result) }; // will trigger property IsSafe
-                                 img = ImageUtil.Base64ToImage(result.Photo);
-                             }
-                         }
+                        if (heart != null)
+                        {
+                            result = AlgorithmService.DetectSafety(video.Channel, video.Extension);
+                            if (result != null)
+                            {
+                                condition.RecognizeValues = new List<int>() { int.Parse(result.Result) }; // will trigger property IsSafe
+                                img = ImageUtil.Base64ToImage(result.Photo);
+                            }
+                        }
 
-                         if (img == null)
-                         {
-                             // add photo by myself
-                             var buffer = HIKNVRClient.CaptureCache(video.Channel);
-                             img = ImageUtil.BufferToImage(buffer);
-                         }
+                        if (img == null)
+                        {
+                            // add photo by myself
+                            var buffer = HIKNVRClient.CaptureCache(video.Channel);
+                            img = ImageUtil.BufferToImage(buffer);
+                        }
 
-                         if (img != null)
-                         {
-                             outPhotos[condition.Text] = img;
-                             string path = AppGlobal.CreatePhotoPath("安全确认", $"{condition.Text}.png");
-                             ImageUtil.SaveImage(img, path);
-                         }
-                     }
-                     catch (Exception ex)
-                     {
-                         LogHelper.Error(ex.Message, ex);
-                     }
+                        if (img != null)
+                        {
+                            outPhotos[condition.Text] = img;
+                            var name = $"{video.Name}_{condition.Text}_{DateTime.Now:HHmmss)}";
+                            string path = AppGlobal.CreatePhotoPath("安全确认", $"{name}.png");
+                            ImageUtil.SaveImage(img, path);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Error(ex.Message, ex);
+                    }
 
-                     return result;
-                 });
+                    return result;
+                });
 
                 tasks.Add(task);
             }
