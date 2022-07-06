@@ -354,7 +354,6 @@ namespace Y.ASIS.App.Models
                             {
                                 t.No = v.No;
                             }
-                            t.No = v.No;
                             t.LeftPantograph = v.LeftPantograph;
                             t.RightPantograph = v.RightPantograph;
                             t.State = v.State;

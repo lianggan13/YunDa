@@ -83,7 +83,7 @@ namespace Y.ASIS.Server.Services
     #region 算法接口，暂放于此，后期封装
     public class DetectData
     {
-        public int Result { get; set; }
+        public string Result { get; set; }
         public string Photo { get; set; }
     }
 
@@ -241,9 +241,9 @@ namespace Y.ASIS.Server.Services
                 {
                     return JsonConvert.DeserializeObject<T>(json);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    return default;
+                    LogHelper.Error(ex.Message, ex);
                 }
             }
             return default;
