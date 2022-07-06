@@ -202,6 +202,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
+
                     <ctls:PromptBubbleButton
                         x:Name="safeConfirmBtn"
                         Click="SafeConfirmButtonClick"
@@ -210,6 +211,7 @@
                         Visibility="{Binding CurrentRole, Converter={StaticResource RoleToVisibility}, ConverterParameter='6'}" />
                 </StackPanel>
             </StackPanel>
+
 
             <StackPanel
                 Margin="20"

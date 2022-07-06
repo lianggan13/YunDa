@@ -16,6 +16,7 @@ using Y.ASIS.Server.Device.Speaker;
 using Y.ASIS.Server.Models;
 using Y.ASIS.Server.Services;
 using Y.ASIS.Server.Services.CameraService;
+using Y.ASIS.Server.Services.IPSpeaker;
 using Y.ASIS.Server.Services.Main;
 
 namespace Y.ASIS.Server.Device
@@ -95,7 +96,7 @@ namespace Y.ASIS.Server.Device
         {
             TimerManager.Instance.AddSchedule(() =>
             {
-                TryWriteValue(PLCNodeType.SystemTime, (int)TimeUtil.DateTimeToTimeStamp(DateTime.Now.AddHours(8d)));
+                bool s = TryWriteValue(PLCNodeType.SystemTime, (int)TimeUtil.DateTimeToTimeStamp(DateTime.Now.AddHours(8d)));
             }, TimeSpan.FromSeconds(10d));
         }
 
@@ -705,6 +706,7 @@ namespace Y.ASIS.Server.Device
                 Position.State.Platforms[pair.Key].Doors = pair.Value;
 
                 HIKNVRService.LinkDoorVideo(Position, pair.Key, pair.Value);
+                IPSpeakerService.MonitorDoorState(Position, pair.Key, pair.Value);
             });
             Position.State.UpdateLastTime();
         }
@@ -792,13 +794,14 @@ namespace Y.ASIS.Server.Device
             if (value == null)
                 return;
             // 00 = 初始化检测中
-            // 01 = 有效1（检测到有效有车）
-            // 02 = 有效0（检测到有效无车）
-            // 03 = 异常（单个检测到超时）
+            // 01 = 有效(检测到有效有车）
+            // 02 = 有效(检测到有效无车）
+            // 03 = 异常(单个检测到超时）
             // 11 = 未配置
 
             byte[] states = (byte[])value;
 
+            // init train to null
             if (!Position.State.Trains.Any())
             {
                 for (int i = 0; i < states.Length; i++)
@@ -808,39 +811,29 @@ namespace Y.ASIS.Server.Device
             }
             for (int i = 0; i < states.Length; i++)
             {
+                // 有车 --> 无车： 01 --> 02
                 if (states[i] == 2 && Position.State.Trains[i] != null)
                 {
-                    //  02 = 有效0（检测到有效无车）
                     Position.State.Trains[i] = null;
                 }
+                // 无车 --> 有车：02 --> 01
                 else if (states[i] != 2 && Position.State.Trains[i] == null)
                 {
-                    //  00 = 初始化检测中
-                    //  01 = 有效1（检测到有效有车）
                     Position.State.Trains[i] = new Train();
                     Position.State.Trains[i].State = states[i].ToString();
 
                     Position.State.Trains[i].No = PositionService.GetTrainNo(Position, trainIndex: i);
                 }
-                else if (states[i] != 2 && Position.State.Trains[i] != null)
+                // 有车 --> 异常： 01 --> 03
+                else if (states[i] == 3 && Position.State.Trains[i] != null)
                 {
-                    if (states[i] == 3)
-                    {
-                        //  03 = 异常（单个检测到超时）
-                        Position.State.Trains[i].State = states[i].ToString();
-                    }
-                }
-                else
-                {
-
+                    Position.State.Trains[i].State = states[i].ToString();
                 }
 
                 if (Position.State.Trains[i] != null)
                 {
                     Position.State.Trains[i].State = states[i].ToString();
                 }
-
-                //  11 = 未配置
             }
         }
 
@@ -1310,9 +1303,6 @@ namespace Y.ASIS.Server.Device
             }
             return false;
         }
-
-
-
 
         #endregion
     }

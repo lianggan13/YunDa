@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Windows;
 using Y.ASIS.App.Common;
 using Y.ASIS.App.Communication;
 using Y.ASIS.App.Communication.Algorithm;
@@ -11,9 +11,9 @@ using Y.ASIS.App.Communication.Api;
 using Y.ASIS.App.Models;
 using Y.ASIS.App.Properties;
 using Y.ASIS.App.Services;
+using Y.ASIS.App.Utility;
 using Y.ASIS.App.Windows;
 using Y.ASIS.Common.ExtensionMethod;
-using Y.ASIS.Common.Manager;
 using Y.ASIS.Common.Models;
 using Y.ASIS.Common.Models.Enums;
 using Y.ASIS.Common.MVVMFoundation;
@@ -108,7 +108,6 @@ namespace Y.ASIS.App.ViewModels
 
         public void Design()
         {
-            Now = "设计开发环境";
             var tracks = JsonConvert.DeserializeObject<IEnumerable<Track>>(Resources.Tracks);
             Tracks = new ObservableCollection<Track>(tracks);
 
@@ -118,52 +117,61 @@ namespace Y.ASIS.App.ViewModels
             //tracks.SelectMany(t => t.Positions).ForEach(t => t.State.Connected = false);
 
             CurrentPosition = Tracks.ElementAt(0).Positions[0];
-
             //CurrentUser = ...
 
-            CheckState_Using_Timer();
+            RefreshSysTime();
+            CheckCommunication();
         }
 
-        private void CheckState_Using_Timer()
+        private void RefreshSysTime()
         {
-            int _6sec = 6;
-            var poss = Tracks.SelectMany(t => t.Positions);
-            Task.Run(async () =>
+            #region old code
+            //TimerManager.Instance.AddSchedule(
+            //  () => Now = DateTime.Now.ToString("yyyy-MM-dd  HH:mm:ss"),
+            //  TimeSpan.FromSeconds(1d)
+            //);
+            #endregion
+
+            TaskHelper.LoopRun(() =>
             {
-                while (true)
+                Now = DateTime.Now.ToString("yyyy-MM-dd  HH:mm:ss");
+            }, TimeSpan.FromSeconds(1d));
+        }
+
+        private void CheckCommunication()
+        {
+            var poss = Tracks.SelectMany(t => t.Positions);
+            TaskHelper.LoopRun(() =>
+            {
+                foreach (var pos in poss)
                 {
-                    foreach (var pos in poss)
+                    if (DateTime.Now - pos.State?.LocalLastTime > TimeSpan.FromSeconds(5d))
                     {
-                        if (DateTime.Now - pos.State?.LocalLastTime > TimeSpan.FromSeconds(_6sec))
-                        {
-                            pos.State.Connected = false;
-                        }
+                        pos.State.Connected = false;
                     }
-
-                    Connected = HeartRequest.Ping();
-                    if (Connected && AppGlobal.Env == AppEnvironment.Development)
-                    {
-                        AppGlobal.Env = AppEnvironment.Production;
-                        Initialize();
-                    }
-
-                    AlgorithmConnected = AlgorithmHeartRequest.Ping();
-
-                    await Task.Delay(_6sec * 1000);
                 }
-            });
+
+                Connected = HeartRequest.Ping();
+                if (Connected && AppGlobal.Env == AppEnvironment.Development)
+                {
+                    AppGlobal.Env = AppEnvironment.Production;
+                    Initialize();
+                }
+
+                AlgorithmConnected = AlgorithmHeartRequest.Ping();
+
+            }, TimeSpan.FromSeconds(5d));
         }
 
         public void Initialize()
         {
-            // system time
-            StartSysTimeJob();
             // tracks
             RefreshTracks();
             // unhandled warning
             RefreshUnhandleWarningsCount();
 
-            // send project config
+            // send project config 
+            // TODO: 后期取消此种方式
             ProjectRequest request = new ProjectRequest();
             _ = request.Request<ResponseData<object>>();
 
@@ -172,20 +180,19 @@ namespace Y.ASIS.App.ViewModels
             AppGlobal.Instance.MainVM = this;
         }
 
-        private void StartSysTimeJob()
-        {
-            TimerManager.Instance.AddSchedule(
-              () => Now = DateTime.Now.ToString("yyyy-MM-dd  HH:mm:ss"),
-              TimeSpan.FromSeconds(1d)
-            );
-        }
+
 
         private void RefreshTracks()
         {
+            CurrentPosition = null;
             TrackListRequest request = new TrackListRequest();
             ResponseData<IEnumerable<Track>> resp = request.Request<ResponseData<IEnumerable<Track>>>();
             if (resp != null && resp.IsSuccess)
             {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Tracks.Clear();
+                });
                 Tracks = new ObservableCollection<Track>(resp.Data);
             }
         }
@@ -327,6 +334,7 @@ namespace Y.ASIS.App.ViewModels
                         {
                             Position position = track.Positions.FirstOrDefault(p => p.Id == ps.PositionId);
                             position?.SetPosState(ps);
+
                         });
                     }
                 }

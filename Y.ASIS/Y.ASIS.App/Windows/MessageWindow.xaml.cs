@@ -23,6 +23,8 @@ namespace Y.ASIS.App.Windows
         {
             InitializeComponent();
             DataContext = this;
+            if (Owner == null)
+                Owner = Application.Current.MainWindow;
         }
 
         public static MessageBoxResult Show(string message, string title, MessageBoxButton messageBoxButton)

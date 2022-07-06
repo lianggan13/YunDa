@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Y.ASIS.App.Common;
@@ -119,27 +120,35 @@ namespace Y.ASIS.App.ViewModels
             var issedOptNos = issuedOperators.SelectMany(u => u.Users).Select(u => u.No);
             var issedWorkerNos = issuedWorkers.SelectMany(u => u.Users).Select(u => u.No);
             var curWin = WindowManager.FindWindwByType(typeof(AuthorityManagerWindow));
+
             await LoadingWindow.Show(curWin, () =>
             {
                 AuthorityService.RequestIssueUsers(currentPosition, operatorNos, workerNos, issedOptNos, issedWorkerNos, IsInspect, resp =>
-                 {
-                     if (resp != null && resp.Data)
-                     {
-                         AppDispatcherInvoker(() =>
-                         {
-                             MessageWindow.Show("权限下发成功");
-                         });
-                         RefreshOperatorsAsync(CurrentPosition);
-                         RefreshWorkersAsync(CurrentPosition);
-                     }
-                     else
-                     {
-                         AppDispatcherInvoker(() =>
-                         {
-                             MessageWindow.Show("权限下发失败\r\n请检查通信状态或人员信息");
-                         });
-                     }
-                 });
+                {
+                    if (resp != null && (resp.Data is bool data) == true)
+                    {
+                        AppDispatcherInvoker(() =>
+                        {
+                            MessageWindow.Show("权限下发成功");
+                        });
+                        RefreshOperatorsAsync(CurrentPosition);
+                        RefreshWorkersAsync(CurrentPosition);
+                    }
+                    else if (resp != null)
+                    {
+                        AppDispatcherInvoker(() =>
+                        {
+                            MessageWindow.Show($"权限下发失败{Environment.NewLine}{resp.Message}");
+                        });
+                    }
+                    else
+                    {
+                        AppDispatcherInvoker(() =>
+                        {
+                            MessageWindow.Show($"权限下发失败{Environment.NewLine}请检查通信状态");
+                        });
+                    }
+                });
             });
         }
 
@@ -163,7 +172,8 @@ namespace Y.ASIS.App.ViewModels
             {
                 AuthorityService.RequestRevokeUsers(CurrentPosition, operatorNos, workerNos, resp =>
                 {
-                    if (resp != null && resp.Data)
+
+                    if (resp != null && (resp.Data is bool data) == true)
                     {
                         AppDispatcherInvoker(() =>
                         {
@@ -172,11 +182,18 @@ namespace Y.ASIS.App.ViewModels
                         RefreshOperatorsAsync(currentPosition);
                         RefreshWorkersAsync(currentPosition);
                     }
+                    else if (resp != null)
+                    {
+                        AppDispatcherInvoker(() =>
+                        {
+                            MessageWindow.Show($"权限撤销失败{Environment.NewLine}{resp.Message}");
+                        });
+                    }
                     else
                     {
                         AppDispatcherInvoker(() =>
                         {
-                            MessageWindow.Show("权限撤销失败\r\n请检查通信状态或人员信息");
+                            MessageWindow.Show($"权限撤销失败{Environment.NewLine}请检查通信状态");
                         });
                     }
                 });

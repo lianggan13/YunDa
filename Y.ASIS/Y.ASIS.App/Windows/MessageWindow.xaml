@@ -8,7 +8,7 @@
     AllowsTransparency="True"
     Style="{StaticResource SmallPopupWindowStyle}"
     Topmost="True"
-    WindowStartupLocation="CenterScreen"
+    WindowStartupLocation="CenterOwner"
     WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,7 +16,7 @@
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
-        <Border Margin="20">
+        <Border Margin="15">
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -24,7 +24,9 @@
                 Foreground="White"
                 LineHeight="28"
                 Text="{Binding Message}"
-                TextWrapping="Wrap" />
+                TextTrimming="CharacterEllipsis"
+                TextWrapping="Wrap"
+                ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}" />
         </Border>
 
         <StackPanel

@@ -229,13 +229,13 @@
                     ],
                     "Trains": [
                         {
-                            "No": "101776",
+                            "No": "",
                             "LeftPantograph": 0,
                             "RightPantograph": 0,
                             "State": "1"
                         },
                         {
-                            "No": "101776",
+                            "No": "",
                             "LeftPantograph": 0,
                             "RightPantograph": 0,
                             "State": "1"
@@ -312,13 +312,13 @@
                     ],
                     "Trains": [
                         {
-                            "No": "-1",
+                            "No": "",
                             "LeftPantograph": 0,
                             "RightPantograph": 0,
                             "State": "1"
                         },
                         {
-                            "No": "-1",
+                            "No": "",
                             "LeftPantograph": 0,
                             "RightPantograph": 0,
                             "State": "1"
@@ -395,13 +395,13 @@
                     ],
                     "Trains": [
                         {
-                            "No": "-1",
+                            "No": "",
                             "LeftPantograph": 0,
                             "RightPantograph": 0,
                             "State": "1"
                         },
                         {
-                            "No": "-1",
+                            "No": "",
                             "LeftPantograph": 0,
                             "RightPantograph": 0,
                             "State": "1"
@@ -473,13 +473,13 @@
                     ],
                     "Trains": [
                         {
-                            "No": "-1",
+                            "No": "",
                             "LeftPantograph": 0,
                             "RightPantograph": 0,
                             "State": "1"
                         },
                         {
-                            "No": "-1",
+                            "No": "",
                             "LeftPantograph": 0,
                             "RightPantograph": 0,
                             "State": "1"

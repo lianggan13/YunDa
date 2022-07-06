@@ -295,6 +295,7 @@
     </Compile>
     <Compile Include="Utility\CardUtil.cs" />
     <Compile Include="Utility\ImageUtil.cs" />
+    <Compile Include="Utility\TaskHelper.cs" />
     <Compile Include="Utility\VisualTreeUtil.cs" />
     <Compile Include="ViewModels\AddOrUpdateRoleViewModel.cs" />
     <Compile Include="ViewModels\AddOrUpdateUserGroupViewModel.cs" />
@@ -394,6 +395,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Config\AppConfig\App_BaiSe.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Config\log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

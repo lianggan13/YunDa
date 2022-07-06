@@ -189,7 +189,7 @@
                     CaretBrush="White"
                     FontSize="12"
                     Foreground="White"
-                    Text="{Binding No}"
+                    Text="{Binding No, Mode=TwoWay, NotifyOnSourceUpdated=True}"
                     TextAlignment="Center" />
             </Grid>
             <DataTemplate.Triggers>

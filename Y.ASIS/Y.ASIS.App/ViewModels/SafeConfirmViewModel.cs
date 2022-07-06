@@ -138,7 +138,7 @@ namespace Y.ASIS.App.ViewModels
                 }
                 else
                 {
-                    string msg = $"{position.SafeConfirm.Name} 安全确认超时失败!";
+                    string msg = $"{position?.SafeConfirm?.Name} 安全确认超时失败!";
                     position.AddInfoOptionMessage(msg);
                     PopShowMsg(msg);
                 }

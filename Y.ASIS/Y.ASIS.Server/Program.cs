@@ -11,6 +11,7 @@ namespace Y.ASIS.Server
     {
         public static void Main(string[] args)
         {
+            //Tester.TestIPVoice();
             bool runservice = !(Environment.UserInteractive || Debugger.IsAttached);
             if (runservice)
             {

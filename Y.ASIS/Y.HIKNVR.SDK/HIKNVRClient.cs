@@ -978,10 +978,12 @@ namespace Y.HIKNVR.SDK
                     Decode = null;
                 }
                 // release unmanaged resources or big object...
-                Image.Dispatcher.Invoke(() =>
-                {
-                    Render.Dispose();
-                });
+                //Image.Dispatcher.Invoke(() =>
+                //{
+                //    //Render.Dispose();
+                //});
+
+                Render.Dispose();
                 Image = null;
                 Render = null;
                 disposed = true;
