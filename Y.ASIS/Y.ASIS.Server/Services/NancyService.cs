@@ -289,6 +289,8 @@ namespace Y.ASIS.Server.Services
             userNos.AddRange(workerNos);
             userNos.AddRange(operatorNos);
 
+
+
             bool success1 = plc.RevokeUsers(workerNos, operatorNos);
             bool success2 = AttendanceManager.Instance.DeleteUsers(workerNos);
             bool success3 = ToolBoxManager.Instance.ProhibitKey(workerNos); //  ToolBoxManager.Instance.DeleteUser(workersSet);
@@ -332,12 +334,17 @@ namespace Y.ASIS.Server.Services
             });
 
 
+            //if(ServerGlobal.Project == ProjectType.NationalRailway_BaiSe)
+            //{
+
+            //}
+
             OperationRecord record = new OperationRecord()
             {
                 Index = pos.Index,
                 Time = DateTime.Now,
                 TrackNo = DataProvider.Instance.GetTrackByPosId(pos.ID).No,
-                WorkerNo = ServerGlobal.CurrentUser.No.ToString(),
+                WorkerNo = ServerGlobal.CurrentUser?.No.ToString(),
                 OperationCode = $"{(int)PLCOperateCode.手动消除权限}",
             };
             DataProvider.Instance.AddOrUpdateOperationRecord(record);
@@ -1129,7 +1136,23 @@ namespace Y.ASIS.Server.Services
         private object GetTrackState(dynamic arg)
         {
             var states = DataProvider.Instance.TrackList.Select(t => t.State).ToList();
-            //var message = states?.JsonSerialize();
+            //states.ForEach(x =>
+            //{
+            //    x.PositionStates.ForEach(a =>
+            //    {
+            //        a.Platforms.ForEach(b =>
+            //        {
+            //            int i = 1;
+            //            foreach (var item in b.Doors)
+            //            {
+            //                b.DoorsSn = i + "";
+            //                b.State = item;
+            //            }
+            //        });
+            //    });
+            //});
+
+           // Console.WriteLine(states?.JsonSerialize()) ;
             return ResponseData.Success(states);
         }
 

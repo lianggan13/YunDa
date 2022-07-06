@@ -280,11 +280,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\DB\ASIS_DeviceInfo.js" />
-    <Content Include="Config\DB\ASIS_ExternalSystem.js" />
-    <Content Include="Config\DB\ASIS_Position.js" />
-    <Content Include="Config\DB\ASIS_Track.js" />
-    <Content Include="Config\DB\ASIS_VideoStream.js" />
+    <Content Include="Config\DB\Shen12\ASIS_DeviceInfo.js" />
+    <Content Include="Config\DB\BaiSe\ASIS_DeviceInfo.js" />
+    <Content Include="Config\DB\BaiSe\ASIS_ExternalSystem.js" />
+    <Content Include="Config\DB\Shen12\ASIS_Position.js" />
+    <Content Include="Config\DB\BaiSe\ASIS_Position.js" />
+    <Content Include="Config\DB\Shen12\ASIS_Track.js" />
+    <Content Include="Config\DB\BaiSe\ASIS_Track.js" />
+    <Content Include="Config\DB\BaiSe\ASIS_VideoStream.js" />
     <Content Include="Device\PLC\Opc\Dll\Opc.Ua.Client.dll" />
     <Content Include="Device\PLC\Opc\Dll\Opc.Ua.Configuration.dll" />
     <Content Include="Device\PLC\Opc\Dll\Opc.Ua.Core.dll" />
@@ -298,6 +301,7 @@
       <DependentUpon>MainService.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

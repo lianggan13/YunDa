@@ -667,8 +667,15 @@ namespace Y.ASIS.Server.Device
 
                 for (int i = 0; i < gangway.Length; i++)
                 {
-                    int index = indexes[i];
-                    Position.State.Platforms[index].Gangway = gangway[i];
+                    try
+                    {
+                        int index = indexes[i];
+                        Position.State.Platforms[index].Gangway = gangway[i];
+                    }
+                    catch (Exception)
+                    {
+                    }
+
                 }
                 Position.State.UpdateLastTime();
                 return;
@@ -701,19 +708,31 @@ namespace Y.ASIS.Server.Device
                 return;
             }
             Dictionary<int, List<int>> pairs = GetPlatformDoorState(states, lockers, indexes);
+
+            //int platformsCount = Position.State.Platforms.Count;
+            //int index = 1;
+            //foreach (var item in pairs)
+            //{
+            //    if (index >= platformsCount) continue;
+            //    Position.State.Platforms[item.Key].Doors = item.Value;
+            //    HIKNVRService.LinkDoorVideo(Position, item.Key, item.Value);
+            //    index++;
+            //}
+
             pairs.ForEach(pair =>
             {
                 Position.State.Platforms[pair.Key].Doors = pair.Value;
-
                 HIKNVRService.LinkDoorVideo(Position, pair.Key, pair.Value);
                 IPSpeakerService.MonitorDoorState(Position, pair.Key, pair.Value);
             });
+
             Position.State.UpdateLastTime();
         }
 
         private Dictionary<int, List<int>> GetPlatformDoorState(byte[] states, byte[] lockers, byte[] indexes)
         {
             Dictionary<int, List<int>> pairs = new Dictionary<int, List<int>>();
+            if(states.Length!= indexes.Length) return pairs;
             for (int i = 0; i < states.Length; i++)
             {
                 int index = indexes[i];
@@ -758,7 +777,7 @@ namespace Y.ASIS.Server.Device
                 {
                     LogHelper.Error(ex.Message, ex);
                 }
-            }
+            } 
 
             return pairs;
         }
@@ -791,6 +810,16 @@ namespace Y.ASIS.Server.Device
 
         private void OnTrainStateChanged(dynamic value)
         {
+            if ( Position.ID ==46)
+            {
+
+            }
+
+            if (Position.ID == 47)
+            {
+                // 47 列位的 PLC(10.60.26.2) 有问题，收不到 车 数据
+            }
+
             if (value == null)
                 return;
             // 00 = 初始化检测中
