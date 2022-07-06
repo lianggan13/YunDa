@@ -202,6 +202,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
+
                     <ctls:PromptBubbleButton
                         x:Name="safeConfirmBtn"
                         Click="SafeConfirmButtonClick"

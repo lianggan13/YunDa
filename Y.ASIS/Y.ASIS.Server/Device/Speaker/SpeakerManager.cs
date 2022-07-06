@@ -18,7 +18,6 @@ namespace Y.ASIS.Server.Device.Speaker
         {
             SwitchOffText = LocalConfigManager.GetAppSettingValue("Speaker.SwitchOff");
             SwitchOnText = LocalConfigManager.GetAppSettingValue("Speaker.SwitchOn");
-
             EvacuateText = LocalConfigManager.GetAppSettingValue("Speaker.Evacuate");
         }
 
@@ -154,11 +153,17 @@ namespace Y.ASIS.Server.Device.Speaker
         {
             IEnumerable<KeyValuePair<string, string>> parameters = new Dictionary<string, string>()
             {
+                // startbct: 开始广播
+                // stopbct:  停止广播
                 { "jsondata[rtype]", "startbct" },
+                // 接收广播终端列表
                 { "jsondata[param1]", string.Join("<", ids) },
+                // 音源类型（0：文件；1：终端；2：声卡；3：文本）
                 { "jsondata[param2]", "3" },
                 { "jsondata[param4]", text },
+                // 广播次数
                 { "jsondata[param7]", "3" },
+                // 广播文本输速
                 { "jsondata[param8]", "0" }
             };
             string url = baseUrl + "/php/exeRealPlayFile.php";
@@ -166,6 +171,31 @@ namespace Y.ASIS.Server.Device.Speaker
             SpeakerTaskResponse resp = request.Request<SpeakerTaskResponse>();
             return resp != null && resp.Success && !resp.Guid.IsNullOrEmptyOrWhiteSpace();
         }
+
+        public bool RealPlay(IEnumerable<int> terminalIds, string text, int times = 3)
+        {
+            IEnumerable<KeyValuePair<string, string>> parameters = new Dictionary<string, string>()
+            {
+                // startbct: 开始广播
+                // stopbct:  停止广播
+                { "jsondata[rtype]", "startbct" },
+                // 接收广播终端列表
+                { "jsondata[param1]", string.Join("<", terminalIds) },
+                // 音源类型（0：文件；1：终端；2：声卡；3：文本）
+                { "jsondata[param2]", "3" },
+                { "jsondata[param4]", text },
+                // 广播次数
+                { "jsondata[param7]",$"{times}" },
+                // 广播文本输速
+                { "jsondata[param8]", "0" }
+            };
+            string url = baseUrl + "/php/exeRealPlayFile.php";
+            SpeakerRequest request = new SpeakerRequest(url, parameters);
+            SpeakerTaskResponse resp = request.Request<SpeakerTaskResponse>();
+            return resp != null && resp.Success && !resp.Guid.IsNullOrEmptyOrWhiteSpace();
+        }
+
+
     }
 }
 

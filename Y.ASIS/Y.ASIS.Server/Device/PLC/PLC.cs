@@ -16,6 +16,7 @@ using Y.ASIS.Server.Device.Speaker;
 using Y.ASIS.Server.Models;
 using Y.ASIS.Server.Services;
 using Y.ASIS.Server.Services.CameraService;
+using Y.ASIS.Server.Services.IPSpeaker;
 using Y.ASIS.Server.Services.Main;
 
 namespace Y.ASIS.Server.Device
@@ -95,7 +96,7 @@ namespace Y.ASIS.Server.Device
         {
             TimerManager.Instance.AddSchedule(() =>
             {
-                TryWriteValue(PLCNodeType.SystemTime, (int)TimeUtil.DateTimeToTimeStamp(DateTime.Now.AddHours(8d)));
+                bool s = TryWriteValue(PLCNodeType.SystemTime, (int)TimeUtil.DateTimeToTimeStamp(DateTime.Now.AddHours(8d)));
             }, TimeSpan.FromSeconds(10d));
         }
 
@@ -705,6 +706,7 @@ namespace Y.ASIS.Server.Device
                 Position.State.Platforms[pair.Key].Doors = pair.Value;
 
                 HIKNVRService.LinkDoorVideo(Position, pair.Key, pair.Value);
+                IPSpeakerService.MonitorDoorState(Position, pair.Key, pair.Value);
             });
             Position.State.UpdateLastTime();
         }
@@ -1301,9 +1303,6 @@ namespace Y.ASIS.Server.Device
             }
             return false;
         }
-
-
-
 
         #endregion
     }

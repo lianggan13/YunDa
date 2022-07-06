@@ -274,8 +274,6 @@ namespace Y.ASIS.App.Models
                         platforms = new ObservableCollection<Platform>();
                     }
 
-                    //platforms.Clear();
-
                     for (int i = 0; i < value?.Count; i++)
                     {
                         var v = value.ElementAtOrDefault(i);
@@ -291,23 +289,29 @@ namespace Y.ASIS.App.Models
                                     new { Position, DoorIndex = i, DoorStates = v.Doors });
                             }
 
-                            platforms[i] = value[i]; // update platform
+                            platforms[i] = v; // update platform
                         }
-                        else if (p == null)
+                        else
                         {
-                            platforms.Add(v); // add platform
+                            if (platforms.Count < i + 1)
+                            {
+                                platforms.Add(v);  // add platform
+                            }
+                            else
+                            {
+                                platforms[i] = v; // update platform
+                            }
                         }
                     }
 
-                    if (platforms.Count > value.Count)
-                    {
-                        for (int i = value.Count; i < platforms.Count; i++)
-                        {
-                            platforms.RemoveAt(i);
-                        }
-                    }
+                    //if (platforms.Count > value.Count)
+                    //{
+                    //    for (int i = value.Count; i < platforms.Count; i++)
+                    //    {
+                    //        platforms.RemoveAt(i);
+                    //    }
+                    //}
 
-                    //platforms = value;
                     if (platforms.Count > 0)
                     {
                         for (int i = 0; i < platforms.Count; i++)
@@ -350,6 +354,7 @@ namespace Y.ASIS.App.Models
                             {
                                 t.No = v.No;
                             }
+                            t.No = v.No;
                             t.LeftPantograph = v.LeftPantograph;
                             t.RightPantograph = v.RightPantograph;
                             t.State = v.State;
@@ -360,11 +365,11 @@ namespace Y.ASIS.App.Models
                         {
                             if (trains.Count < i + 1)
                             {
-                                trains.Add(v); // add platform
+                                trains.Add(v); // add train
                             }
                             else
                             {
-                                trains[i] = v;
+                                trains[i] = v; // update train
                             }
                         }
                     }

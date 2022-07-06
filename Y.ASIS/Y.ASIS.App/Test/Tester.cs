@@ -124,14 +124,14 @@ public static class Tester
         {
             var train1 = new Train()
             {
-                No = "290017",
-                State = rand.Next(1, 4).ToString(),
+                No = $"{rand.Next(1234, 9999)}",
+                //State = rand.Next(1, 4).ToString(),
             };
 
             var train2 = new Train()
             {
-                No = "290017",
-                State = rand.Next(1, 4).ToString(),
+                No = $"{rand.Next(1234, 9999)}",
+                //State = rand.Next(1, 4).ToString(),
             };
 
             value.Trains.Add(train1);
@@ -140,7 +140,7 @@ public static class Tester
 
         if (rand.Next(1000) > 800)
         {
-            value.Trains[1] = null;
+            //value.Trains[1] = null;
         }
     }
 

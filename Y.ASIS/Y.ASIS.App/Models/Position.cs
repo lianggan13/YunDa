@@ -101,7 +101,6 @@ namespace Y.ASIS.App.Models
 
         public void SetPosState(PositionStateNet value)
         {
-            // 减少界面刷新的频率
             bool needNotify = false;
             if (state == null)
             {
@@ -123,6 +122,7 @@ namespace Y.ASIS.App.Models
 
                 state.SystemState = value.SystemState;
                 state.Connected = value.Connected;
+
                 state.Isolation = value.Isolation;  // 隔离 开关状态
                 state.Grounding = value.Grounding;  // 接地 开关状态
                 state.ElecState = value.ElecState;  // 验电 开关状态
@@ -138,6 +138,11 @@ namespace Y.ASIS.App.Models
                 state.LoopR = value.LoopR;
                 state.GroundingR = value.GroundingR;
                 state.SignalLight = value.SignalLight;
+                //if (state.SignalLight == null)
+                //{
+                //    state.SignalLight = new ObservableCollection<int>() { 1, 1 };
+                //}
+
                 state.Tool = value.Tool;
                 state.Warning = value.Warning;
                 state.Gate = value.Gate;

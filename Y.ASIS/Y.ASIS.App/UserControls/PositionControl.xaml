@@ -552,6 +552,7 @@
                     LightSize="10"
                     State="{Binding Positions[0].State.SignalLight[0], Converter={StaticResource IntValueToSignalLightState}}"
                     Visibility="{Binding Positions[0].State.SignalLight[0], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <!--  Visibility="{Binding Positions[0].State.SignalLight[0], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11', FallbackValue=Collapsed}" />  -->
                 <ctls:SignalLight
                     Grid.Row="1"
                     Grid.Column="1"
@@ -566,6 +567,7 @@
                     LightSize="10"
                     State="{Binding Positions[0].State.SignalLight[1], Converter={StaticResource IntValueToSignalLightState}}"
                     Visibility="{Binding Positions[0].State.SignalLight[1], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <!--  Visibility="{Binding Positions[0].State.SignalLight[1], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11', FallbackValue=Collapsed}" />  -->
                 <ctls:WarningLight
                     Grid.Row="1"
                     Grid.Column="2"
@@ -588,6 +590,7 @@
                     LightSize="10"
                     State="{Binding Positions[0].State.SignalLight[2], Converter={StaticResource IntValueToSignalLightState}}"
                     Visibility="{Binding Positions[0].State.SignalLight[2], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <!--  Visibility="{Binding Positions[0].State.SignalLight[2], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11', FallbackValue=Collapsed}" />  -->
                 <ctls:SignalLight
                     Grid.Row="1"
                     Grid.Column="5"
@@ -602,6 +605,7 @@
                     LightSize="10"
                     State="{Binding Positions[0].State.SignalLight[3], Converter={StaticResource IntValueToSignalLightState}}"
                     Visibility="{Binding Positions[0].State.SignalLight[3], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <!--  Visibility="{Binding Positions[0].State.SignalLight[3], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11', FallbackValue=Collapsed}" />  -->
                 <ctls:WarningLight
                     Grid.Row="1"
                     Grid.Column="7"
@@ -624,6 +628,7 @@
                     LightSize="10"
                     State="{Binding Positions[0].State.SignalLight[4], Converter={StaticResource IntValueToSignalLightState}}"
                     Visibility="{Binding Positions[0].State.SignalLight[4], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <!--  Visibility="{Binding Positions[0].State.SignalLight[4], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11', FallbackValue=Collapsed}" />  -->
                 <ctls:SignalLight
                     Grid.Row="1"
                     Grid.Column="9"
@@ -638,6 +643,7 @@
                     LightSize="10"
                     State="{Binding Positions[0].State.SignalLight[5], Converter={StaticResource IntValueToSignalLightState}}"
                     Visibility="{Binding Positions[0].State.SignalLight[5], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11'}" />
+                <!--  Visibility="{Binding Positions[0].State.SignalLight[5], Converter={StaticResource ContainsIntValueToHide}, ConverterParameter='11', FallbackValue=Collapsed}" />  -->
                 <Canvas Grid.RowSpan="2" Grid.Column="3">
                     <!--  来电端  -->
                     <Path
