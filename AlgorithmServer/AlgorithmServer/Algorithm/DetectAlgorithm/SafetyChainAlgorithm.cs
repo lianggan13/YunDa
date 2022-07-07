@@ -1,4 +1,4 @@
-﻿using AlgorithmServer.Common;
+﻿
 using AlgorithmServer.Model;
 using Nancy;
 using OpenCvSharp;
@@ -37,7 +37,7 @@ namespace AlgorithmServer.Algorithm.DetectAlgorithm
             RecognizeResult res = new RecognizeResult()
             {
                 Result = result.ToString(),
-                Photo = ImageUtil.ImageToBase64(param.Image).Trim(),
+                Photo = ImageHelper.ImageToBase64(param.Image).Trim(),
             };
             return res;
         }
@@ -46,28 +46,6 @@ namespace AlgorithmServer.Algorithm.DetectAlgorithm
         {
             return base.GetVersion(DllPath);
         }
-        public class BoxInfo
-        {
-            public BoxInfo(IEnumerable<Point> points)
-            {
-                Name = "";
-                Num = points.Count();
-                X = points.Select(i => i.X);
-                Y = points.Select(i => i.Y);
-            }
-
-            public string Name { get; set; }
-
-            public int Num { get; set; }
-
-            public IEnumerable<int> X { get; private set; }
-
-            public IEnumerable<int> Y { get; private set; }
-
-            public override string ToString()
-            {
-                return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-            }
-        }
+      
     }
 }

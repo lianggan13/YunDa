@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using AlgorithmServer.Common;
+
 using AlgorithmServer.Model;
 using Nancy;
 
@@ -31,7 +31,7 @@ namespace AlgorithmServer.Algorithm.DetectAlgorithm
             RecognizeResult res = new RecognizeResult()
             {
                 Result = result.ToString(),
-                Photo = ImageUtil.ImageToBase64(param.Image).Trim(),
+                Photo = ImageHelper.ImageToBase64(param.Image).Trim(),
             };
             return res;
         }

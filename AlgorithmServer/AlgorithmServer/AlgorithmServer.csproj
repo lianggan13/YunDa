@@ -102,8 +102,6 @@
     <Compile Include="Algorithm\DetectAlgorithm\PersonNumAlgorithm.cs" />
     <Compile Include="Algorithm\DetectAlgorithm\SafetyChainAlgorithm.cs" />
     <Compile Include="Algorithm\DetectAlgorithm\TrainCheckAlgorithm.cs" />
-    <Compile Include="Common\ImageUtil.cs" />
-    <Compile Include="Common\LogHelper.cs" />
     <Compile Include="Exceptions\AuthKeyIsDisableException.cs" />
     <Compile Include="Exceptions\AuthKeyNotFoundException.cs" />
     <Compile Include="Exceptions\ContentCastException.cs" />
@@ -113,6 +111,7 @@
     <Compile Include="Common\LocalConfigManager.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="Model\Algorithms.cs" />
+    <Compile Include="Model\BoxInfo.cs" />
     <Compile Include="Model\MethodParam.cs" />
     <Compile Include="Model\Methods.cs" />
     <Compile Include="Model\RecognizeResult.cs" />
@@ -123,10 +122,19 @@
     <Compile Include="Model\ResponseEntity.cs" />
     <Compile Include="Common\RestSharpHelper.cs" />
     <Compile Include="Test\Tester.cs" />
+    <Compile Include="Test\TestHelper.cs" />
+    <Compile Include="Test\Video.cs" />
     <Compile Include="Utility\ImageHelper.cs" />
+    <Compile Include="Utility\LogHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Config\AlgorithmTest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Config\start.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
