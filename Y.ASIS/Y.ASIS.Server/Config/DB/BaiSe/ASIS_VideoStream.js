@@ -83,7 +83,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 4,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":0}",
 } ]);
 
 // 6道-1车受电弓2
@@ -95,7 +95,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 5,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":1}",
 } ]);
 
 // 6道-2车受电弓1 
@@ -107,7 +107,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 6,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":2}",
 } ]);
 
 // 6道-2车受电弓2
@@ -119,7 +119,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 27,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":3}",
 } ]);
 
 // 6道-通道北
@@ -264,7 +264,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 18,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":0}",
 } ]);
 // 7道-1车受电弓2
 db.getCollection("ASIS_VideoStream").insert([ {
@@ -275,7 +275,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 19,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":1}",
 } ]);
 // 7道-2车受电弓1 
 db.getCollection("ASIS_VideoStream").insert([ {
@@ -286,7 +286,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 20,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":2}",
 } ]);
 // 7道-2车受电弓2 
 db.getCollection("ASIS_VideoStream").insert([ {
@@ -297,7 +297,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 21,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":3}",
 } ]);
 
 // 7道-通道北
@@ -418,7 +418,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 32,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":0}",
 } ]);
 
 // 10道-1车受电弓2
@@ -430,7 +430,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 33,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":1}",
 } ]);
 
 // 10道-2车受电弓1 
@@ -442,7 +442,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 34,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":2}",
 } ]);
 
 // 10道-2车受电弓2
@@ -454,7 +454,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 35,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":3}",
 } ]);
 
 // 10道-通道北
@@ -599,7 +599,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 45,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":0}",
 } ]);
 // 11道-1车受电弓2
 db.getCollection("ASIS_VideoStream").insert([ {
@@ -610,7 +610,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 46,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":1}",
 } ]);
 // 11道-2车受电弓1 
 db.getCollection("ASIS_VideoStream").insert([ {
@@ -621,7 +621,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 47,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":2}",
 } ]);
 // 11道-2车受电弓2 
 db.getCollection("ASIS_VideoStream").insert([ {
@@ -632,7 +632,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 48,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":3}",
 } ]);
 
 // 11道-通道北
@@ -753,7 +753,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 58,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":0}",
 } ]);
 
 // 8道-1车受电弓2
@@ -765,7 +765,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 59,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":1}",
 } ]);
 
 // 8道-2车受电弓1 
@@ -777,7 +777,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 60,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":2}",
 } ]);
 
 // 8道-2车受电弓2
@@ -789,7 +789,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 61,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":3}",
 } ]);
 
 // 8道-通道北
@@ -922,7 +922,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 72,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":0}",
 } ]);
 // 9道-1车受电弓2
 db.getCollection("ASIS_VideoStream").insert([ {
@@ -933,7 +933,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 73,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":1}",
 } ]);
 // 9道-2车受电弓1 
 db.getCollection("ASIS_VideoStream").insert([ {
@@ -944,7 +944,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 74,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":2}",
 } ]);
 // 9道-2车受电弓2 
 db.getCollection("ASIS_VideoStream").insert([ {
@@ -955,7 +955,7 @@ db.getCollection("ASIS_VideoStream").insert([ {
     Channel: 75,
     Model: "HIK",
 	Url: "",
-	Extension: "",
+    Extension: "{\"SafeConfirmIndex\":3}",
 } ]);
 
 // 9道-通道北

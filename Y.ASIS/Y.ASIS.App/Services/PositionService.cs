@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -67,9 +68,43 @@ namespace Y.ASIS.App.Services
 
             foreach (VideoStream video in videos)
             {
-                video.Condition = safecon.Conditions.FirstOrDefault(i => i.Type == video.Type);
+                if (ParseSafeConfirmIndex(video.Extension, out int index))
+                {
+                    video.Condition = safecon.Conditions.FirstOrDefault(i => i.Type == video.Type && i.Index == index);
+                }
+                else
+                {
+                    video.Condition = safecon.Conditions.FirstOrDefault(i => i.Type == video.Type);
+                }
             }
         }
+
+
+
+        private static bool ParseSafeConfirmIndex(string extension, out int index)
+        {
+            bool pass = false;
+            index = -1;
+            try
+            {
+                if (!string.IsNullOrEmpty(extension))
+                {
+                    JObject jobj = JObject.Parse(extension);
+                    if (jobj.TryGetValue("SafeConfirmIndex", out JToken jt2))
+                    {
+                        index = jt2.ToObject<int>();
+                        pass = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error(ex.Message, ex);
+            }
+
+            return pass;
+        }
+
 
         /// <summary>
         /// Use condition of video for safeconfirm

@@ -900,7 +900,8 @@ namespace Y.ASIS.Server.Services
             User user = DataProvider.Instance.UserList.FirstOrDefault(i => i.No == no);
             if (user == null)
             {
-                throw new Exception("工号输入有误");
+                //throw new Exception("工号输入有误");
+                throw new Exception("账号不存在");
             }
             if (user.Password != password)
             {
@@ -1152,7 +1153,7 @@ namespace Y.ASIS.Server.Services
             //    });
             //});
 
-           // Console.WriteLine(states?.JsonSerialize()) ;
+            // Console.WriteLine(states?.JsonSerialize()) ;
             return ResponseData.Success(states);
         }
 

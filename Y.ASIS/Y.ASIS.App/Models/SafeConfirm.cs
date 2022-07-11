@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using Y.ASIS.Models.Enums;
 using Y.ASIS.Common.MVVMFoundation;
+using Y.ASIS.Models.Enums;
 namespace Y.ASIS.App.Models
 {
     public class SafeConfirm : NotifyObjectBase
@@ -14,6 +14,8 @@ namespace Y.ASIS.App.Models
 
     public class SafeCondition : NotifyObjectBase
     {
+        public int Index { get; set; }
+
         private string text;
         public string Text
         {

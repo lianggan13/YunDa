@@ -17,8 +17,8 @@ namespace Y.ASIS.App.Services
 
         public static DetectResult DetectSafety(int chan, string extension)
         {
-            //Max Resolution Ratio [1920 x 1088]
-            const string DefaultCoordinate = "{\"Coordinate\":{\"X\":[0,1900,1900,0,0],\"Y\":[0,0,1000,1000,0]}}";
+            //Max Resolution Ratio [1920 x 1088]{\"X\":[0,1900,1900,0,0],\"Y\":[0,0,1000,1000,0]}
+            const string DefaultCoordinate = "{\"Coordinate\":}";
 
             string pointsStr = ParseVideoCoordinate(extension);
             if (string.IsNullOrEmpty(pointsStr))

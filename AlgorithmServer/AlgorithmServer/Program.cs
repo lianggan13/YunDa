@@ -1,5 +1,5 @@
 ﻿using AlgorithmServer.Algorithm.DetectAlgorithm;
-using AlgorithmServer.Common;
+
 using Nancy;
 using Nancy.Hosting.Self;
 using System;
@@ -24,11 +24,13 @@ namespace AlgorithmServer
 
             #region Test
 
-            //Tester.TestCapture();
 
-            //Tester.Init();
+            Tester.Init();
+
+            Tester.TestByJson();
+
             //Tester.TestSdkTrain();
-            //Tester.TestSdkSafety();
+            Tester.TestSdkSafety();
             //Tester.TestPersonnel();
 
             //Console.ReadKey();
@@ -36,12 +38,12 @@ namespace AlgorithmServer
 
             #endregion
 
-            ClothCheckAlgorithm.Init();
-            PersonNumAlgorithm.Init();
-            new SafetyChainAlgorithm();  // SafetyChainAlgorithm.Init();
+            SafetyChainAlgorithm.Init();
             TrainCheckAlgorithm.Init();
+            PersonNumAlgorithm.Init();
+            ClothCheckAlgorithm.Init();
 
-            LogHelper.DebugUpper($"Algoritm interfaces init success.");
+            LogHelper.Info($"Algoritm interfaces init success.");
 
             string address = LocalConfigManager.GetAppSettingValue("MainService.Address");
             Url url = new Url(address);
@@ -69,13 +71,13 @@ namespace AlgorithmServer
             Task.Delay(100);
             if (e.ExceptionObject is Exception ex)
             {
-                LogHelper.DebugSys($"{ex}", LogDisplay.Both);
+                LogHelper.Fatal(ex.Message, ex) ;
             }
         }
 
         private static void FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
         {
-            Console.WriteLine(e.ToString());
+            LogHelper.Fatal(e.ToString());
         }
     }
 }
