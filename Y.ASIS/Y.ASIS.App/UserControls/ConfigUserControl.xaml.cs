@@ -63,6 +63,7 @@ namespace Y.ASIS.App.UserControls
             ListViewItem item = items.FirstOrDefault(i => i.IsSelected);
             if (item == null)
             {
+                MessageWindow.Show("请先选择人员", "提示");
                 return;
             }
 
@@ -124,6 +125,11 @@ namespace Y.ASIS.App.UserControls
             ConfigViewModel vm = DataContext as ConfigViewModel;
 
             var users = vm.Users.Where(i => i.IsChecked).ToList();
+
+            if (users.Count <= 0)
+            {
+                MessageWindow.Show("请先选择人员", "提示");
+            }
 
             if (users.Any(u => u.Id == AppGlobal.Instance.MainVM.CurrentUser.Id))
             {

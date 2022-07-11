@@ -1,0 +1,95 @@
+﻿{
+  //"Coordinate": "{\"X\":[0,1900,1900,0,0],\"Y\":[0,0,1000,1000,0]}",
+  //"Cloth",
+  //"Train",
+  //"Safety",
+  //"Personnel"
+  "Tracks": [
+    {
+      "HasElsc": true,
+      "VideoNodes": [
+        {
+          "Name": "6道-车号(非隔离开关侧)",
+          "Channel": 1,
+          "Type": "Train",
+          "Target": null,
+          "Coordinate": null,
+        },
+        {
+          "Name": "6道-验电",
+          "Channel": 2,
+          "Type": "Safety",
+          "Target": null,
+          "Coordinate": null,
+        },
+        {
+          "Name": "6道-接地",
+          "Channel": 27,
+          "Type": "Safety",
+          "Target": null,
+          "Coordinate": null,
+        },
+        {
+          "Name": "6道-通道南",
+          "Channel": 3,
+          "Type": "Personnel",
+          "Target": null,
+          "Coordinate": null,
+        },
+        {
+          "Name": "6道-1车受电弓1",
+          "Channel": 4,
+          "Type": "Safety",
+          "Target": null,
+          "Coordinate": null,
+          
+        },
+        {
+          "Name": "6道-1车受电弓2",
+          "Channel": 5,
+          "Type": "Safety",
+          "Target": null,
+          "Coordinate": null,
+        },
+        {
+          "Name": "6道-2车受电弓1",
+          "Channel": 6,
+          "Type": "Safety",
+          "Target": null,
+          "Coordinate": null,
+        },
+        {
+          "Name": "6道-2车受电弓2",
+          "Channel": 27,
+          "Type": "Safety",
+          "Target": null,
+          "Coordinate": null,
+        },
+        {
+          "Name": "6道-通道北",
+          "Channel": 8,
+          "Type": "Personnel",
+          "Target": null,
+          "Coordinate": null,
+        },
+        {
+          "Name": "6道-隔离开关",
+          "Channel": 82,
+          "Type": "Safety",
+          "Target": null,
+          "Coordinate": null,
+        },
+        {
+          "Name": "6道-车号(隔离开关侧)",
+          "Channel": 11,
+          "Type": "Train",
+          "Target": null,
+          "Coordinate": null,
+        }
+      ]
+
+    }
+  ],
+}
+ 
+ 
