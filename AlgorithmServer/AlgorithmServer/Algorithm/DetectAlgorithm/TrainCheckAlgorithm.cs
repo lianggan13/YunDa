@@ -1,4 +1,4 @@
-﻿using AlgorithmServer.Common;
+﻿
 using AlgorithmServer.Model;
 using Nancy;
 using System;
@@ -29,7 +29,7 @@ namespace AlgorithmServer.Algorithm.DetectAlgorithm
             RecognizeResult res = new RecognizeResult()
             {
                 Result = Marshal.PtrToStringAnsi(result),
-                Photo = ImageUtil.ImageToBase64(param.Image).Trim(),
+                Photo = ImageHelper.ImageToBase64(param.Image).Trim(),
             };
             return res;
         }

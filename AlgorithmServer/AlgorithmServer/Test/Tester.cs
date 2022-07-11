@@ -1,15 +1,18 @@
 ﻿using AlgorithmServer;
 using AlgorithmServer.Algorithm.DetectAlgorithm;
 using AlgorithmServer.Model;
+using AlgorithmServer.Test;
+using Newtonsoft.Json.Linq;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using static AlgorithmServer.Algorithm.DetectAlgorithm.SafetyChainAlgorithm;
+
 
 public class Tester
 {
@@ -28,7 +31,7 @@ public class Tester
 
     public static void Init()
     {
-        new SafetyChainAlgorithm();
+        SafetyChainAlgorithm.Init();
         TrainCheckAlgorithm.Init();
         PersonNumAlgorithm.Init();
     }
@@ -185,7 +188,7 @@ public class Tester
         BoxInfo boxInfo = new BoxInfo(points);
         string ss = boxInfo.ToString();
 
-        int result = Recognition(param.Mat.CvPtr, ss);
+        int result = SafetyChainAlgorithm.Recognition(param.Mat.CvPtr, ss);
         Console.WriteLine($"---------------------------");
         Console.WriteLine($"测试内容:{Path.GetFileName(file)}");
         Console.WriteLine($"测试结果:{result}");
@@ -195,7 +198,7 @@ public class Tester
         Console.WriteLine($"---------------------------");
     }
 
-
+  
     public static IEnumerable<OpenCvSharp.Point> CreateMaxPoints()
     {
         OpenCvSharp.Point point1 = new OpenCvSharp.Point(0, 0);
@@ -235,27 +238,74 @@ public class Tester
         return points;
     }
 
-    public static void TestCapture()
+
+    public static void TestByJson()
     {
-        while (true)
+
+
+        var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+        var jsonFile  = Path.Combine(dir, "Config", "AlgorithmTest.json");
+        var jsonStr = File.ReadAllText(jsonFile);
+        var jObj = JObject.Parse(jsonStr);
+        var tracks =  jObj["Tracks"].ToObject<List<Track>>();
+
+        foreach (var t in tracks)
         {
-            Console.Write("Input NVR Channel: ");
-            string chan = Console.ReadLine();
-            byte[] data = HIKNVRClient.CaptureCache(int.Parse(chan));
-
-            string path = ImageHelper.SaveImage(data, $"Channel_{chan}_{DateTime.Now:yyyy-MM-dd}.png");
-
-            Console.WriteLine(path);
-
-            MethodParam param = new MethodParam();
-            using (MemoryStream stream = new MemoryStream(data))
+            LogHelper.Info(t.Name);
+            foreach (var v in t.Videos)
             {
-                param.Mat = Mat.FromStream(stream, ImreadModes.AnyColor);
-                param.Image = Image.FromStream(stream);
-            }
+               
+                switch (v.DetectType)
+                {
+                    case Algorithms.Cloth:
 
+                        break;
+                    case Algorithms.Train:
+                        TestSdkTrain(v);
+                        break;
+                    case Algorithms.Safety:
+                        TestHelper.SetTarget(t, v);
+                        TestHelper.SetCoordinate(v);
+
+                        TestSdkSafety(v);
+                        break;
+                    case Algorithms.Personnel:
+
+
+
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
-
+        Console.WriteLine("Press any key to quit.");
+        Console.ReadKey();
+        Environment.Exit(0);
     }
+
+    private static void TestSdkSafety(Video v)
+    {
+        var param = TestHelper.Capture(v.Channel);
+
+        BoxInfo boxInfo = new BoxInfo(v.Points);
+        string ss = boxInfo.ToString();
+
+        int result = SafetyChainAlgorithm.Recognition(param.Mat.CvPtr, ss);
+
+        TestHelper.ShowResult(v, $"{result}");
+    }
+
+    public static void TestSdkTrain(Video v)
+    {
+        var param = TestHelper.Capture(v.Channel);
+
+        IntPtr p = TrainCheckAlgorithm.Recognize(param.Mat.CvPtr);
+        string result = Marshal.PtrToStringAnsi(p);
+
+        TestHelper.ShowResult(v, $"{result}");
+    }
+
 }
