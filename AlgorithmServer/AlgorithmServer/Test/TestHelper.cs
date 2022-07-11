@@ -170,5 +170,22 @@ namespace AlgorithmServer.Test
             return points;
         }
 
+        public static void ShowResult(Video v, string result)
+        {
+            LogHelper.Info($"---------------------------");
+            LogHelper.Info($"测试内容:{v.Name}");
+            LogHelper.Info($"测试结果:{result}");
+            LogHelper.Info($"期望结果:{v.Target}");
+            if ($"{result}" == v.Target)
+            {
+                LogHelper.Info($"测试通过√");
+            }
+            else
+            {
+                LogHelper.Warn($"测试有误×");
+            }
+            LogHelper.Info($"---------------------------");
+        }
+
     }
 }

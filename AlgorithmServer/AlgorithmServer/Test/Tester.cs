@@ -262,7 +262,7 @@ public class Tester
 
                         break;
                     case Algorithms.Train:
-                        
+                        TestSdkTrain(v);
                         break;
                     case Algorithms.Safety:
                         TestHelper.SetTarget(t, v);
@@ -271,6 +271,9 @@ public class Tester
                         TestSdkSafety(v);
                         break;
                     case Algorithms.Personnel:
+
+
+
                         break;
                     default:
                         break;
@@ -291,19 +294,18 @@ public class Tester
         string ss = boxInfo.ToString();
 
         int result = SafetyChainAlgorithm.Recognition(param.Mat.CvPtr, ss);
-        LogHelper.Info($"---------------------------");
-        LogHelper.Info($"测试内容:{v.Name}");
-        LogHelper.Info($"测试结果:{result}");
-        LogHelper.Info($"期望结果:{v.Target}");
-        if($"{result}" == v.Target)
-        {
-            LogHelper.Info($"测试通过√");
-        }
-        else
-        {
-            LogHelper.Warn($"测试有误×");
-        }
-        LogHelper.Info($"---------------------------");
+
+        TestHelper.ShowResult(v, $"{result}");
+    }
+
+    public static void TestSdkTrain(Video v)
+    {
+        var param = TestHelper.Capture(v.Channel);
+
+        IntPtr p = TrainCheckAlgorithm.Recognize(param.Mat.CvPtr);
+        string result = Marshal.PtrToStringAnsi(p);
+
+        TestHelper.ShowResult(v, $"{result}");
     }
 
 }
