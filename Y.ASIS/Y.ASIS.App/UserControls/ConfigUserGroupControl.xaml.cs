@@ -44,6 +44,7 @@ namespace Y.ASIS.App.UserControls
             ListViewItem item = items.FirstOrDefault(i => i.IsSelected);
             if (item == null)
             {
+                MessageWindow.Show("请先选择班组", "提示");
                 return;
             }
             ConfigViewModel vm = DataContext as ConfigViewModel;
@@ -97,6 +98,7 @@ namespace Y.ASIS.App.UserControls
 
             if (!ids.Any())
             {
+                MessageWindow.Show("请先选择班组", "提示");
                 return;
             }
 

@@ -80,9 +80,9 @@ namespace Y.ASIS.App.Windows
             {
                 UpdateUserPhotoRequest request = new UpdateUserPhotoRequest(userId, photoString);
                 ResponseData<object> resp = request.Request<ResponseData<object>>();
-                if (resp != null && !resp.IsSuccess)
+                if (resp?.IsSuccess == false)
                 {
-                    MessageWindow.Show("照片上传失败: " + resp.Message);
+                    MessageWindow.Show(resp.Message);
                 }
             }
             if (Owner != null)
