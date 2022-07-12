@@ -13,9 +13,9 @@ namespace Y.ASIS.Server
         public static void Main(string[] args)
         {
             //测试音柱
-            //Task.Run(() =>
-            //{
-            //    Tester.TestIPVoice();
+           // Task.Run(() =>
+           // {
+              // Tester.TestIPVoice();
             //});
             //Tester.TestIPVoice();
             bool runservice = !(Environment.UserInteractive || Debugger.IsAttached);

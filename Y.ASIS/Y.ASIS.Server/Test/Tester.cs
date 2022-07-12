@@ -83,7 +83,7 @@ public static class Tester
     public static void TestIPVoice()
     {
         //SpeakerManager.Instance.Start(new List<int>() { 5 }, "，，，张亮 请打开，，，");
-        SpeakerManager.Instance.Start(new List<int>() { 1 }, "，，，11股道 如果有声音，，，");
+        SpeakerManager.Instance.Start(new List<int>() { 21, 22 }, "杨勇听到17股道音柱播报请回复");
 
         Thread.Sleep(20 * 1000);
 
