@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Y.ASIS.Server.Models.DeviceBase">
+    <Position X="17" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Models\DeviceBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Y.ASIS.Server.Device.Attendance.Attendance">
+    <Position X="13.5" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgCAAAAAAAAEAAAAAAAAAAIAAAAEAQIABAAAQAA=</HashCode>
+      <FileName>Device\Attendance\Attendance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Y.ASIS.Server.Device.Speaker.Switcher">
+    <Position X="16.5" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAgAAAAAQACAAAAIAAAAAAAAAAIAA=</HashCode>
+      <FileName>Device\Switcher\Switcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Y.ASIS.Server.Device.Speaker.Speaker">
+    <Position X="19.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAEAAAABAAAAAA=</HashCode>
+      <FileName>Device\Speaker\Speaker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Y.ASIS.Server.Services.DeviceService">
+    <Position X="11.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\DeviceService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Devices" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

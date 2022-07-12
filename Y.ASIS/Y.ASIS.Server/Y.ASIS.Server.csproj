@@ -253,6 +253,8 @@
     <None Include="App.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Design\Device.cd" />
     <None Include="Config\AppConfig\App_BaiSe.config" />
     <None Include="Config\log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -280,6 +282,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\DB\ASIS_DeviceInfo.js" />
+    <Content Include="Config\DB\ASIS_ExternalSystem.js" />
+    <Content Include="Config\DB\ASIS_Position.js" />
+    <Content Include="Config\DB\ASIS_Track.js" />
+    <Content Include="Config\DB\ASIS_VideoStream.js" />
     <Content Include="Config\DB\Shen12\ASIS_DeviceInfo.js" />
     <Content Include="Config\DB\BaiSe\ASIS_DeviceInfo.js" />
     <Content Include="Config\DB\BaiSe\ASIS_ExternalSystem.js" />

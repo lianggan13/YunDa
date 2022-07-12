@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : LocalMongodb
+ Source Server         : 192.168.1.102
  Source Server Type    : MongoDB
  Source Server Version : 40400
- Source Host           : localhost:27017
+ Source Host           : 192.168.1.102:27017
  Source Schema         : ASIS
 
  Target Server Type    : MongoDB
  Target Server Version : 40400
  File Encoding         : 65001
 
- Date: 18/05/2022 11:36:48
+ Date: 12/07/2022 13:35:03
 */
 
 
@@ -28,7 +28,7 @@ db.getCollection("ASIS_ExternalSystem").insert([ {
     _id: ObjectId("612856a8586700005c005d12"),
     ID: NumberInt("4"),
     Name: "宋和毅",
-    AuthKey: "3333333333333333",
+    AuthKey: "xxxxxxxxxxxxxxxx",
     Describe: "宋和毅",
     Enable: true,
     PushAddress: "http://192.168.1.100:9090/push"
@@ -52,6 +52,7 @@ db.getCollection("ASIS_ExternalSystem").insert([ {
     PushAddress: "http://192.168.1.102:8081/api/asis/push"
 } ]);
 db.getCollection("ASIS_ExternalSystem").insert([ {
+    _id: ObjectId("62846a4ecc58000026005a42"),
     ID: NumberInt("8"),
     Name: "Test",
     AuthKey: "7777777777777777",
@@ -59,21 +60,21 @@ db.getCollection("ASIS_ExternalSystem").insert([ {
     Describe: "212测试专用",
     PushAddress: "http://192.168.1.212:9090/push"
 } ]);
-
 db.getCollection("ASIS_ExternalSystem").insert([ {
-    ID: NumberInt("9"),
-    Name: "BaiSe",
-    AuthKey: "8888888888888888",
-    Enable: true,
-    Describe: "百色现场专用",
-    PushAddress: "http://10.6.1.4:9090/push"
-} ]);
-
-db.getCollection("ASIS_ExternalSystem").insert([ {
+    _id: ObjectId("62846a4ecc58000026005a45"),
     ID: NumberInt("10"),
-    Name: "张亮BaiSe",
-    AuthKey: "9999999999999999",
+    Name: "tk",
+    AuthKey: "88888888",
     Enable: true,
-    Describe: "张亮百色现场专用",
-    PushAddress: "http://10.6.1.87:9090/push"
+    Describe: "tk",
+    PushAddress: "http://192.168.1.189:8081/api/asis/push"
+} ]);
+db.getCollection("ASIS_ExternalSystem").insert([ {
+    _id: ObjectId("62a2ffe3c00e000039005812"),
+    ID: NumberInt("11"),
+    Name: "wl",
+    AuthKey: "99999999",
+    Enable: true,
+    Describe: "wlTest",
+    PushAddress: "http://192.168.1.117:8081/api/asis/push"
 } ]);
