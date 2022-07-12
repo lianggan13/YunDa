@@ -732,7 +732,7 @@ namespace Y.ASIS.Server.Device
         private Dictionary<int, List<int>> GetPlatformDoorState(byte[] states, byte[] lockers, byte[] indexes)
         {
             Dictionary<int, List<int>> pairs = new Dictionary<int, List<int>>();
-            if(states.Length!= indexes.Length) return pairs;
+            if (states.Length != indexes.Length) return pairs;
             for (int i = 0; i < states.Length; i++)
             {
                 int index = indexes[i];
@@ -777,7 +777,7 @@ namespace Y.ASIS.Server.Device
                 {
                     LogHelper.Error(ex.Message, ex);
                 }
-            } 
+            }
 
             return pairs;
         }
@@ -810,7 +810,7 @@ namespace Y.ASIS.Server.Device
 
         private void OnTrainStateChanged(dynamic value)
         {
-            if ( Position.ID ==46)
+            if (Position.ID == 46)
             {
 
             }
@@ -972,6 +972,12 @@ namespace Y.ASIS.Server.Device
                 }
 
                 DataProvider.Instance.AddOrUpdateOperationRecord(record);
+
+                Console.WriteLine("推送操作记录数据");
+
+                var message = new PushMessage(PushDataType.Operation, record);
+
+                PushTaskService.Instance.Push(message, 10);
             }
             catch (Exception ex)
             {

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Y.ASIS.Server.Device.PLC">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>iAmCAMAIEQCFgMcgQIgEAAwwkSBABBEYAUEhRIoBJAA=</HashCode>
+      <FileName>Device\PLC\PLC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Y.ASIS.Server.Device.PLCManager">
+    <Position X="4" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABJAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Device\PLC\PLCManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="PLCDictionary" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Y.ASIS.Server.Device.PLCNode">
+    <Position X="4" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Device\PLC\PLCNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Y.ASIS.Server.Device.PLCNodeType" Collapsed="true">
+    <Position X="0.5" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>SQwAhAEkDiAEMyAACABAqTAAEAiAEkgEEAAgBAIgsAA=</HashCode>
+      <FileName>Device\PLC\PLCNodeType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

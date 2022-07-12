@@ -7,6 +7,7 @@
     {
         TrackState,
         Fault,
+        Operation,
         Device
     }
 }
