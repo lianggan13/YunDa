@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using Nancy;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,7 @@ namespace Y.ASIS.Server.Services
             Post("/api/user/upsert", UpsertUser);
             Post("/api/user/photo", UploadUserPhoto);
             Post("/api/users/delete", DeleteUsers);
+            Post("/api/users/getUserPhoto", getUserPhoto);
 
             Get("/api/groups", GetUserGroups);
             Post("/api/group", AddOrUpdateUserGroup);
@@ -949,6 +951,30 @@ namespace Y.ASIS.Server.Services
             var ss = list.ToList();
             DataProvider.Instance.DeleteUsers(list);
             return ResponseData.Success().ToString();
+        }
+
+        /// <summary>
+        /// 获取用户照片url
+        /// </summary>
+        /// <param name="_"></param>
+        /// <returns></returns>
+        private object getUserPhoto(dynamic _)
+        {
+            byte[] data = new byte[Request.Body.Length];
+            Request.Body.Read(data, 0, data.Length);
+            var JSON = Encoding.UTF8.GetString(data);
+            List<SafeUserPhoto> paras = JsonConvert.DeserializeObject<List<SafeUserPhoto>>(JSON);
+            var users = DataProvider.Instance.UserList.Where(x => paras.Select(p => p.UserId).Contains(x.ID));
+            paras.ForEach(x =>
+            {
+                var user = users.Where(u => u.ID == x.UserId).FirstOrDefault();
+                if (user != null)
+                {
+                    x.Photo = user.Photo;
+                    x.PhotoUrl = user.PhotoUrl;
+                }
+            });
+            return JsonConvert.SerializeObject(paras);
         }
 
         private object UploadUserPhoto(dynamic parameter)
