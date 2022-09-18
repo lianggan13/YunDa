@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Schema;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Y.ASIS.Common.Communication;
@@ -13,6 +14,7 @@ namespace Y.ASIS.Server.Device.Speaker
         private readonly static string SwitchOffText;
         private readonly static string SwitchOnText;
         private readonly static string EvacuateText;
+        private readonly static string[] PositionName = new string[] { "A", "B", "C", "D", "E", "F", "G", "H" };
 
         static SpeakerManager()
         {
@@ -121,30 +123,67 @@ namespace Y.ASIS.Server.Device.Speaker
         public bool SwitchOff(List<int> ids, string positionId)
         {
             // modify temporarily
-            var tarck = DataProvider.Instance.GetTrackByPosId(int.Parse(positionId));
-            positionId = $"{tarck.No}";
-
-            string text = string.Format(SwitchOffText, positionId);
+            int.TryParse(positionId, out int posId);
+            var tarck = DataProvider.Instance.GetTrackByPosId(posId);
+            var tarckNo = string.Empty;//股道号
+            var positionName = string.Empty;//列位名（A段、B段）
+            if (tarck != null)
+            {
+                tarckNo = tarck.No + "";
+                if (tarck.Positions.Any() && tarck.Positions.Count > 1)
+                {
+                    tarck.Positions = tarck.Positions.OrderBy(x => x.ID).ToList();
+                    var index = tarck.Positions.IndexOf(new Models.Position() { ID = posId });
+                    if (index >= 0) positionName = PositionName[index] + "段";
+                }
+            }
+            // ，各单位请注意，{0}股道{1}断电警示
+            // ，各单位请注意，19 股道 B 段断电警示
+            string text = string.Format(SwitchOffText, tarckNo, positionName);
             return Start(ids, text);
         }
 
         public bool SwitchOn(List<int> ids, string positionId)
         {
             // modify temporarily
-            var tarck = DataProvider.Instance.GetTrackByPosId(int.Parse(positionId));
-            positionId = $"{tarck.No}";
+            int.TryParse(positionId, out int posId);
+            var tarck = DataProvider.Instance.GetTrackByPosId(posId);
+            var tarckNo = string.Empty;//股道号
+            var positionName = string.Empty;//列位名（A段、B段）
+            if (tarck != null)
+            {
+                tarckNo = tarck.No + "";
+                if (tarck.Positions.Any() && tarck.Positions.Count > 1)
+                {
+                    tarck.Positions = tarck.Positions.OrderBy(x => x.ID).ToList();
+                    var index = tarck.Positions.IndexOf(new Models.Position() { ID = posId });
+                    if (index >= 0) positionName = PositionName[index] + "段";
+                }
+            }
 
-            string text = string.Format(SwitchOnText, positionId);
+            string text = string.Format(SwitchOnText, tarckNo, positionName);
             return Start(ids, text);
         }
 
         public bool Evacuate(List<int> ids, string positionId)
         {
             // modify temporarily
-            var tarck = DataProvider.Instance.GetTrackByPosId(int.Parse(positionId));
-            positionId = $"{tarck.No}";
+            int.TryParse(positionId, out int posId);
+            var tarck = DataProvider.Instance.GetTrackByPosId(posId);
+            var tarckNo = string.Empty;//股道号
+            var positionName = string.Empty;//列位名（A段、B段）
+            if (tarck != null)
+            {
+                tarckNo = tarck.No + "";
+                if (tarck.Positions.Any() && tarck.Positions.Count > 1)
+                {
+                    tarck.Positions = tarck.Positions.OrderBy(x => x.ID).ToList();
+                    var index = tarck.Positions.IndexOf(new Models.Position() { ID = posId });
+                    if (index >= 0) positionName = PositionName[index] + "段";
+                }
+            }
 
-            string text = string.Format(EvacuateText, positionId);
+            string text = string.Format(EvacuateText, tarckNo, positionName);
             return Start(ids, text);
         }
 
