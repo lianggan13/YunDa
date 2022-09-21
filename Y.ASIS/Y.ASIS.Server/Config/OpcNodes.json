@@ -198,5 +198,17 @@
   "AlgorithmMsg": {
     "Identifier": "::AsGlobalPV:Interaction.Msg_show",
     "NamespaceIndex": 6
+  },
+  "OptName": {
+    "Identifier": "",
+    "NamespaceIndex": 6
+  },
+  "WorkerName": {
+    "Identifier": "",
+    "NamespaceIndex": 6
+  },
+  "WorkType": {
+    "Identifier": "",
+    "NamespaceIndex": 6
   }
 }
