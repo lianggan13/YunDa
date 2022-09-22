@@ -200,15 +200,15 @@
     "NamespaceIndex": 6
   },
   "OperatorNames": {
-    "Identifier": "::TextProgra:Operator_name",
+    "Identifier": "::TextProgra:picure_operator_name",
     "NamespaceIndex": 6
   },
   "WorkerNames": {
-    "Identifier": "::TextProgra:Watcher_name",
+    "Identifier": "::TextProgra:picure_guardian_name",
     "NamespaceIndex": 6
   },
   "WorkType": {
-    "Identifier": "::TextProgra:Work_type",
+    "Identifier": "::TextProgra:picure_task_content",
     "NamespaceIndex": 6
   }
 }
