@@ -263,5 +263,20 @@
         /// 巡检人员卡号
         /// </summary>
         ID_Inspect,
+
+        /// <summary>
+        /// 操作人 （张三，李四，王二）
+        /// </summary>
+        OperatorNames,
+
+        /// <summary>
+        /// 作业人 (张三，李四，王二)
+        /// </summary>
+        WorkerNames,
+
+        /// <summary>
+        /// 作业类型
+        /// </summary>
+        WorkType,
     }
 }

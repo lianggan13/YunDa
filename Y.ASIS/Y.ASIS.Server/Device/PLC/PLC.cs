@@ -278,6 +278,11 @@ namespace Y.ASIS.Server.Device
 
         public bool IssueUsers(ISet<User> workers, ISet<User> operators, bool? isInspect)
         {
+            var workType = "";
+            if ((bool)isInspect && operators.Any()) workType = "送电";
+            else if (!(bool)isInspect && !workers.Any()) workType = "断电";
+            else workType = "登顶";
+
             bool success = true;
             if (isInspect == true)
             {
@@ -289,7 +294,8 @@ namespace Y.ASIS.Server.Device
             {
                 bool success1 = IssueUsers(workers, PLCNodeType.Workers);
                 bool success2 = IssueUsers(operators, PLCNodeType.Operators);
-                success = success1 && success2;
+                bool success3 = WriteNodesByOpt(operators, workers, workType);
+                success = success1 && success2 && success3;
             }
 
             return success;
@@ -364,10 +370,40 @@ namespace Y.ASIS.Server.Device
             return false;
         }
 
+        public bool WriteNodesByOpt(ISet<User> optUsers, ISet<User> workUsers, string workType)
+        {
+            var optNode = TryGetValue(PLCNodeType.OperatorNames, out string optVal);
+            var workNode = TryGetValue(PLCNodeType.WorkerNames, out string workVal);
+            var workTypeNode = TryGetValue(PLCNodeType.WorkType, out string workTypeVal);
+            if (optNode && workNode && workTypeNode)
+            {
+                var opt = TryWriteValue(PLCNodeType.OperatorNames, $"操作人:{string.Join(",", optUsers.Select(x => x.Name))}");
+                var work = TryWriteValue(PLCNodeType.WorkerNames, $"作业人:{string.Join(",", workUsers.Select(x => x.Name))}");
+                var type = TryWriteValue(PLCNodeType.WorkType, $"作业类型:{workType}");
+                return opt && work && type;
+            }
+            return false;
+        }
+
+        public bool RemoveNodesByOpt()
+        {
+            var optNode = TryGetValue(PLCNodeType.OperatorNames, out string optVal);
+            var workNode = TryGetValue(PLCNodeType.WorkerNames, out string workVal);
+            var workTypeNode = TryGetValue(PLCNodeType.WorkType, out string workTypeVal);
+            if (optNode && workNode && workTypeNode)
+            {
+                var opt = TryWriteValue(PLCNodeType.OperatorNames, string.Empty);
+                var work = TryWriteValue(PLCNodeType.WorkerNames, string.Empty);
+                var type = TryWriteValue(PLCNodeType.WorkType, string.Empty);
+                return opt && work && type;
+            }
+            return false;
+        }
+
         public bool RevokeUsers(ISet<int> workers, ISet<int> operators)
         {
             return RevokeUsers(workers, PLCNodeType.Workers)
-                && RevokeUsers(operators, PLCNodeType.Operators);
+                && RevokeUsers(operators, PLCNodeType.Operators) && RemoveNodesByOpt();
         }
 
         public bool RevokeUsers(ISet<int> nos, PLCNodeType type)

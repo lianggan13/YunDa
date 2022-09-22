@@ -199,16 +199,16 @@
     "Identifier": "::AsGlobalPV:Interaction.Msg_show",
     "NamespaceIndex": 6
   },
-  "OptName": {
-    "Identifier": "",
+  "OperatorNames": {
+    "Identifier": "::TextProgra:Operator_name",
     "NamespaceIndex": 6
   },
-  "WorkerName": {
-    "Identifier": "",
+  "WorkerNames": {
+    "Identifier": "::TextProgra:Watcher_name",
     "NamespaceIndex": 6
   },
   "WorkType": {
-    "Identifier": "",
+    "Identifier": "::TextProgra:Work_type",
     "NamespaceIndex": 6
   }
 }
