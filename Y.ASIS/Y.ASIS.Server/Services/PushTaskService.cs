@@ -89,7 +89,7 @@ namespace Y.ASIS.Server.Services
             }
         }
 
-        private void ExecuteTask(PushTask task)
+        private async void ExecuteTask(PushTask task)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace Y.ASIS.Server.Services
                 request.AddParameter("application/json", task.Obj.JsonSerialize(), ParameterType.RequestBody);
                 task.Headers.ForEach(i => request.AddHeader(i.Key, i.Value));
                 task.Cookies.ForEach(i => request.AddCookie(i.Name, i.Value));
-                IRestResponse resp = client.Execute(request);
+                IRestResponse resp = await client.ExecuteAsync(request);
                 task.Status = resp != null && resp.Content.ToUpper() == "OK" ? PushTaskStatus.Success : PushTaskStatus.Failed;
             }
             catch (Exception ex)
