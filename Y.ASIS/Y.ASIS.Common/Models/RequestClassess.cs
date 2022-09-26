@@ -32,13 +32,4 @@ namespace Y.ASIS.Common.Models
 
         public string Remarks { get; set; }
     }
-
-    public class SafeUserPhoto
-    {
-        public int UserId { get; set; }
-
-        public string PhotoUrl { get; set; }
-
-        public string Photo { get; set; }
-    }
 }
