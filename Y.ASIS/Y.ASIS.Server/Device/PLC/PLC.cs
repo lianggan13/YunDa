@@ -1054,15 +1054,16 @@ namespace Y.ASIS.Server.Device
                 throw exception;
             }
 
-            if (int.TryParse(record.FaultCode, out int code))
-            {
-                if (code == 506 || code == 526)
-                {
-                    int doorIndex = code == 506 ? 1 : 2;
-                    string text = $"，各单位请注意，{record.TrackNo}股道{doorIndex}号门，有人尾随!";
-                    SpeakerManager.Instance.Start(Position.SpeakerIds, text);
-                }
-            }
+            // 深圳12号线 安全连锁取消尾随语音播报
+            //if (int.TryParse(record.FaultCode, out int code))
+            //{
+            //    if (code == 506 || code == 526)
+            //    {
+            //        int doorIndex = code == 506 ? 1 : 2;
+            //        string text = $"，各单位请注意，{record.TrackNo}股道{doorIndex}号门，有人尾随!";
+            //        SpeakerManager.Instance.Start(Position.SpeakerIds, text);
+            //    }
+            //}
 
             if (int.Parse(record.FaultCode) < 996)
             {
